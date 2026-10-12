@@ -24,4 +24,4 @@
 
 ## 現有部署
 
-Railway Function 讀取 `app/index.html`，快取約 5 分鐘；更新 GitHub 後可用網站 `/?refresh=1` 重新載入來源。此版只更新前端，沿用原有同步 API 與資料儲存。API 的 `20-web` 是後端版本，前端版本為 `21.0.0`。
+Railway Function（原始碼保存於 `server/index.ts`）讀取 `app/index.html`，快取約 5 分鐘；更新 GitHub 後可用網站 `/?refresh=1` 重新載入來源。v21 同時修正強制重新整理仍取得 GitHub 舊快取的問題，並更新離線快取版本；沿用原有同步 API 與資料儲存。後端版本為 `21-web`，前端版本為 `21.0.0`。
