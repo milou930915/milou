@@ -1,0 +1,4002 @@
+{
+  "version": "22.0.0",
+  "translations": {
+    "Pimozide": "匹莫齊特",
+    "5-FU": "五氟尿嘧啶",
+    "CCK-8": "細胞計數試劑八號",
+    "WST-8": "水溶性四唑鹽八號",
+    "AGS": "人類胃腺癌細胞株",
+    "Fluo-4 AM": "第四型鈣離子螢光探針的可穿膜形式",
+    "Fluo-4": "第四型鈣離子螢光探針",
+    "MitoTracker Deep Red": "粒線體深紅追蹤探針",
+    "MitoTracker": "粒線體追蹤探針",
+    "MitoSOX": "粒線體超氧陰離子探針",
+    "MitoTEMPO": "粒線體標靶抗氧化劑",
+    "NAO": "壬基吖啶橙",
+    "Annexin V": "膜聯蛋白五",
+    "PI": "碘化丙啶",
+    "TMRM": "四甲基羅丹明甲酯",
+    "TMRE": "四甲基羅丹明乙酯",
+    "JC-1": "粒線體膜電位比值探針",
+    "NAC": "乙醯半胱胺酸",
+    "DMSO": "二甲基亞碸",
+    "TOM20": "粒線體外膜轉位酶二十",
+    "VDAC": "電壓依賴性陰離子通道",
+    "CD24": "分化群二十四表面標誌",
+    "CD44": "分化群四十四表面標誌",
+    "STAT3": "訊號傳遞與轉錄活化蛋白三",
+    "D2 receptor": "第二型多巴胺受體",
+    "Ca²⁺": "鈣離子",
+    "Ca2+": "鈣離子",
+    "Na⁺": "鈉離子",
+    "Na+": "鈉離子",
+    "K⁺": "鉀離子",
+    "K+": "鉀離子",
+    "H⁺": "氫離子",
+    "H+": "氫離子",
+    "Cl⁻": "氯離子",
+    "NaCl": "氯化鈉",
+    "Ca": "鈣",
+    "Cai": "胞內游離鈣離子",
+    "HCO3-": "碳酸氫根離子",
+    "HCO₃⁻": "碳酸氫根離子",
+    "O2": "氧氣",
+    "CO2": "二氧化碳",
+    "pH": "酸鹼值",
+    "ADP": "二磷酸腺苷",
+    "AMP": "單磷酸腺苷",
+    "AMPK": "單磷酸腺苷活化蛋白激酶",
+    "GTP": "三磷酸鳥苷",
+    "NAD⁺": "氧化型菸醯胺腺嘌呤二核苷酸",
+    "NAD+": "氧化型菸醯胺腺嘌呤二核苷酸",
+    "NADP⁺": "氧化型菸醯胺腺嘌呤二核苷酸磷酸",
+    "NADP+": "氧化型菸醯胺腺嘌呤二核苷酸磷酸",
+    "NADP": "菸醯胺腺嘌呤二核苷酸磷酸",
+    "NAD": "菸醯胺腺嘌呤二核苷酸",
+    "FADH₂": "還原型黃素腺嘌呤二核苷酸",
+    "FADH": "還原型黃素腺嘌呤二核苷酸",
+    "FAD": "黃素腺嘌呤二核苷酸",
+    "acetyl-CoA": "乙醯輔酶甲",
+    "CoA": "輔酶甲",
+    "ETC": "電子傳遞鏈",
+    "TCA": "三羧酸循環",
+    "PFK-1": "磷酸果糖激酶一",
+    "phosphofructokinase-1": "磷酸果糖激酶一",
+    "PDH": "丙酮酸脫氫酶",
+    "LDH": "乳酸脫氫酶",
+    "ATPase": "三磷酸腺苷水解酶",
+    "catalase": "過氧化氫酶",
+    "SOD": "超氧化物歧化酶",
+    "GSH": "還原型穀胱甘肽",
+    "GSSG": "氧化型穀胱甘肽",
+    "glutathione peroxidase": "穀胱甘肽過氧化酶",
+    "glutathione reductase": "穀胱甘肽還原酶",
+    "glutathione": "穀胱甘肽",
+    "cytochrome c": "細胞色素丙",
+    "BAX": "促凋亡蛋白巴克斯",
+    "BAK": "促凋亡蛋白巴克",
+    "BCL-2 family": "乙型細胞淋巴瘤二蛋白家族",
+    "BCL-2": "乙型細胞淋巴瘤二蛋白",
+    "Apaf1": "凋亡蛋白酶活化因子一",
+    "apoptosome": "凋亡小體",
+    "caspase-8": "第八型半胱天冬酶",
+    "caspase-9": "第九型半胱天冬酶",
+    "caspase-3": "第三型半胱天冬酶",
+    "caspases": "半胱天冬酶",
+    "caspase": "半胱天冬酶",
+    "PARP": "聚腺苷二磷酸核糖聚合酶",
+    "ER": "內質網",
+    "lysosome": "溶體",
+    "lysosomal": "溶體的",
+    "autophagosome": "自噬體",
+    "autolysosome": "自噬溶體",
+    "LC3-II": "第二型微管相關蛋白一輕鏈三",
+    "LC3": "微管相關蛋白一輕鏈三",
+    "p62": "自噬受質蛋白六十二",
+    "PINK1": "粒線體品質監控激酶一",
+    "Parkin": "帕金泛素連接酶",
+    "PGC-1α": "過氧化體增殖活化受體伽瑪共同活化因子一阿爾法",
+    "PGC-1": "過氧化體增殖活化受體伽瑪共同活化因子一",
+    "TFAM": "粒線體轉錄因子甲",
+    "mtDNA": "粒線體去氧核糖核酸",
+    "DRP1": "動力蛋白相關蛋白一",
+    "MFN": "粒線體融合蛋白",
+    "OPA1": "視神經萎縮蛋白一",
+    "PERK": "蛋白激酶類內質網激酶",
+    "IRE1": "需肌醇酵素一",
+    "ATF6": "活化轉錄因子六",
+    "MAMs": "粒線體相關內質網膜",
+    "GPCR": "鳥嘌呤核苷酸結合蛋白偶聯受體",
+    "PKA": "環磷酸腺苷依賴性蛋白激酶",
+    "GPCRs": "鳥嘌呤核苷酸結合蛋白偶聯受體",
+    "G protein": "鳥嘌呤核苷酸結合蛋白",
+    "ERK": "細胞外訊號調節激酶",
+    "p-ERK": "磷酸化細胞外訊號調節激酶",
+    "p53-p21": "腫瘤抑制蛋白五十三與細胞週期抑制蛋白二十一",
+    "p53": "腫瘤抑制蛋白五十三",
+    "p21": "細胞週期抑制蛋白二十一",
+    "Rb": "視網膜母細胞瘤蛋白",
+    "E2F": "第二型腺病毒早期轉錄因子",
+    "EMT": "上皮間質轉化",
+    "E-cadherin": "上皮型鈣黏著蛋白",
+    "N-cadherin": "神經型鈣黏著蛋白",
+    "vimentin": "波形蛋白",
+    "Keap1": "調控抗氧化反應的凱普一蛋白",
+    "Nrf2": "核因子紅血球二相關因子二",
+    "ARE-dependent antioxidant genes": "受抗氧化反應元件調節的抗氧化基因",
+    "RT-qPCR": "反轉錄即時定量核酸擴增",
+    "RT-PCR": "反轉錄聚合酶連鎖反應",
+    "RT": "反轉錄",
+    "Ct": "閾值循環數",
+    "Cq": "定量循環數",
+    "ΔΔCt": "雙重差值循環數",
+    "ΔCt": "差值循環數",
+    "cDNA": "互補去氧核糖核酸",
+    "siRNA": "小干擾核糖核酸",
+    "miRNA": "微型核糖核酸",
+    "CRISPR-Cas9": "成簇規律間隔短迴文重複序列與第九型核酸酶基因編輯系統",
+    "CRISPR": "成簇規律間隔短迴文重複序列基因編輯系統",
+    "Cas9": "第九型核酸酶",
+    "ChIP-seq": "染色質免疫沉澱定序",
+    "ChIP": "染色質免疫沉澱",
+    "RNA-seq": "核糖核酸定序",
+    "RISC": "核糖核酸誘導沉默複合體",
+    "Argonaute": "阿爾戈蛋白",
+    "CpG island": "胞嘧啶接鳥嘌呤的富集區",
+    "CpG": "胞嘧啶接鳥嘌呤位點",
+    "dNTP": "去氧核苷三磷酸",
+    "FSC": "前向散射光",
+    "SSC": "側向散射光",
+    "FMO": "缺一色螢光對照",
+    "ELISA": "酵素連結免疫吸附分析",
+    "ANOVA": "變異數分析",
+    "SD": "標準差",
+    "SEM": "平均值的標準誤",
+    "CI": "信賴區間",
+    "IC50": "半最大抑制濃度",
+    "FDR": "錯誤發現率",
+    "DAPI": "二脒基苯基吲哚染劑",
+    "EdU incorporation": "乙炔基去氧尿苷摻入分析",
+    "β-actin": "乙型肌動蛋白",
+    "actin": "肌動蛋白",
+    "tubulin": "微管蛋白",
+    "G1/S checkpoint": "生長一期至合成期的檢查點",
+    "G1": "生長一期",
+    "G2": "生長二期",
+    "S phase": "合成期",
+    "M phase": "有絲分裂期",
+    "sub-G1": "低於生長一期去氧核糖核酸含量的族群",
+    "cyclin B1": "乙型細胞週期蛋白一",
+    "cyclin-dependent kinase": "細胞週期蛋白依賴性激酶",
+    "H3": "第三型組蛋白",
+    "TSH": "促甲狀腺激素",
+    "T3": "三碘甲狀腺素",
+    "T4": "四碘甲狀腺素",
+    "aquaporin-2": "第二型水通道蛋白",
+    "AQP2": "第二型水通道蛋白",
+    "PAH": "對胺馬尿酸",
+    "BPG": "二磷酸甘油酸",
+    "NMJ": "神經肌肉接合處",
+    "NMDA": "甲基天門冬胺酸型受體",
+    "GHK equation": "高德曼－霍奇金－卡茨膜電位方程式",
+    "M2 muscarinic receptor": "第二型蕈毒鹼乙醯膽鹼受體",
+    "SA node firing": "竇房結放電",
+    "IRS-PI3K-Akt": "胰島素受體受質至磷脂醯肌醇三激酶與蛋白激酶乙的訊息途徑",
+    "Frank-Starling mechanism": "法蘭克－史達林機制",
+    "Frank-Starling": "法蘭克－史達林",
+    "loop of Henle": "亨利氏環",
+    "Bohr": "波耳",
+    "Nernst": "能斯特",
+    "Goldman": "高德曼",
+    "Bowman": "鮑氏",
+    "QRS": "心室去極化波群",
+    "PR": "心房至心室傳導間期",
+    "ECG": "心電圖",
+    "PDE": "偏微分方程",
+    "ODE": "常微分方程",
+    "BC": "邊界條件",
+    "FTIR": "傅立葉轉換紅外光譜",
+    "GC": "氣相層析",
+    "UV-Vis": "紫外可見光吸收光譜",
+    "UV": "紫外光",
+    "XRD": "Ｘ光繞射",
+    "XPS": "Ｘ光光電子能譜",
+    "NMR": "核磁共振光譜",
+    "TGA": "熱重分析",
+    "DSC": "差示掃描量熱分析",
+    "DTG": "微分熱重曲線",
+    "LOD": "偵測極限",
+    "LOQ": "定量極限",
+    "SOP": "標準操作程序",
+    "RTD": "停留時間分布",
+    "PBR": "填充床反應器",
+    "RO": "逆滲透",
+    "UF": "超過濾",
+    "NTU": "傳熱單元數",
+    "NPSH available": "可用淨正吸入揚程",
+    "NPSH required": "所需淨正吸入揚程",
+    "NPSH": "淨正吸入揚程",
+    "McCabe-Thiele": "麥凱布－蒂勒",
+    "Langmuir-Hinshelwood": "蘭格繆爾－欣謝爾伍德",
+    "Eley-Rideal": "伊利－里狄爾",
+    "Langmuir": "蘭格繆爾",
+    "Freundlich": "弗羅因德利希",
+    "Clausius-Clapeyron": "克勞修斯－克拉佩龍",
+    "van 't Hoff": "范特荷夫",
+    "van’t Hoff": "范特荷夫",
+    "van der Waals": "凡得瓦",
+    "Raoult's law": "拉午耳定律",
+    "Raoult’s law": "拉午耳定律",
+    "Henry's law": "亨利定律",
+    "Henry’s law": "亨利定律",
+    "Fick’s first law": "菲克第一定律",
+    "Fick's first law": "菲克第一定律",
+    "Fourier’s law": "傅立葉定律",
+    "Bragg’s law": "布拉格定律",
+    "Beer-Lambert law": "比爾－朗伯定律",
+    "Beer–Lambert law": "比爾－朗伯定律",
+    "Routh-Hurwitz": "勞斯－赫維茲",
+    "Darcy-Weisbach": "達西－魏斯巴赫",
+    "Navier-Stokes": "納維－斯托克斯",
+    "Poiseuille": "帕瑟伊",
+    "Stokes-Einstein": "斯托克斯－愛因斯坦",
+    "Scherrer equation": "謝樂方程式",
+    "Joule-Thomson": "焦耳－湯姆遜",
+    "Maxwell relations": "馬克士威關係式",
+    "Maxwell": "馬克士威",
+    "Taylor series": "泰勒級數",
+    "Taylor expansion": "泰勒展開",
+    "Laplace": "拉普拉斯",
+    "Buckingham": "白金漢",
+    "Reynolds": "雷諾",
+    "Darcy": "達西",
+    "Fanning": "范寧",
+    "Lewis": "路易斯",
+    "Péclet": "佩克萊",
+    "Peclet": "佩克萊",
+    "Damköhler": "達姆科勒",
+    "Damkohler": "達姆科勒",
+    "Carnot": "卡諾",
+    "NRTL": "非隨機雙液體模型",
+    "Wilson": "威爾森模型",
+    "UNIQUAC": "通用準化學模型",
+    "Bliss": "布利斯獨立作用模型",
+    "Loewe": "洛威相加模型",
+    "Chou-Talalay": "周氏－塔拉萊",
+    "Tukey": "杜基事後比較法",
+    "Dunnett": "鄧奈特事後比較法",
+    "Michaelis-Menten": "米氏－曼騰",
+    "Shaw": "蕭氏",
+    "SN1": "單分子親核取代",
+    "SN2": "雙分子親核取代",
+    "E1 elimination": "單分子消去反應",
+    "E2 elimination": "雙分子消去反應",
+    "combination": "合併處理",
+    "viability": "細胞存活指標",
+    "normalization": "正規化",
+    "review": "回顧",
+    "treatment": "處理",
+    "osteosarcoma": "骨肉瘤",
+    "antioxidant": "抗氧化物",
+    "cardiolipin": "心磷脂",
+    "dose matrix": "劑量矩陣",
+    "scavenger": "清除劑",
+    "passage": "繼代培養",
+    "gate": "圈選範圍",
+    "rescue": "回復驗證",
+    "primer": "引子",
+    "polymerase": "聚合酶",
+    "hot-start polymerase": "熱啟動聚合酶",
+    "leading strand": "前導股",
+    "lagging strand": "後隨股",
+    "Okazaki fragments": "岡崎片段",
+    "reverse transcriptase": "反轉錄酶",
+    "methylation": "甲基化",
+    "fission": "分裂",
+    "fusion": "融合",
+    "controls": "對照組",
+    "fluorescence": "螢光",
+    "detector": "偵測器",
+    "morphology": "形態",
+    "input": "輸入",
+    "output": "輸出",
+    "offset": "偏差",
+    "process": "程序",
+    "condition": "條件",
+    "kinetics": "動力學",
+    "separation": "分離",
+    "solvent": "溶劑",
+    "solute": "溶質",
+    "mixing": "混合",
+    "internal": "內部",
+    "external": "外部",
+    "mechanism": "機制",
+    "osmotic": "滲透的",
+    "flux": "通量",
+    "reactant": "反應物",
+    "bulk": "主體",
+    "stages": "級數",
+    "stage": "階段",
+    "viscous": "黏性的",
+    "disturbance": "擾動",
+    "windup": "積分飽和",
+    "endpoint": "終點",
+    "observation": "觀察",
+    "dose": "劑量",
+    "conclusion": "結論",
+    "phenotype": "表型",
+    "functional assays": "功能性實驗",
+    "sphere formation": "細胞球形成",
+    "self-renewal": "自我更新",
+    "tumor-initiation": "腫瘤起始能力",
+    "stemness": "幹性",
+    "marker": "標誌",
+    "reproducibility": "再現性",
+    "hydrolases": "水解酶",
+    "endocytosed cargo": "經胞吞攝入的物質",
+    "damaged organelles": "受損胞器",
+    "autophagic material": "自噬包覆的物質",
+    "building blocks": "基本組成分子",
+    "ubiquitinated soluble proteins": "帶有泛素標記的可溶性蛋白質",
+    "endocytosis": "胞吞作用",
+    "membrane proteins": "膜蛋白",
+    "macromolecules": "大分子",
+    "organelles": "胞器",
+    "contents": "內容物",
+    "dysfunctional organelles": "功能異常胞器",
+    "contact sites": "接觸區域",
+    "lipid exchange": "脂質交換",
+    "apoptotic signaling": "凋亡訊號",
+    "S checkpoint": "合成期檢查點",
+    "senescence": "細胞老化",
+    "epithelial markers": "上皮細胞標誌",
+    "mesenchymal markers": "間質細胞標誌",
+    "migration": "遷移",
+    "invasion phenotype": "侵襲表型",
+    "receptor internalization": "受體內吞",
+    "receptor recycle": "受體再循環",
+    "endosome": "內體",
+    "signaling output": "訊號輸出",
+    "membrane fluidity": "膜流動性",
+    "fatty-acid saturation": "脂肪酸飽和度",
+    "chain length": "碳鏈長度",
+    "cholesterol": "膽固醇",
+    "fluidity": "流動性",
+    "buffer": "緩衝",
+    "variability": "變異程度",
+    "pipetting variation": "移液操作變異",
+    "observations": "觀察值",
+    "spread": "分散程度",
+    "population": "母群體",
+    "pairwise t-tests": "兩兩平均值檢定",
+    "family-wise type I error": "整體第一類錯誤",
+    "main effects": "主效應",
+    "factors": "因素",
+    "drug": "藥物",
+    "loading": "上樣",
+    "denominator": "分母",
+    "bias": "偏差",
+    "debris": "細胞碎屑",
+    "unstained": "未染色",
+    "background": "背景",
+    "single-color controls": "單色對照",
+    "single-color control": "單色對照",
+    "spectral spillover": "光譜溢漏",
+    "fluorophores": "螢光分子",
+    "fluorophore": "螢光分子",
+    "spillover": "訊號溢漏",
+    "spreading": "訊號展寬",
+    "binding affinity": "結合親和力",
+    "saturation": "飽和",
+    "instrument setting": "儀器設定",
+    "reagent": "試劑",
+    "instrument": "儀器",
+    "batch": "批次",
+    "repeats": "重複次數",
+    "direction": "方向",
+    "size": "大小",
+    "variance": "變異數",
+    "protocol differences": "實驗流程差異",
+    "null": "虛無假設",
+    "magnitude": "大小",
+    "importance": "重要程度",
+    "dilution": "稀釋",
+    "blocking reagent": "封閉試劑",
+    "washing": "清洗",
+    "membrane handling": "膜的操作",
+    "exposure": "暴露",
+    "abundance": "含量",
+    "epitope": "抗原決定位",
+    "lysis buffer": "細胞裂解緩衝液",
+    "confluency": "細胞覆蓋率",
+    "proliferation": "增殖",
+    "nutrient availability": "養分供應",
+    "contact signaling": "接觸訊號",
+    "genetic": "遺傳的",
+    "epigenetic drift": "表觀遺傳漂移",
+    "selection": "選擇",
+    "senescence-like changes": "類似老化的改變",
+    "passage range": "繼代次數範圍",
+    "catabolic pathways": "分解代謝途徑",
+    "anabolic pathways": "合成代謝途徑",
+    "anabolic": "合成代謝的",
+    "catabolic": "分解代謝的",
+    "ratio": "比值",
+    "redox": "氧化還原",
+    "dehydrogenase reactions": "脫氫酶反應",
+    "electron transfer": "電子傳遞",
+    "level": "層級",
+    "phosphate": "磷酸",
+    "proton motive force": "質子動力勢",
+    "pyruvate": "丙酮酸",
+    "glycolytic flux": "糖解通量",
+    "lactate": "乳酸",
+    "pyruvate oxidative decarboxylation": "丙酮酸氧化脫羧",
+    "beta-oxidation": "脂肪酸乙型氧化",
+    "ketogenesis": "酮體生成",
+    "citrate": "檸檬酸",
+    "lipid synthesis": "脂質合成",
+    "biosynthetic precursor": "生物合成前驅物",
+    "redox signaling": "氧化還原訊號",
+    "dismutate": "歧化",
+    "peroxide": "過氧化物",
+    "cellular redox status": "細胞氧化還原狀態",
+    "oxidative": "氧化的",
+    "electrophilic": "親電子的",
+    "nucleus": "細胞核",
+    "processing": "加工",
+    "export": "輸出",
+    "cytosolic ribosome": "細胞質核糖體",
+    "rough ER-associated ribosome": "粗糙內質網上的核糖體",
+    "splicing": "剪接",
+    "machinery": "分子機制",
+    "introns": "內含子",
+    "exons": "外顯子",
+    "exon": "外顯子",
+    "isoforms": "異構型",
+    "isoform": "異構型",
+    "start": "開始",
+    "basal": "基礎",
+    "coactivator": "共同活化因子",
+    "chromatin looping": "染色質環化",
+    "histone modifications": "組蛋白修飾",
+    "histone modification": "組蛋白修飾",
+    "chromatin remodeling": "染色質重塑",
+    "non-coding": "非編碼",
+    "regulation": "調節",
+    "chromatin accessibility": "染色質可接近性",
+    "sequence": "序列",
+    "CpG island hypermethylation": "胞嘧啶接鳥嘌呤富集區過度甲基化",
+    "reduced": "還原型",
+    "repressive chromatin machinery": "抑制性染色質機制",
+    "context": "情境",
+    "cleavage": "切割",
+    "targets": "目標",
+    "repression": "抑制",
+    "destabilization": "穩定性降低",
+    "Northern blot": "北方墨點法",
+    "Southern blot": "南方墨點法",
+    "annealing": "黏合",
+    "specific primer": "專一性引子",
+    "template amount": "模板用量",
+    "gel": "膠體",
+    "staining": "染色",
+    "template quality": "模板品質",
+    "amount": "數量",
+    "master mix": "預混反應液",
+    "cycling program": "溫度循環程序",
+    "pipetting": "移液操作",
+    "genes": "基因",
+    "metabolism": "代謝",
+    "transfer": "傳遞",
+    "quality": "品質",
+    "growth": "生長",
+    "integrity": "完整性",
+    "damaged": "受損",
+    "repair": "修復",
+    "differentiation": "分化",
+    "outer membrane permeabilization": "外膜通透化",
+    "oligomerization": "寡聚化",
+    "caspase cascade": "半胱天冬酶連鎖反應",
+    "death receptor": "死亡受體",
+    "extrinsic pathway": "外源性途徑",
+    "intrinsic pathway": "內源性途徑",
+    "initiator": "啟動者",
+    "lysosomal V-type H": "溶體液泡型氫離子",
+    "protons": "質子",
+    "lumen": "腔內",
+    "acid hydrolases": "酸性水解酶",
+    "unfolded": "未摺疊",
+    "misfolded proteins": "錯誤摺疊蛋白質",
+    "sensor": "感測器",
+    "folding": "摺疊",
+    "content mixing": "內容物混合",
+    "damage segregation": "損傷分離",
+    "lysosomal hydrolases": "溶體水解酶",
+    "cargo": "待處理物質",
+    "ligand-activated receptors": "被配體活化的受體",
+    "endocytosis internalization": "經胞吞內化",
+    "receptor signaling": "受體訊號",
+    "recycling": "再循環",
+    "growth signals": "生長訊號",
+    "blocking": "封閉",
+    "membrane": "膜",
+    "binding sites": "結合位點",
+    "nonspecific background": "非特異性背景",
+    "specificity": "專一性",
+    "labeled": "帶標記的",
+    "amplification": "擴增",
+    "doublet discrimination": "雙聯體排除",
+    "pulse area": "脈衝面積",
+    "height": "高度",
+    "width": "寬度",
+    "viability dyes": "活死細胞染劑",
+    "membrane integrity": "細胞膜完整性",
+    "amine accessibility": "胺基可接近性",
+    "nonspecific staining": "非特異性染色",
+    "excitation": "激發",
+    "reading": "讀值",
+    "standards": "標準品",
+    "unknown samples": "未知樣品",
+    "epigenetic changes": "表觀遺傳改變",
+    "senescence-like effects": "類似老化的效應",
+    "turbidity": "混濁度",
+    "experimental": "實驗的",
+    "confounders": "混淆因素",
+    "tests": "檢定",
+    "family-wise false-positive probability": "整體偽陽性機率",
+    "technical issue": "技術問題",
+    "isotype": "同型",
+    "single-stain": "單色染色",
+    "panel": "染色組合",
+    "protocol": "實驗流程",
+    "housekeeping": "管家基因",
+    "strategy": "策略",
+    "emission spectrum": "放射光譜",
+    "autophagic flux": "自噬通量",
+    "lysosomal inhibitor": "溶體抑制劑",
+    "blebbing": "膜起泡",
+    "fragmentation": "碎裂",
+    "non-homologous end joining": "非同源末端接合",
+    "insertion": "插入",
+    "deletion": "刪除",
+    "frameshift": "移碼",
+    "nonsense mutation": "無義突變",
+    "missense mutation": "錯義突變",
+    "nonsense-mediated decay": "無義突變介導降解",
+    "codon": "密碼子",
+    "melt curve": "熔解曲線",
+    "methyl-CpG binding proteins": "辨認甲基化胞嘧啶接鳥嘌呤位點的蛋白",
+    "vector": "載體",
+    "helix": "螺旋",
+    "sheet": "摺板",
+    "hydroxyl": "羥基",
+    "cap": "帽端",
+    "poly": "多聚",
+    "tail": "尾端",
+    "incoming dNTP": "即將接上的去氧核苷三磷酸",
+    "alpha phosphate": "阿爾法磷酸基",
+    "growing strand": "正在延長的核酸股",
+    "template antiparallel": "模板反平行",
+    "fork": "複製叉",
+    "template": "模板",
+    "chromosome ends": "染色體末端",
+    "telomere shortening": "端粒縮短",
+    "exon inclusion": "外顯子保留",
+    "pre-mRNA": "前信使核糖核酸",
+    "deadenylation": "多聚腺苷酸尾縮短",
+    "calibrator": "校準對照",
+    "transcriptome": "轉錄體",
+    "overexpression": "過度表現",
+    "loss-of-function": "功能喪失",
+    "gain-of-function": "功能增強",
+    "allosterically inhibit PFK-1": "透過異位調控抑制磷酸果糖激酶一",
+    "hexokinase": "己糖激酶",
+    "glucokinase": "葡萄糖激酶",
+    "pyruvate kinase": "丙酮酸激酶",
+    "F2,6BP": "果糖二六二磷酸",
+    "activator": "活化劑",
+    "biosynthetic intermediates": "生物合成中間物",
+    "Complex I": "第一複合體",
+    "Complex II": "第二複合體",
+    "Complex III": "第三複合體",
+    "Complex IV": "第四複合體",
+    "IV pump protons": "第四複合體幫浦輸送質子",
+    "electrochemical gradient": "電化學梯度",
+    "dissipates": "耗散",
+    "oxygen consumption": "耗氧量",
+    "synthesis efficiency": "合成效率",
+    "upstream carriers reduced": "上游電子攜帶者處於還原態",
+    "proton pumping": "質子幫浦作用",
+    "reductive biosynthesis": "還原性生物合成",
+    "reducing power": "還原力",
+    "glutathione reduced": "穀胱甘肽維持還原態",
+    "PPP": "磷酸戊糖途徑",
+    "non-oxidative reactions": "非氧化階段反應",
+    "nucleotide synthesis": "核苷酸合成",
+    "denaturation": "變性",
+    "tertiary": "三級結構",
+    "quaternary interactions": "四級結構交互作用",
+    "peptide bonds": "胜肽鍵",
+    "peptide bond": "胜肽鍵",
+    "hydrolysis": "水解",
+    "cysteine thiol": "半胱胺酸硫醇基",
+    "quaternary structure": "四級結構",
+    "extracellular": "細胞外",
+    "secreted proteins": "分泌性蛋白質",
+    "proteins": "蛋白質",
+    "polyubiquitin chain": "多泛素鏈",
+    "dependent": "依賴的",
+    "ES complex": "酵素受質複合體",
+    "data": "資料",
+    "supercritical": "超臨界",
+    "solid": "固體",
+    "behavior": "行為",
+    "attractive interactions": "吸引性交互作用",
+    "repulsive": "排斥的",
+    "excluded-volume": "排除體積",
+    "thermodynamic potentials": "熱力學勢",
+    "exact differential": "全微分",
+    "chemical-potential": "化學勢",
+    "derivatives": "導數",
+    "partial derivatives matrix": "偏導數矩陣",
+    "property": "性質",
+    "mixture extensive property": "混合物廣延性質",
+    "marginal contribution": "邊際貢獻",
+    "unlike": "不同種類",
+    "like interactions": "同種類交互作用",
+    "random mixing": "隨機混合",
+    "nonideality": "非理想性",
+    "simple": "簡單",
+    "real": "真實",
+    "throttling": "節流",
+    "porous plug": "多孔塞",
+    "expansion": "膨脹",
+    "inversion": "反轉",
+    "energy obeys conservation": "能量遵循守恆",
+    "exergy destruction": "可用能損失",
+    "exergy": "可用能",
+    "useful": "可用的",
+    "irreversibility": "不可逆性",
+    "isolated total entropy": "孤立系統總熵",
+    "reversible limit": "可逆極限",
+    "lost": "損失",
+    "component": "成分",
+    "dilute solute": "稀溶質",
+    "reversible": "可逆",
+    "compression": "壓縮",
+    "integration": "積分",
+    "intermolecular potential energy": "分子間位能",
+    "molecular degrees of freedom": "分子自由度",
+    "kinetic": "動力學的",
+    "internal modes": "內部運動模式",
+    "binary two-phase": "二成分兩相",
+    "region": "區域",
+    "lever rule": "槓桿法",
+    "overall": "整體",
+    "compositions": "組成",
+    "fraction": "分率",
+    "component material balance": "成分物料衡算",
+    "bubble": "氣泡",
+    "molecular interactions": "分子交互作用",
+    "equations": "方程式",
+    "nonideal": "非理想",
+    "standard": "標準",
+    "parallel reactions": "平行反應",
+    "undesired products": "非目標產物",
+    "feed basis": "進料基準",
+    "desired product": "目標產物",
+    "desired pathway": "目標途徑",
+    "desired": "目標的",
+    "undesired": "非目標的",
+    "disappearance convention": "消耗速率的符號慣例",
+    "infinitesimal reactor": "微小反應器區段",
+    "mole": "莫耳",
+    "integrated law": "積分定律",
+    "space": "空間",
+    "reactor": "反應器",
+    "bypass": "旁通",
+    "dead zones": "滯留區",
+    "nonidealities": "非理想情形",
+    "performance": "性能",
+    "exothermic": "放熱",
+    "cooling": "冷卻",
+    "removal": "移除",
+    "multiple": "多重",
+    "states": "狀態",
+    "ignition-extinction": "點火與熄火",
+    "intrinsic": "本徵",
+    "utilization": "利用率",
+    "intraparticle": "顆粒內部",
+    "particle": "顆粒",
+    "bulk-to-particle": "主流體至顆粒",
+    "film": "薄膜",
+    "particle pores": "顆粒孔隙",
+    "agitation": "攪拌",
+    "external resistance": "外部阻力",
+    "particle size": "粒徑",
+    "distance": "距離",
+    "dependence": "依賴性",
+    "intrinsic kinetics": "本徵動力學",
+    "lower apparent Ea": "較低的表觀活化能",
+    "kinetics range": "動力學範圍",
+    "depletion": "耗盡",
+    "excess": "過量",
+    "pseudo-first-order": "擬一階",
+    "adsorb": "吸附",
+    "adsorbed": "已吸附的",
+    "slow step": "慢步驟",
+    "comparable resistances": "大小相近的阻力",
+    "activation free-energy barrier": "活化自由能障壁",
+    "alternative pathway": "替代途徑",
+    "product thermodynamic state": "產物熱力學狀態",
+    "continuum": "連續介質",
+    "momentum": "動量",
+    "inertia": "慣性",
+    "body force": "體積力",
+    "fully developed": "完全發展",
+    "shape": "形狀",
+    "axial position": "軸向位置",
+    "incompressible": "不可壓縮",
+    "circular-pipe": "圓管",
+    "circular pipe": "圓管",
+    "parabolic profile": "拋物線分布",
+    "laminar": "層流",
+    "friction": "摩擦",
+    "pump inlet": "泵浦入口",
+    "local": "局部",
+    "bubbles": "氣泡",
+    "collapse": "崩潰",
+    "erosion": "侵蝕",
+    "cavitation": "空蝕",
+    "pump": "泵浦",
+    "margin": "裕度",
+    "natural": "自然",
+    "density": "密度",
+    "buoyancy": "浮力",
+    "forced": "強制",
+    "fan": "風扇",
+    "hot-side": "熱側",
+    "conduction": "傳導",
+    "cold-side": "冷側",
+    "serial resistances": "串聯阻力",
+    "layer": "層",
+    "duty": "熱負荷",
+    "area": "面積",
+    "terminal temperatures": "兩端溫度",
+    "outlet temperatures": "出口溫度",
+    "capacities": "容量",
+    "effectiveness-NTU": "有效度與傳熱單元數法",
+    "progress": "進程",
+    "geometry length scale": "幾何特徵長度",
+    "transient": "暫態",
+    "advective": "平流的",
+    "diffusive": "擴散的",
+    "advection": "平流",
+    "dominant": "主導的",
+    "diffusivity": "擴散係數",
+    "Fick-like": "類似菲克形式",
+    "boil-up": "再沸蒸氣",
+    "boilup": "再沸蒸氣",
+    "overhead": "塔頂",
+    "distillate": "餾出液",
+    "binary": "二元",
+    "stage graphical design": "理論級數圖解設計",
+    "constant molar overflow": "恆莫耳溢流",
+    "constant": "恆定",
+    "overflow": "溢流",
+    "VLE curve": "氣液平衡曲線",
+    "operating lines": "操作線",
+    "ideal limit": "理想極限",
+    "pinch": "夾點",
+    "downward": "向下",
+    "holdup": "滯留量",
+    "hold-up": "滯留量",
+    "column capacity limit": "塔容量限制",
+    "isotherm": "等溫線",
+    "adsorbed amount": "吸附量",
+    "sites": "位點",
+    "monolayer coverage": "單分子層覆蓋",
+    "lateral": "側向",
+    "concentrated side": "濃溶液側",
+    "hydraulic": "水力的",
+    "semipermeable membrane": "半透膜",
+    "porous membrane": "多孔膜",
+    "size exclusion": "尺寸篩分",
+    "colloids": "膠體",
+    "salts": "鹽類",
+    "small solutes": "小分子溶質",
+    "drying": "乾燥",
+    "latent heat": "潛熱",
+    "sensible energy": "顯熱",
+    "moisture": "水分",
+    "material interior": "材料內部",
+    "supersaturation": "過飽和度",
+    "crystallization": "結晶",
+    "nucleation": "成核",
+    "crystal size distribution": "晶體粒徑分布",
+    "purity": "純度",
+    "centrifuge": "離心機",
+    "centrifugal acceleration": "離心加速度",
+    "size particle or phase": "粒徑或相態",
+    "settling tendency": "沉降趨勢",
+    "disturbances": "擾動",
+    "uncertainty": "不確定性",
+    "tuning": "調校",
+    "delay": "延遲",
+    "actuator": "致動器",
+    "feedforward": "前饋",
+    "lag": "遲滯",
+    "aggressive": "過於激烈的",
+    "oscillate": "振盪",
+    "actuator saturated": "致動器達到飽和",
+    "term": "項",
+    "slow recovery": "恢復緩慢",
+    "anti-windup": "抗積分飽和",
+    "normalized": "正規化後",
+    "linear homogeneous differential equations": "線性齊次微分方程",
+    "solutions": "解",
+    "forcing": "外部強迫輸入",
+    "linear superposition": "線性疊加",
+    "variables": "變數",
+    "wave equations": "波動方程",
+    "theorem": "定理",
+    "dimensional variables": "有因次變數",
+    "fundamental dimensions": "基本因次",
+    "dimensionless groups": "無因次群",
+    "function": "函數",
+    "operating": "操作",
+    "local approximation": "局部近似",
+    "first-order": "一階",
+    "linearized": "線性化的",
+    "perturbation analysis": "擾動分析",
+    "molecular vibrational transitions": "分子振動能階躍遷",
+    "bond": "鍵",
+    "functional groups": "官能基",
+    "characteristic bands": "特徵吸收帶",
+    "peak position": "峰位",
+    "lattice d-spacing": "晶格面間距",
+    "peak broadening": "繞射峰展寬",
+    "small crystallite size": "較小的晶粒尺寸",
+    "microstrain": "微應變",
+    "instrument broadening": "儀器造成的展寬",
+    "crystallite size": "晶粒尺寸",
+    "backscattered electrons": "背向散射電子",
+    "electrons": "電子",
+    "specimen": "試片",
+    "internal structure": "內部結構",
+    "diffraction information": "繞射資訊",
+    "decomposition": "分解",
+    "melting": "熔化",
+    "glass transition": "玻璃轉移",
+    "adsorption data": "吸附資料",
+    "specific": "特定",
+    "pore analysis": "孔隙分析",
+    "electrophoretic mobility": "電泳遷移率",
+    "slipping plane potential": "滑移面電位",
+    "interfacial charge environment": "界面電荷環境",
+    "colloidal": "膠體的",
+    "viscometer": "黏度計",
+    "viscosity": "黏度",
+    "curve": "曲線",
+    "oscillatory": "振盪式",
+    "characterization": "特性分析",
+    "conjugate base": "共軛鹼",
+    "stabilization": "穩定化",
+    "electronegativity": "電負度",
+    "inductive": "誘導的",
+    "orbital hybridization": "軌域混成",
+    "acidity": "酸性",
+    "deprotonation": "去質子化",
+    "negative charge": "負電荷",
+    "resonance delocalization": "共振離域",
+    "parent acid": "原酸",
+    "acidic": "酸性的",
+    "lab": "實驗室",
+    "scientific": "科學上的",
+    "clinical": "臨床的",
+    "engineering importance": "工程重要性",
+    "knowledge gap": "知識缺口",
+    "feasibility": "可行性",
+    "contribution": "貢獻",
+    "pilot": "前導試驗",
+    "raw data": "原始資料",
+    "inclusion": "納入",
+    "exclusion": "排除",
+    "analysis criteria": "分析準則",
+    "blinded analysis": "盲性分析",
+    "lines": "細胞株",
+    "biomarker": "生物標誌",
+    "sensitization": "增敏",
+    "engagement": "作用是否到位",
+    "damage": "損傷",
+    "toxicity": "毒性",
+    "treatment sequence": "處理順序",
+    "pleiotropic": "多重作用的",
+    "redox effects": "氧化還原效應",
+    "genetic antioxidant manipulation": "抗氧化途徑的基因操作",
+    "additive": "相加作用",
+    "synergistic": "協同作用",
+    "sublethal": "非致死性",
+    "surviving population": "存活族群",
+    "parental": "親代細胞",
+    "resistant phenotype": "抗藥表型",
+    "through": "透過",
+    "orthogonal validation": "不同原理的交叉驗證",
+    "efficacy": "效力",
+    "clinically achievable": "臨床可達到的",
+    "PK relevance": "藥物動力學相關性",
+    "organoid": "類器官",
+    "xenograft": "異種移植",
+    "in vivo-like models": "接近活體條件的模型",
+    "electrochemical": "電化學的",
+    "peak": "峰值",
+    "inactivation": "失活",
+    "acetylcholine": "乙醯膽鹼",
+    "venous return": "靜脈回流",
+    "end-diastolic filling": "舒張末期充盈",
+    "ejection fraction": "射出分率",
+    "radius": "半徑",
+    "resistance": "阻力",
+    "arteriole": "小動脈",
+    "smooth muscle tone": "平滑肌張力",
+    "Poiseuille relation": "帕瑟伊關係式",
+    "distal tubular NaCl delivery": "到達遠端腎小管的氯化鈉輸送量",
+    "afferent arteriolar constriction": "入球小動脈收縮",
+    "proximal tubule": "近曲小管",
+    "glucose": "葡萄糖",
+    "amino acids": "胺基酸",
+    "bicarbonate": "碳酸氫根",
+    "bulk reabsorption": "大量再吸收",
+    "descending": "下降支",
+    "ascending limb": "上升支",
+    "renal medullary osmotic gradient": "腎髓質滲透梯度",
+    "thick ascending limb": "粗上升支",
+    "tubular": "腎小管的",
+    "diluting segment": "稀釋段",
+    "minute ventilation": "每分鐘通氣量",
+    "tidal volume": "潮氣容積",
+    "respiratory": "呼吸的",
+    "alveolar ventilation": "肺泡通氣量",
+    "anatomic": "解剖上的",
+    "exchange": "交換",
+    "perfusion": "灌流",
+    "hypoxemia": "低血氧",
+    "hemoglobin": "血紅素",
+    "affinity": "親和力",
+    "thyroid hormone": "甲狀腺激素",
+    "basal metabolic rate": "基礎代謝率",
+    "production": "生成",
+    "catecholamine sensitivity": "兒茶酚胺敏感性",
+    "insulin receptor": "胰島素受體",
+    "ligand binding": "配體結合",
+    "receptor": "受體",
+    "downstream signaling": "下游訊號",
+    "synaptic inputs": "突觸輸入",
+    "postsynaptic neuron": "突觸後神經元",
+    "myelin": "髓鞘",
+    "membrane resistance": "膜電阻",
+    "capacitance": "電容",
+    "internode": "節間",
+    "nodes of Ranvier": "蘭氏結",
+    "saltatory conduction": "跳躍式傳導",
+    "acetylcholinesterase": "乙醯膽鹼酯酶",
+    "synaptic cleft": "突觸間隙",
+    "neuromuscular": "神經肌肉的",
+    "choline": "膽鹼",
+    "active": "活躍的",
+    "actin-myosin overlap": "肌動蛋白與肌球蛋白重疊",
+    "sarcomere length": "肌小節長度",
+    "cross-bridges": "橫橋",
+    "activation": "活化",
+    "membrane excitability": "膜興奮性",
+    "binding": "結合",
+    "turnover": "周轉",
+    "site": "位點",
+    "catalytic efficiency": "催化效率",
+    "pairs": "配對",
+    "enzymes": "酵素",
+    "subunit": "次單元",
+    "cooperativity": "協同性",
+    "sigmoidal": "Ｓ形",
+    "hyperbola": "雙曲線",
+    "controlling": "控制",
+    "myosin": "肌球蛋白",
+    "muscarinic": "蕈毒鹼型",
+    "glucagon receptor": "升糖素受體",
+    "phosphatase": "磷酸酶",
+    "sign convention": "符號慣例",
+    "KE": "動能",
+    "PE": "位能",
+    "process direction": "程序方向",
+    "real irreversible processes": "實際不可逆程序",
+    "finite gradients": "有限梯度",
+    "cyclic process": "循環程序",
+    "irreversible": "不可逆",
+    "JT": "焦耳－湯姆遜",
+    "shaft": "軸",
+    "throttling valve": "節流閥",
+    "compressor": "壓縮機",
+    "turbine": "渦輪機",
+    "actual": "實際",
+    "ideal": "理想",
+    "phases": "相",
+    "conventional": "傳統",
+    "pressure swing": "變壓",
+    "entrainer": "共沸劑",
+    "deviation": "偏差",
+    "coefficients": "係數",
+    "component amounts": "成分含量",
+    "extensive property": "廣延性質",
+    "zero-order": "零階",
+    "half-life": "半衰期",
+    "half life": "半衰期",
+    "orders": "級數",
+    "activation energies": "活化能",
+    "reactor type": "反應器型式",
+    "series": "串聯",
+    "intermediate": "中間產物",
+    "optimal": "最佳",
+    "maximum": "最大值",
+    "quench": "急冷",
+    "separate": "分離",
+    "in-out": "流入減流出",
+    "differential": "微分",
+    "volumetric basis": "體積基準",
+    "particle size variation": "改變粒徑",
+    "tendency": "趨勢",
+    "pore": "孔隙",
+    "capability": "能力",
+    "pellet": "顆粒",
+    "through packed bed": "通過填充床",
+    "viscous term": "黏性項",
+    "inertial term": "慣性項",
+    "void fraction": "空隙率",
+    "ignition": "點火",
+    "extinction": "熄火",
+    "runaway risk": "失控風險",
+    "negligible viscous loss": "黏性損失可忽略",
+    "mechanical": "機械的",
+    "pump head": "泵浦揚程",
+    "turbine head": "渦輪揚程",
+    "head": "揚程",
+    "straight pipe": "直管",
+    "boundary": "邊界",
+    "parabolic": "拋物線",
+    "Newtonian": "牛頓流體",
+    "turbulent eddies": "紊流渦旋",
+    "gradients": "梯度",
+    "transfer coefficients": "傳遞係數",
+    "frictional": "摩擦的",
+    "tangential": "切向",
+    "stationary": "靜止的",
+    "momentum diffusivity": "動量擴散係數",
+    "thermal diffusivity": "熱擴散係數",
+    "thermal boundary-layer": "熱邊界層",
+    "molecular": "分子的",
+    "boundary layers": "邊界層",
+    "coupled": "耦合",
+    "conduction resistance": "傳導熱阻",
+    "uniform": "均勻",
+    "hot": "熱",
+    "thermal resistances": "熱阻",
+    "material property": "材料性質",
+    "exchanger": "交換器",
+    "effective": "有效",
+    "osmotic resistance": "滲透壓阻力",
+    "flux decline": "通量下降",
+    "osmosis": "滲透作用",
+    "permeate": "透過液",
+    "two-film theory": "雙膜理論",
+    "side films": "兩側薄膜",
+    "side": "側",
+    "overall coefficient": "總係數",
+    "preference": "偏好",
+    "internal contacting": "內部接觸",
+    "minimum": "最小",
+    "infinite stages limit": "無限級數極限",
+    "graphical stage calculation method": "理論級數圖解法",
+    "absorber capacity": "吸收塔處理能力",
+    "outlet solute": "出口溶質",
+    "pumping": "泵送",
+    "regeneration duty": "再生熱負荷",
+    "hydraulics": "水力學行為",
+    "upward": "向上",
+    "critical moisture": "臨界含水量",
+    "centrifugation": "離心",
+    "angular velocity": "角速度",
+    "radial acceleration": "徑向加速度",
+    "particles": "顆粒",
+    "destabilize": "使系統不穩定",
+    "manipulated input": "操控輸入",
+    "measurement noise": "量測雜訊",
+    "filtering": "濾波",
+    "dynamic behavior": "動態行為",
+    "exact": "精確",
+    "characteristic polynomial coefficients": "特徵多項式係數",
+    "right-half-plane roots": "右半平面根",
+    "linear": "線性的",
+    "integrating factor": "積分因子",
+    "boundary conditions": "邊界條件",
+    "eigenfunctions": "特徵函數",
+    "local polynomial approximation": "局部多項式近似",
+    "first-order expansion": "一階展開",
+    "nonlinear equations": "非線性方程",
+    "vector-valued function": "向量值函數",
+    "derivatives matrix": "導數矩陣",
+    "nonlinear": "非線性",
+    "linearization": "線性化",
+    "Newton method": "牛頓法",
+    "coordinate transforms": "座標轉換",
+    "field": "場",
+    "spatial domain": "空間域",
+    "value": "數值",
+    "mixed constraints": "混合限制條件",
+    "absorbing": "吸收光的",
+    "dilute": "稀薄的",
+    "optical conditions": "光學條件",
+    "instrument stray light": "儀器雜散光",
+    "analyte-stationary phase": "分析物與固定相",
+    "interactions": "交互作用",
+    "column chemistry": "管柱化學性質",
+    "method": "方法",
+    "chromatographic": "層析的",
+    "plate": "理論板",
+    "crystal information": "晶體資訊",
+    "Brownian-motion-induced scattering intensity fluctuation": "布朗運動引起的散射光強度波動",
+    "translational": "平移的",
+    "hydrodynamic diameter": "流體動力學直徑",
+    "carbocation": "碳陽離子",
+    "nucleophile backside attack": "親核試劑從背面進攻",
+    "leaving group departure": "離去基離開",
+    "carbocation intermediate": "碳陽離子中間體",
+    "strong base": "強鹼",
+    "leaving group": "離去基",
+    "concerted process": "協同一步反應",
+    "anti-periplanar geometry": "反式共平面構形",
+    "carboxylate conjugate base": "羧酸根共軛鹼",
+    "oxygen": "氧",
+    "resonance delocalize": "透過共振離域",
+    "resonance": "共振",
+    "alkoxide": "醇鹽",
+    "carboxylic acid": "羧酸",
+    "alcohol": "醇",
+    "paper": "論文",
+    "literature": "文獻",
+    "official source": "官方來源",
+    "methods": "方法",
+    "statistics": "統計",
+    "studies": "研究",
+    "consensus": "共識",
+    "exploratory result": "探索性結果",
+    "long-term viability": "長期存活能力",
+    "slowing": "減慢",
+    "tumor": "腫瘤",
+    "normal": "正常",
+    "achievable exposure": "可達到的暴露量",
+    "measured phenotype": "實際量到的表型",
+    "signals": "訊號",
+    "intervention": "介入",
+    "proposed": "提出的",
+    "live-cell": "活細胞",
+    "early signaling": "早期訊號",
+    "biogenesis markers": "生合成標誌",
+    "turnover markers": "周轉標誌",
+    "confounded": "受混淆因素影響",
+    "membrane-potential-specific": "膜電位專一性",
+    "potential": "電位",
+    "parallel": "平行",
+    "claim": "主張",
+    "positive": "陽性",
+    "negative": "陰性",
+    "looping": "環化",
+    "equation": "方程式",
+    "active sites": "活性位點",
+    "observed": "觀察到的",
+    "intrinsic kinetic": "本徵動力學",
+    "thermal runaway": "熱失控",
+    "length-to-diameter ratio": "長徑比",
+    "Newtonian viscosity law": "牛頓黏度定律",
+    "convective": "對流的",
+    "characteristic": "特徵",
+    "volatility": "揮發度",
+    "trade-off": "取捨",
+    "distribution coefficient": "分配係數",
+    "filter cake": "濾餅",
+    "porous resistance": "多孔介質阻力",
+    "transfer area": "傳遞面積",
+    "drag": "曳力",
+    "fluidized": "流化的",
+    "minimum fluidization": "最小流化",
+    "entrainment": "夾帶",
+    "capillary": "毛細",
+    "crystal growth": "晶體成長",
+    "speed": "速度",
+    "disturbance measurement": "擾動量測",
+    "accuracy": "準確度",
+    "variable": "變數",
+    "initial": "初始",
+    "eigenvalues": "特徵值",
+    "real part": "實部",
+    "perturbation": "擾動",
+    "step size": "步長",
+    "numerical method": "數值方法",
+    "artificial instability": "數值造成的不穩定",
+    "round-off accumulation": "捨入誤差累積",
+    "step-size convergence": "步長收斂檢查",
+    "absorptivity": "吸光係數",
+    "quenching": "淬熄",
+    "ultrastructure": "超微結構",
+    "preparation": "前處理",
+    "precision": "精密度",
+    "experiments": "實驗",
+    "evidence": "證據",
+    "mechanistic chain": "機制鏈",
+    "enhanced inhibitory effect": "抑制作用增強",
+    "combination index": "合併指數",
+    "window": "範圍",
+    "additional": "額外",
+    "increase": "增加",
+    "cardiolipin-associated": "與心磷脂相關的",
+    "anticancer repurposing potential": "重新用於抗癌研究的潛力",
+    "generating evidence": "產生證據",
+    "membrane-potential-related": "膜電位相關的",
+    "related": "相關的",
+    "mechanistic": "機制的",
+    "clearance": "清除率",
+    "plasma": "血漿",
+    "transcript size": "轉錄產物長度",
+    "coefficient": "係數",
+    "tracer pulse": "脈衝示蹤",
+    "step experiment": "步階示蹤實驗",
+    "dead zone": "滯留區",
+    "shear-thinning": "剪切變稀",
+    "stripping": "汽提",
+    "countercurrent arrangement": "逆流配置",
+    "manipulated variable": "操控變數",
+    "dynamic light scattering": "動態光散射",
+    "ionic strength": "離子強度",
+    "electrical double layer": "電雙層",
+    "peak shift": "峰位位移",
+    "analysis": "分析",
+    "ill-conditioned problem": "病態問題",
+    "scaling": "尺度調整",
+    "mass-to-charge ratio": "質荷比",
+    "sigma bonds": "西格瑪鍵",
+    "alone": "單独處理",
+    "chemosensitization": "化療增敏",
+    "roots": "根",
+    "characteristic polynomial": "特徵多項式",
+    "Routh array": "勞斯表",
+    "Hurwitz criterion": "赫維茲判據",
+    "relation": "關係式",
+    "relations": "關係式",
+    "efficiency": "效率",
+    "total": "總量",
+    "solution": "解",
+    "control": "對照",
+    "energy": "能量",
+    "mix": "混合",
+    "gradient": "梯度",
+    "test": "檢定",
+    "t-test": "平均值差異檢定",
+    "seq": "定序",
+    "in": "流入",
+    "out": "流出",
+    "body": "物體",
+    "latent": "潛在的",
+    "copy": "拷貝",
+    "signaling": "訊息傳遞",
+    "inhibition": "抑制",
+    "flow cytometry": "流式細胞分析",
+    "scanning electron microscopy": "掃描式電子顯微鏡",
+    "SEM imaging": "掃描式電子顯微鏡成像",
+    "ROS": "活性氧物種",
+    "oxidative stress": "氧化壓力",
+    "mitochondria": "粒線體",
+    "membrane potential": "膜電位",
+    "apoptosis": "細胞凋亡",
+    "necrosis": "壞死",
+    "autophagy": "自噬",
+    "mitophagy": "粒線體自噬",
+    "gating": "圈選分析",
+    "compensation": "螢光補償",
+    "vehicle control": "溶劑對照",
+    "positive control": "陽性對照",
+    "negative control": "陰性對照",
+    "biological replicate": "生物重複",
+    "technical replicate": "技術重複",
+    "p-value": "顯著性機率",
+    "confidence interval": "信賴區間",
+    "synergy": "協同作用",
+    "correlation": "相關性",
+    "causality": "因果關係",
+    "rescue experiment": "回復實驗",
+    "transcription": "轉錄",
+    "translation": "轉譯",
+    "promoter": "啟動子",
+    "enhancer": "增強子",
+    "PCR": "聚合酶連鎖反應",
+    "qPCR": "即時定量聚合酶連鎖反應",
+    "Western blot": "西方墨點法",
+    "loading control": "上樣內參",
+    "knockdown": "基因敲低",
+    "knockout": "基因剔除",
+    "ATP": "三磷酸腺苷",
+    "NADH": "還原型菸醯胺腺嘌呤二核苷酸",
+    "Km": "米氏常數",
+    "Vmax": "最大反應速率",
+    "competitive inhibition": "競爭性抑制",
+    "oxidative phosphorylation": "氧化磷酸化",
+    "electron transport chain": "電子傳遞鏈",
+    "proton gradient": "質子梯度",
+    "homeostasis": "體內恆定",
+    "action potential": "動作電位",
+    "depolarization": "去極化",
+    "repolarization": "再極化",
+    "refractory period": "不反應期",
+    "RAAS": "腎素－血管張力素－醛固酮系統",
+    "ADH": "抗利尿激素",
+    "GFR": "腎絲球過濾率",
+    "cardiac output": "心輸出量",
+    "preload": "前負荷",
+    "afterload": "後負荷",
+    "chemical potential": "化學勢",
+    "fugacity": "逸度",
+    "activity coefficient": "活度係數",
+    "enthalpy": "焓",
+    "entropy": "熵",
+    "Gibbs free energy": "吉布斯自由能",
+    "CSTR": "連續攪拌槽反應器",
+    "PFR": "塞流反應器",
+    "conversion": "轉化率",
+    "selectivity": "選擇性",
+    "activation energy": "活化能",
+    "residence time": "停留時間",
+    "Reynolds number": "雷諾數",
+    "Biot number": "畢歐數",
+    "mass-transfer coefficient": "質傳係數",
+    "diffusion": "擴散",
+    "reflux ratio": "回流比",
+    "flooding": "液泛",
+    "concentration polarization": "濃差極化",
+    "PID": "比例積分微分控制",
+    "negative feedback": "負回授",
+    "dead time": "純延遲",
+    "transfer function": "轉移函數",
+    "overshoot": "超越量",
+    "Laplace transform": "拉普拉斯轉換",
+    "boundary condition": "邊界條件",
+    "eigenvalue": "特徵值",
+    "HPLC": "高效液相層析",
+    "DLS": "動態光散射",
+    "matched": "相互匹配的",
+    "guide": "引導",
+    "TRH": "促甲狀腺激素釋放激素",
+    "forward": "正向",
+    "reverse": "反向",
+    "cortisol": "皮質醇",
+    "vehicle": "溶劑",
+    "course": "過程",
+    "replicates": "重複樣本",
+    "diphenylbutylpiperidine": "二苯丁基哌啶類",
+    "Starling": "史達林",
+    "PAM": "鄰近間隔序列的基序",
+    "lane": "泳道",
+    "GAPDH": "甘油醛三磷酸脫氫酶",
+    "Gibbs": "吉布斯",
+    "inertial": "慣性的",
+    "regime": "流況",
+    "geometry": "幾何",
+    "Fick": "菲克",
+    "instability": "不穩定",
+    "noise": "雜訊",
+    "dynamics": "動態",
+    "infrared": "紅外光",
+    "thermodynamics": "熱力學",
+    "thermodynamic": "熱力學的",
+    "position": "位置",
+    "reabsorption": "再吸收",
+    "retention": "保留",
+    "ventilation": "通氣",
+    "hepatic": "肝臟的",
+    "hypothalamus": "下視丘",
+    "firing": "放電",
+    "peripheral": "周邊",
+    "feed": "進料",
+    "content": "含量",
+    "second law": "第二定律",
+    "first law": "第一定律",
+    "volumetric": "體積的",
+    "scale": "尺度",
+    "FdUMP": "氟去氧尿苷單磷酸",
+    "thymidylate synthase": "胸苷酸合成酶",
+    "dTMP": "去氧胸苷單磷酸",
+    "Chou": "周氏",
+    "Talalay": "塔拉萊",
+    "repurposing": "藥物重新定位",
+    "validation": "驗證",
+    "matched comparison": "條件相同的比較",
+    "pattern": "型態",
+    "technical variation": "技術變異",
+    "statistical power": "統計檢定力",
+    "fluspirilene": "氟司必林",
+    "penfluridol": "五氟利多",
+    "STAT5": "訊號傳遞與轉錄活化蛋白五",
+    "Wnt": "溫特訊息途徑",
+    "catenin": "連環蛋白",
+    "original article": "原始研究論文",
+    "cytotoxic": "細胞毒性的",
+    "original research": "原始研究",
+    "SERCA": "肌漿網與內質網鈣離子幫浦",
+    "fructose-6-phosphate": "果糖六磷酸",
+    "primase": "引發酶",
+    "ligase": "連接酶",
+    "NHEJ": "非同源末端接合",
+    "HDR": "同源導向修復",
+    "rule": "定則",
+    "Fourier": "傅立葉",
+    "lumped-capacitance": "集總熱容",
+    "lumped": "集總",
+    "thermal": "熱的",
+    "adsorption": "吸附",
+    "initially": "起初",
+    "cake": "濾餅",
+    "correction": "修正",
+    "action": "作用",
+    "past": "過去",
+    "poles": "極點",
+    "zeros": "零點",
+    "sine": "正弦",
+    "cosine": "餘弦",
+    "Beer-Lambert": "比爾－朗伯",
+    "emission longer wavelength": "放射波長通常較長",
+    "diffraction": "繞射",
+    "Gs": "刺激型鳥嘌呤核苷酸結合蛋白",
+    "handling": "處理",
+    "ejecting": "射血",
+    "ENaC": "上皮鈉離子通道",
+    "secretion": "分泌",
+    "Ang I": "第一型血管張力素",
+    "Ang II": "第二型血管張力素",
+    "acidosis": "酸中毒",
+    "metabolic acidosis": "代謝性酸中毒",
+    "alveolar": "肺泡",
+    "tension": "張力",
+    "atelectasis": "肺泡塌陷",
+    "central chemoreceptors": "中樞化學受器",
+    "BBB": "血腦障壁",
+    "CSF": "腦脊髓液",
+    "peripheral chemoreceptors": "周邊化學受器",
+    "carotid": "頸動脈",
+    "aortic bodies": "主動脈體",
+    "insulin": "胰島素",
+    "muscle": "肌肉",
+    "adipose": "脂肪組織",
+    "mediated": "介導",
+    "glucagon": "升糖素",
+    "liver": "肝臟",
+    "pituitary": "腦下垂體",
+    "influx": "內流",
+    "EPSP": "興奮性突觸後電位",
+    "IPSP": "抑制性突觸後電位",
+    "T-tubule": "橫小管",
+    "voltage": "電壓",
+    "release": "釋放",
+    "smooth muscle": "平滑肌",
+    "phosphorylate": "磷酸化",
+    "depolarize": "去極化",
+    "inactivate": "失活",
+    "inward current": "向內電流",
+    "refractory": "不反應性",
+    "cardiac": "心臟的",
+    "arterial": "動脈的",
+    "DBP": "舒張壓",
+    "pulse": "脈衝",
+    "no-RT": "無反轉錄",
+    "critical T": "臨界溫度",
+    "wavenumber": "波數",
+    "near-surface": "近表面",
+    "BET": "比表面積分析",
+    "distribution": "分布",
+    "swing": "變動",
+    "streamline": "流線",
+    "falling-rate": "降速",
+    "rate-of-change": "變化速率",
+    "analyte": "待分析物",
+    "mobile": "移動的",
+    "nucleophile": "親核試劑",
+    "therapeutic": "治療的",
+    "markers": "標誌",
+    "Frank": "法蘭克",
+    "tropomyosin": "原肌球蛋白",
+    "E3 ubiquitin ligase": "第三類泛素連接酶",
+    "Michaelis": "米氏",
+    "Menten": "曼騰",
+    "driving-force": "驅動力",
+    "pathway": "途徑",
+    "renal": "腎臟的",
+    "Clausius": "克勞修斯",
+    "Clapeyron": "克拉佩龍",
+    "Routh": "勞斯",
+    "kinase": "激酶",
+    "dimer": "二聚體",
+    "downstream": "下游",
+    "μM": "微莫耳每公升",
+    "µM": "微莫耳每公升",
+    "mM": "毫莫耳每公升",
+    "μL": "微公升",
+    "µL": "微公升",
+    "mL": "毫公升",
+    "nmol": "奈莫耳",
+    "pmol": "皮莫耳",
+    "ng": "奈克",
+    "μg": "微克",
+    "µg": "微克",
+    "min": "分鐘",
+    "Ca2": "鈣離子",
+    "Mg2+": "鎂離子",
+    "Mg²⁺": "鎂離子",
+    "pI": "等電點",
+    "H₂O": "水",
+    "CO₂": "二氧化碳",
+    "O₂": "氧氣",
+    "CO": "心輸出量",
+    "DNA": "去氧核糖核酸",
+    "RNA": "核糖核酸",
+    "NADPH": "還原型菸醯胺腺嘌呤二核苷酸磷酸",
+    "no-primary control": "不加一級抗體的對照",
+    "primary antibody": "一級抗體",
+    "secondary antibody": "二級抗體",
+    "secondary background": "二級抗體背景",
+    "GPCR signaling": "鳥嘌呤核苷酸結合蛋白偶聯受體訊號",
+    "E1/E2/E3": "泛素活化酶／泛素接合酶／泛素連接酶",
+    "Ca²⁺-ATPase": "鈣離子幫浦",
+    "Na⁺/K⁺-ATPase": "鈉鉀幫浦",
+    "Na⁺/K⁺ ATPase": "鈉鉀幫浦",
+    "Na+/K+-ATPase": "鈉鉀幫浦",
+    "de novo": "從頭合成",
+    "same": "相同",
+    "Annexin": "膜聯蛋白",
+    "throughout": "全程",
+    "conductivity": "傳導係數",
+    "larger": "較大",
+    "WST8": "水溶性四唑鹽八號",
+    "dehydrogenase": "脫氫酶",
+    "metabolic activity": "代謝活性",
+    "metabolic": "代謝的",
+    "cancer cell line": "癌細胞株",
+    "gastric cancer": "胃癌",
+    "hydrogen peroxide": "過氧化氫",
+    "cell viability": "細胞存活指標",
+    "time course": "時間序列",
+    "oxygen affinity": "氧親和力",
+    "mass action": "質量作用",
+    "rate law": "速率式"
+  },
+  "terms": [
+    {
+      "en": "CCK-8",
+      "zh": "細胞計數試劑八號",
+      "meaning": "利用代謝還原反應產生顏色，間接估計活細胞相關活性；不是直接計數。"
+    },
+    {
+      "en": "Pimozide",
+      "zh": "匹莫齊特",
+      "meaning": "本專題使用的研究藥物；你的細胞結果需要另外驗證其作用途徑。"
+    },
+    {
+      "en": "5-FU",
+      "zh": "五氟尿嘧啶",
+      "meaning": "抗代謝藥物；其代謝物可干擾胸苷酸合成與核酸功能。"
+    },
+    {
+      "en": "AGS",
+      "zh": "人類胃腺癌細胞株",
+      "meaning": "一種胃癌實驗模型；單一細胞株不能代表所有病人的腫瘤。"
+    },
+    {
+      "en": "Fluo-4",
+      "zh": "第四型鈣離子螢光探針",
+      "meaning": "與游離鈣結合後更亮，通常觀察胞內鈣相關變化。"
+    },
+    {
+      "en": "MitoSOX",
+      "zh": "粒線體超氧陰離子探針",
+      "meaning": "追蹤粒線體氧化相關螢光；需留意探針累積與非特異氧化。"
+    },
+    {
+      "en": "MitoTracker Deep Red",
+      "zh": "粒線體深紅追蹤探針",
+      "meaning": "幫助標記粒線體；亮度受膜電位、含量和染色條件共同影響。"
+    },
+    {
+      "en": "NAO",
+      "zh": "壬基吖啶橙",
+      "meaning": "與心磷脂結合相關的染劑；變亮不能單獨證明粒線體變多。"
+    },
+    {
+      "en": "NAC",
+      "zh": "乙醯半胱胺酸",
+      "meaning": "可影響細胞抗氧化與還原環境；本身有多種作用，回復結果需對照驗證。"
+    },
+    {
+      "en": "ROS",
+      "zh": "活性氧物種",
+      "meaning": "一群反應性較高的含氧分子，少量可參與訊號，過量可能造成損傷。"
+    },
+    {
+      "en": "oxidative stress",
+      "zh": "氧化壓力",
+      "meaning": "氧化作用超過抗氧化調節能力，可能破壞蛋白、脂質或核酸。"
+    },
+    {
+      "en": "mitochondria",
+      "zh": "粒線體",
+      "meaning": "參與能量轉換、代謝與細胞命運的胞器，具有內外兩層膜。"
+    },
+    {
+      "en": "membrane potential",
+      "zh": "膜電位",
+      "meaning": "膜兩側的電位差，像跨膜的電壓；離子分布與通道影響它。"
+    },
+    {
+      "en": "cardiolipin",
+      "zh": "心磷脂",
+      "meaning": "粒線體內膜的重要磷脂，與膜結構及呼吸鏈功能有關。"
+    },
+    {
+      "en": "apoptosis",
+      "zh": "細胞凋亡",
+      "meaning": "有調控的細胞死亡途徑，常出現細胞縮小與蛋白酶連鎖活化。"
+    },
+    {
+      "en": "necrosis",
+      "zh": "壞死",
+      "meaning": "常伴細胞膜破裂與內容物外漏的死亡表現；部分壞死也可受調控。"
+    },
+    {
+      "en": "autophagy",
+      "zh": "自噬",
+      "meaning": "細胞把物質包起來送去溶體分解並回收，不一定代表細胞死亡。"
+    },
+    {
+      "en": "autophagic flux",
+      "zh": "自噬通量",
+      "meaning": "整段自噬流程完成回收的速度，不是某一時點有幾個囊泡。"
+    },
+    {
+      "en": "mitophagy",
+      "zh": "粒線體自噬",
+      "meaning": "以自噬方式選擇性清除粒線體，參與胞器品質維護。"
+    },
+    {
+      "en": "lysosome",
+      "zh": "溶體",
+      "meaning": "具有酸性環境及分解酶的胞器，負責消化與回收。"
+    },
+    {
+      "en": "BAX",
+      "zh": "促凋亡蛋白巴克斯",
+      "meaning": "可與相關蛋白一起讓粒線體外膜通透化，促進內源性凋亡。"
+    },
+    {
+      "en": "BAK",
+      "zh": "促凋亡蛋白巴克",
+      "meaning": "與巴克斯同屬促外膜通透化的蛋白，需區分活化與總表現量。"
+    },
+    {
+      "en": "caspase",
+      "zh": "半胱天冬酶",
+      "meaning": "可以切割蛋白的酵素家族，其中部分負責啟動或執行凋亡。"
+    },
+    {
+      "en": "cytochrome c",
+      "zh": "細胞色素丙",
+      "meaning": "正常協助電子傳遞；釋出到細胞質後可參與凋亡小體組裝。"
+    },
+    {
+      "en": "Annexin V",
+      "zh": "膜聯蛋白五",
+      "meaning": "可結合外露的磷脂醯絲胺酸，常搭配膜完整性染劑判讀凋亡。"
+    },
+    {
+      "en": "PI",
+      "zh": "碘化丙啶",
+      "meaning": "完整細胞膜通常阻擋此染劑；進入細胞後可與核酸結合。"
+    },
+    {
+      "en": "flow cytometry",
+      "zh": "流式細胞分析",
+      "meaning": "讓細胞逐一通過偵測區，量散射及螢光，分析不同細胞族群。"
+    },
+    {
+      "en": "gating",
+      "zh": "圈選分析",
+      "meaning": "依訊號條件逐步挑選要比較的細胞，像先排除碎屑再看單細胞。"
+    },
+    {
+      "en": "FSC",
+      "zh": "前向散射光",
+      "meaning": "常與細胞大小相關，也受形狀與折射率影響。"
+    },
+    {
+      "en": "SSC",
+      "zh": "側向散射光",
+      "meaning": "常與細胞內部複雜度或顆粒度相關。"
+    },
+    {
+      "en": "compensation",
+      "zh": "螢光補償",
+      "meaning": "修正一種染劑訊號進入另一偵測通道造成的混合。"
+    },
+    {
+      "en": "FMO",
+      "zh": "缺一色螢光對照",
+      "meaning": "多色染色中只缺少某一染劑，用來協助設定該色的陽性邊界。"
+    },
+    {
+      "en": "vehicle control",
+      "zh": "溶劑對照",
+      "meaning": "含相同終濃度溶劑但沒有目標藥物，排除溶劑造成的變化。"
+    },
+    {
+      "en": "positive control",
+      "zh": "陽性對照",
+      "meaning": "已知應出現目標訊號的組別，確認方法能偵測得到。"
+    },
+    {
+      "en": "negative control",
+      "zh": "陰性對照",
+      "meaning": "預期不出現特定反應的組別，幫助判定背景或非特異訊號。"
+    },
+    {
+      "en": "biological replicate",
+      "zh": "生物重複",
+      "meaning": "來自獨立實驗單位的重複，用來估計生物或批次間變異。"
+    },
+    {
+      "en": "technical replicate",
+      "zh": "技術重複",
+      "meaning": "同一樣品重複量測，主要反映量測與操作誤差。"
+    },
+    {
+      "en": "SD",
+      "zh": "標準差",
+      "meaning": "描述一組觀察值本身有多分散。"
+    },
+    {
+      "en": "SEM",
+      "zh": "平均值的標準誤",
+      "meaning": "描述樣本平均值估計母群平均的不確定性；也可能在儀器題中代表掃描式電子顯微鏡。"
+    },
+    {
+      "en": "p-value",
+      "zh": "顯著性機率",
+      "meaning": "在虛無假設與模型假設下，觀察到目前或更極端結果的機率。"
+    },
+    {
+      "en": "confidence interval",
+      "zh": "信賴區間",
+      "meaning": "依指定抽樣方法建立的估計範圍，用來呈現參數估計的不確定性。"
+    },
+    {
+      "en": "normalization",
+      "zh": "正規化",
+      "meaning": "把結果相對於合理基準調整，減少不希望比較的差異。"
+    },
+    {
+      "en": "synergy",
+      "zh": "協同作用",
+      "meaning": "合併效應超過所選相加參考模型的預期，需要模型與劑量資料。"
+    },
+    {
+      "en": "correlation",
+      "zh": "相關性",
+      "meaning": "兩個量一起變動，但不保證其中一個造成另一個。"
+    },
+    {
+      "en": "causality",
+      "zh": "因果關係",
+      "meaning": "改變某因素會造成結果改變，需結合介入、時間順序與替代解釋。"
+    },
+    {
+      "en": "rescue experiment",
+      "zh": "回復實驗",
+      "meaning": "阻斷或補回候選因子，觀察原本變化能否恢復，以測試機制。"
+    },
+    {
+      "en": "IC50",
+      "zh": "半最大抑制濃度",
+      "meaning": "在指定時間與分析條件下，使定義的反應降低一半的濃度。"
+    },
+    {
+      "en": "transcription",
+      "zh": "轉錄",
+      "meaning": "以核酸模板產生核糖核酸的過程。"
+    },
+    {
+      "en": "translation",
+      "zh": "轉譯",
+      "meaning": "核糖體讀取信使核糖核酸，合成胺基酸鏈的過程。"
+    },
+    {
+      "en": "promoter",
+      "zh": "啟動子",
+      "meaning": "協助轉錄起始複合體定位的核酸區域。"
+    },
+    {
+      "en": "enhancer",
+      "zh": "增強子",
+      "meaning": "可透過轉錄因子與染色質接觸調節轉錄的序列。"
+    },
+    {
+      "en": "splicing",
+      "zh": "剪接",
+      "meaning": "移除內含子並連接外顯子，形成成熟訊息的加工步驟。"
+    },
+    {
+      "en": "PCR",
+      "zh": "聚合酶連鎖反應",
+      "meaning": "用重複溫度循環讓特定核酸片段大量增加。"
+    },
+    {
+      "en": "qPCR",
+      "zh": "即時定量聚合酶連鎖反應",
+      "meaning": "逐循環量螢光，利用擴增曲線估計起始模板量。"
+    },
+    {
+      "en": "RT-qPCR",
+      "zh": "反轉錄即時定量核酸擴增",
+      "meaning": "先把核糖核酸轉成互補核酸，再進行定量擴增。"
+    },
+    {
+      "en": "Ct",
+      "zh": "閾值循環數",
+      "meaning": "螢光首次超過設定門檻的循環位置；條件相同時越低通常起始模板越多。"
+    },
+    {
+      "en": "primer",
+      "zh": "引子",
+      "meaning": "提供聚合酶開始延長的位置，並界定要擴增的序列。"
+    },
+    {
+      "en": "Western blot",
+      "zh": "西方墨點法",
+      "meaning": "先分離蛋白再用抗體偵測，提供目標蛋白大小與相對含量線索。"
+    },
+    {
+      "en": "loading control",
+      "zh": "上樣內參",
+      "meaning": "用於校正上樣差異的基準，必須確認在比較條件中穩定。"
+    },
+    {
+      "en": "knockdown",
+      "zh": "基因敲低",
+      "meaning": "降低目標的轉錄產物或蛋白量，通常不是完全移除基因。"
+    },
+    {
+      "en": "knockout",
+      "zh": "基因剔除",
+      "meaning": "以基因組操作破壞目標功能，仍需驗證是否真的失去功能。"
+    },
+    {
+      "en": "ATP",
+      "zh": "三磷酸腺苷",
+      "meaning": "常用於能量耦合的分子，可把供能反應連接到需要能量的反應。"
+    },
+    {
+      "en": "NADH",
+      "zh": "還原型菸醯胺腺嘌呤二核苷酸",
+      "meaning": "攜帶高能電子的輔酶，可將電子交給呼吸鏈。"
+    },
+    {
+      "en": "Km",
+      "zh": "米氏常數",
+      "meaning": "在米氏模型中反應初速達最大值一半時的受質濃度。"
+    },
+    {
+      "en": "Vmax",
+      "zh": "最大反應速率",
+      "meaning": "固定酵素量下，受質充分時可接近的最大初速。"
+    },
+    {
+      "en": "competitive inhibition",
+      "zh": "競爭性抑制",
+      "meaning": "抑制劑與受質競爭結合游離酵素；理想模型中可被高受質濃度克服。"
+    },
+    {
+      "en": "oxidative phosphorylation",
+      "zh": "氧化磷酸化",
+      "meaning": "用電子傳遞建立跨膜質子差，再帶動三磷酸腺苷合成。"
+    },
+    {
+      "en": "electron transport chain",
+      "zh": "電子傳遞鏈",
+      "meaning": "把電子逐步傳向氧的蛋白與載體系統，其中部分步驟可驅動質子運輸。"
+    },
+    {
+      "en": "proton gradient",
+      "zh": "質子梯度",
+      "meaning": "膜兩邊質子的濃度差；與電位差一起構成質子動力勢。"
+    },
+    {
+      "en": "homeostasis",
+      "zh": "體內恆定",
+      "meaning": "透過持續調節把內在變數維持在可運作範圍，並非永遠完全不變。"
+    },
+    {
+      "en": "action potential",
+      "zh": "動作電位",
+      "meaning": "可沿可興奮細胞膜傳播的快速電位變化。"
+    },
+    {
+      "en": "depolarization",
+      "zh": "去極化",
+      "meaning": "膜內相對膜外變得較不負；不一定已達正值。"
+    },
+    {
+      "en": "repolarization",
+      "zh": "再極化",
+      "meaning": "膜電位從去極化狀態回到較負的方向。"
+    },
+    {
+      "en": "refractory period",
+      "zh": "不反應期",
+      "meaning": "一次放電後暫時不能再放電，或需要較強刺激的時間。"
+    },
+    {
+      "en": "RAAS",
+      "zh": "腎素－血管張力素－醛固酮系統",
+      "meaning": "在低灌流等情況下，透過血管收縮和保鈉保水幫助維持循環。"
+    },
+    {
+      "en": "ADH",
+      "zh": "抗利尿激素",
+      "meaning": "增加集尿管水通透性，協助身體保留水。"
+    },
+    {
+      "en": "GFR",
+      "zh": "腎絲球過濾率",
+      "meaning": "單位時間由腎絲球過濾進入腎小管的液體體積。"
+    },
+    {
+      "en": "cardiac output",
+      "zh": "心輸出量",
+      "meaning": "每分鐘心室泵出的血量，等於心率乘每次搏出量。"
+    },
+    {
+      "en": "preload",
+      "zh": "前負荷",
+      "meaning": "心室收縮前肌纖維受到的伸展程度，常用舒張末期充盈指標近似。"
+    },
+    {
+      "en": "afterload",
+      "zh": "後負荷",
+      "meaning": "心室射血時必須克服的負荷，不能只用一個壓力概括所有情況。"
+    },
+    {
+      "en": "chemical potential",
+      "zh": "化學勢",
+      "meaning": "在指定條件下，增加少量某成分對自由能的影響，決定物質轉移趨勢。"
+    },
+    {
+      "en": "fugacity",
+      "zh": "逸度",
+      "meaning": "以類似壓力的量修正真實氣體偏離理想氣體的行為。"
+    },
+    {
+      "en": "activity coefficient",
+      "zh": "活度係數",
+      "meaning": "描述混合物偏離理想狀態的修正因子，需搭配標準態使用。"
+    },
+    {
+      "en": "enthalpy",
+      "zh": "焓",
+      "meaning": "內能加壓力乘體積，常用於流動系統能量衡算。"
+    },
+    {
+      "en": "entropy",
+      "zh": "熵",
+      "meaning": "與能量分散及可用微觀狀態有關，也是判斷不可逆方向的重要量。"
+    },
+    {
+      "en": "Gibbs free energy",
+      "zh": "吉布斯自由能",
+      "meaning": "定溫定壓及適當功條件下，用來判斷自發方向和平衡的熱力學量。"
+    },
+    {
+      "en": "CSTR",
+      "zh": "連續攪拌槽反應器",
+      "meaning": "理想模型中完全混合，所以槽內濃度等於出口濃度。"
+    },
+    {
+      "en": "PFR",
+      "zh": "塞流反應器",
+      "meaning": "理想模型中物料沿流向前進，濃度可沿長度變化且無軸向混合。"
+    },
+    {
+      "en": "conversion",
+      "zh": "轉化率",
+      "meaning": "投入的某反應物中，已被反應消耗的比例。"
+    },
+    {
+      "en": "selectivity",
+      "zh": "選擇性",
+      "meaning": "在多條反應途徑中，生成目標產物相對於其他產物的程度。"
+    },
+    {
+      "en": "activation energy",
+      "zh": "活化能",
+      "meaning": "描述速率常數對溫度敏感程度的參數，與反應能障相關。"
+    },
+    {
+      "en": "residence time",
+      "zh": "停留時間",
+      "meaning": "流體在設備內停留的時間；實際系統可能有一整個時間分布。"
+    },
+    {
+      "en": "Reynolds number",
+      "zh": "雷諾數",
+      "meaning": "比較流動中慣性與黏性影響的無因次數。"
+    },
+    {
+      "en": "Biot number",
+      "zh": "畢歐數",
+      "meaning": "比較物體內部傳導與表面對流熱阻的無因次數。"
+    },
+    {
+      "en": "mass-transfer coefficient",
+      "zh": "質傳係數",
+      "meaning": "把物質通量連接到兩處濃度差的工程係數，受流動與幾何影響。"
+    },
+    {
+      "en": "diffusion",
+      "zh": "擴散",
+      "meaning": "分子隨機運動在濃度或化學勢差下形成淨傳遞。"
+    },
+    {
+      "en": "reflux ratio",
+      "zh": "回流比",
+      "meaning": "回流入塔的液體流率相對於餾出液流率的比值。"
+    },
+    {
+      "en": "flooding",
+      "zh": "液泛",
+      "meaning": "塔內氣流阻礙液體向下，造成液體滯留與壓降急增。"
+    },
+    {
+      "en": "concentration polarization",
+      "zh": "濃差極化",
+      "meaning": "膜附近的溶質濃度偏離主流體，降低有效分離驅動力。"
+    },
+    {
+      "en": "PID",
+      "zh": "比例積分微分控制",
+      "meaning": "分別使用現在誤差、累積誤差及變化趨勢來調整系統。"
+    },
+    {
+      "en": "negative feedback",
+      "zh": "負回授",
+      "meaning": "把量到的偏差回送控制端，採取抵消偏差的動作。"
+    },
+    {
+      "en": "dead time",
+      "zh": "純延遲",
+      "meaning": "輸入改變後，輸出要等待一段時間才開始出現反應。"
+    },
+    {
+      "en": "transfer function",
+      "zh": "轉移函數",
+      "meaning": "線性時不變系統在零初始條件下，轉換後輸出與輸入的比。"
+    },
+    {
+      "en": "overshoot",
+      "zh": "超越量",
+      "meaning": "暫態反應曾超過最後目標值的程度。"
+    },
+    {
+      "en": "Laplace transform",
+      "zh": "拉普拉斯轉換",
+      "meaning": "把時間域函數與微分方程轉成較易代數處理的形式。"
+    },
+    {
+      "en": "boundary condition",
+      "zh": "邊界條件",
+      "meaning": "指定空間邊緣的值或通量，幫助決定方程的解。"
+    },
+    {
+      "en": "eigenvalue",
+      "zh": "特徵值",
+      "meaning": "描述特定方向受線性變換縮放的量；動態模型中可反映成長或衰減。"
+    },
+    {
+      "en": "HPLC",
+      "zh": "高效液相層析",
+      "meaning": "利用樣品與固定相、液體移動相作用不同來分離成分。"
+    },
+    {
+      "en": "XRD",
+      "zh": "Ｘ光繞射",
+      "meaning": "利用晶體對Ｘ光的干涉圖樣推測晶相、晶面間距與結構資訊。"
+    },
+    {
+      "en": "DLS",
+      "zh": "動態光散射",
+      "meaning": "由布朗運動造成的散射強度波動估計流體動力學粒徑。"
+    },
+    {
+      "en": "FTIR",
+      "zh": "傅立葉轉換紅外光譜",
+      "meaning": "利用分子振動吸收，提供官能基與化學環境線索。"
+    },
+    {
+      "en": "dehydrogenase",
+      "zh": "脫氫酶",
+      "meaning": "幫助把電子與氫從底物移走的酵素，常參與代謝中的氧化還原反應。"
+    },
+    {
+      "en": "WST-8",
+      "zh": "水溶性四唑鹽八號",
+      "meaning": "細胞活性試劑中的顯色受質，被還原後形成可量吸光的甲臢產物。"
+    },
+    {
+      "en": "metabolic activity",
+      "zh": "代謝活性",
+      "meaning": "細胞進行化學反應的活躍程度；同樣細胞數不一定有相同代謝活性。"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "cck",
+      "title": "細胞活性試劑：從代謝到吸光值",
+      "keys": [
+        "CCK-8",
+        "WST-8"
+      ],
+      "scope": "project experiment methods",
+      "steps": [
+        {
+          "title": "活細胞提供還原力",
+          "detail": "細胞的脫氫酶系統與電子傳遞媒介，使水溶性四唑鹽被還原；起點是代謝相關還原能力。"
+        },
+        {
+          "title": "生成水溶性色素",
+          "detail": "還原後形成橘色甲臢產物。相同條件與適當線性範圍內，產物量可反映活細胞相關的代謝活性。"
+        },
+        {
+          "title": "量吸光並扣背景",
+          "detail": "量測約四百五十奈米吸光值，設培養液空白、溶劑對照，並檢查藥物本身是否有顏色或還原干擾。"
+        },
+        {
+          "title": "計算相對活性",
+          "detail": "處理組扣空白後的吸光值，除以溶劑對照扣空白後的吸光值，再乘百分之百。"
+        },
+        {
+          "title": "用另一方法確認",
+          "detail": "下降可能來自細胞減少、增殖變慢或每個細胞代謝變弱；用細胞計數、增殖或凋亡測定區分。"
+        }
+      ],
+      "limit": "吸光值下降本身不能證明細胞凋亡，也不能單獨證明藥物協同作用。",
+      "check": "為什麼同樣細胞數仍可能出現不同吸光值？",
+      "source": {
+        "label": "原廠細胞活性試劑說明",
+        "url": "https://www.dojindo.com/manual/CK04/"
+      }
+    },
+    {
+      "id": "calcium-probe",
+      "title": "胞內鈣離子：探針如何變亮",
+      "keys": [
+        "Fluo-4",
+        "胞內鈣",
+        "intracellular Ca"
+      ],
+      "scope": "project experiment",
+      "steps": [
+        {
+          "title": "探針進入細胞",
+          "detail": "可穿膜形式進入細胞後，酯酶切除保護基，使具有鈣離子反應性的探針留在細胞內。"
+        },
+        {
+          "title": "鈣離子結合探針",
+          "detail": "游離鈣離子與探針結合後，螢光增強。它是單波長探針，亮度也受負載量與細胞狀態影響。"
+        },
+        {
+          "title": "固定量測條件",
+          "detail": "各組維持相同負載、溫度、等待時間與儀器設定，並排除死細胞與染色背景。"
+        },
+        {
+          "title": "判讀胞內鈣訊號",
+          "detail": "可比較胞內游離鈣相關訊號；未做定位或校正時，不能直接報粒線體鈣濃度或絕對濃度。"
+        }
+      ],
+      "limit": "不能只憑全細胞螢光把鈣離子的來源定位到粒線體。",
+      "check": "如何區分鈣訊號增加與探針負載量增加？",
+      "source": {
+        "label": "原廠鈣離子探針說明",
+        "url": "https://www.thermofisher.com/us/en/home/industrial/pharma-biopharma/drug-discovery-development/target-and-lead-identification-and-validation/g-protein-coupled/cell-based-second-messenger-assays/fluo-4-am-fluo-4-nw-calcium-indicators.html"
+      }
+    },
+    {
+      "id": "mito-probe",
+      "title": "粒線體染劑：亮度不等於單一功能",
+      "keys": [
+        "MitoSOX",
+        "MitoTracker",
+        "NAO",
+        "TMRE",
+        "TMRM",
+        "JC-1",
+        "粒線體數量",
+        "mitochondrial mass"
+      ],
+      "scope": "project experiment cellbio",
+      "steps": [
+        {
+          "title": "先分清探針用途",
+          "detail": "超氧陰離子探針追蹤氧化相關訊號；深紅追蹤染劑常用於標記粒線體；壬基吖啶橙與心磷脂相關。三者不能互相代替。"
+        },
+        {
+          "title": "分辨訊號的來源",
+          "detail": "探針進入與累積、膜電位、粒線體含量及細胞狀態，都可能影響亮度；讀值是多個因素的總結果。"
+        },
+        {
+          "title": "檢查染色與圈選",
+          "detail": "保持染色條件一致，使用未染色與適當陽性對照，排除碎屑、雙聯體及死細胞。"
+        },
+        {
+          "title": "用獨立指標拆解",
+          "detail": "若要談膜電位，搭配膜電位染劑與去極化對照；若要談總量，搭配粒線體蛋白、核酸拷貝數或影像定量。"
+        }
+      ],
+      "limit": "深紅訊號變強不能直接等同膜電位上升；超氧探針的總紅光也不是所有活性氧的絕對濃度。",
+      "check": "如果染劑變亮，但粒線體蛋白量不變，還有哪些可能？",
+      "source": {
+        "label": "原廠粒線體探針手冊",
+        "url": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/mp07510.pdf"
+      }
+    },
+    {
+      "id": "causality",
+      "title": "把研究相關性推進到因果證據",
+      "keys": [
+        "因果",
+        "causality",
+        "rescue",
+        "NAC",
+        "MitoTEMPO",
+        "through",
+        "mechanistic",
+        "證據",
+        "證明"
+      ],
+      "scope": "project experiment",
+      "steps": [
+        {
+          "title": "描述已觀察結果",
+          "detail": "把實際量到的活性、鈣離子、氧化訊號與藥物反應分開描述；先確認重複性及測量限制。"
+        },
+        {
+          "title": "確認先後順序",
+          "detail": "以時間序列檢查候選機制是否先於下游變化，避免把大量細胞死亡後的現象當成起因。"
+        },
+        {
+          "title": "介入候選機制",
+          "detail": "用抑制、清除或基因操作降低候選因子；先確認介入有作用，而且不是介入本身造成毒性。"
+        },
+        {
+          "title": "觀察下游能否回復",
+          "detail": "若候選因子被降低後，藥物敏感性或存活指標也部分回復，才增加其中介角色的支持。"
+        },
+        {
+          "title": "排除替代解釋",
+          "detail": "使用不同原理的第二種介入並設單獨用藥、溶劑及介入對照；結果不一致時重新檢查假說。"
+        }
+      ],
+      "limit": "這張圖是因果驗證的實驗流程，不表示匹莫齊特在你的細胞中已被證明透過此機制作用。",
+      "check": "氧化訊號下降卻沒有恢復存活，能推翻所有氧化壓力作用嗎？",
+      "source": null
+    },
+    {
+      "id": "synergy",
+      "title": "合併用藥：如何判斷相加或協同",
+      "keys": [
+        "synergy",
+        "synerg",
+        "Bliss",
+        "Loewe",
+        "合併",
+        "combination"
+      ],
+      "scope": "project experiment",
+      "steps": [
+        {
+          "title": "量兩藥單獨反應",
+          "detail": "在相同細胞與時間條件下，取得各藥的濃度反應曲線與不確定性。"
+        },
+        {
+          "title": "建立合併劑量矩陣",
+          "detail": "讓兩種藥都包含多個濃度，並保留單藥、未處理及溶劑對照，避免只看一個組合。"
+        },
+        {
+          "title": "設定相加參考模型",
+          "detail": "依問題選擇布利斯獨立作用或洛威相加等模型；模型定義不同，不能任選最有利的結果。"
+        },
+        {
+          "title": "比較觀察與預期",
+          "detail": "比較實際合併效應與模型預期效應，呈現重複實驗及信賴區間，再判斷是否支持協同。"
+        }
+      ],
+      "limit": "合併組比任一單藥更低，只能先說抑制較強，不能直接稱為協同或機制證據。",
+      "check": "為什麼合併組效果最強，仍可能只是相加？",
+      "source": null
+    },
+    {
+      "id": "flow",
+      "title": "流式分析：從事件到可信的細胞族群",
+      "keys": [
+        "flow cytometry",
+        "gating",
+        "FSC",
+        "SSC",
+        "FMO",
+        "compensation",
+        "流式",
+        "doublet"
+      ],
+      "scope": "cellbio experiment project",
+      "steps": [
+        {
+          "title": "先看細胞與碎屑",
+          "detail": "以前向及側向散射觀察大小與內部複雜度的相關分布，設定合理細胞範圍。散射不是精確細胞大小量尺。"
+        },
+        {
+          "title": "排除雙聯體與死細胞",
+          "detail": "利用脈衝面積、高度或寬度分開單細胞；用合適活死染劑排除膜受損細胞。"
+        },
+        {
+          "title": "處理背景與光譜溢漏",
+          "detail": "未染色組看自體螢光；單色組估計螢光補償；缺一色組協助多色面板的陽性邊界。"
+        },
+        {
+          "title": "固定規則比較組別",
+          "detail": "事先設定並一致套用圈選邏輯，報告百分比或螢光統計量，同時檢查分布形狀與細胞數。"
+        }
+      ],
+      "limit": "補償修正光譜溢漏，不能消除所有染色展寬；同型對照也不能取代缺一色對照。",
+      "check": "右移是每個細胞都變亮，還是出現新的高訊號族群？",
+      "source": null
+    },
+    {
+      "id": "apoptosis",
+      "title": "內源性凋亡：由粒線體啟動的連鎖反應",
+      "keys": [
+        "apoptosis",
+        "apoptosome",
+        "BAX",
+        "BAK",
+        "caspase",
+        "細胞凋亡"
+      ],
+      "scope": "cellbio biochem project experiment",
+      "steps": [
+        {
+          "title": "細胞感受損傷壓力",
+          "detail": "核酸損傷或其他壓力會改變促凋亡與抗凋亡蛋白間的平衡；不是所有壓力都必然造成凋亡。"
+        },
+        {
+          "title": "粒線體外膜通透化",
+          "detail": "促凋亡孔洞形成蛋白寡聚化，使細胞色素丙等蛋白從粒線體膜間腔釋放到細胞質。"
+        },
+        {
+          "title": "組裝凋亡小體",
+          "detail": "細胞色素丙結合凋亡蛋白酶活化因子，在核苷酸參與下形成凋亡小體並活化第九型半胱天冬酶。"
+        },
+        {
+          "title": "啟動執行者酵素",
+          "detail": "第九型半胱天冬酶活化第三與第七型執行者，切割蛋白與調節核酸分解，產生典型凋亡變化。"
+        },
+        {
+          "title": "用多個層級確認",
+          "detail": "結合膜聯蛋白染色、膜完整性、半胱天冬酶活性或裂解蛋白及形態，避免只依單一讀值。"
+        }
+      ],
+      "limit": "外源性死亡受體途徑通常由第八型半胱天冬酶起始，之後可與粒線體途徑交互作用。",
+      "check": "第八與第九型半胱天冬酶分別在哪條路徑啟動？",
+      "source": null
+    },
+    {
+      "id": "autophagy",
+      "title": "自噬：形成囊泡到完成回收",
+      "keys": [
+        "autophagy",
+        "autophag",
+        "mitophagy",
+        "LC3",
+        "p62",
+        "自噬"
+      ],
+      "scope": "cellbio biochem project",
+      "steps": [
+        {
+          "title": "隔離待回收物",
+          "detail": "隔離膜包覆受損蛋白或胞器，逐漸延伸；粒線體自噬是選擇性處理粒線體的一種情形。"
+        },
+        {
+          "title": "形成雙膜自噬體",
+          "detail": "膜封閉後形成自噬體，將貨物與細胞質隔離。自噬標誌累積只代表某一時點的量。"
+        },
+        {
+          "title": "與溶體融合",
+          "detail": "自噬體與含酸性水解酶的溶體融合，形成自噬溶體，進行分解。"
+        },
+        {
+          "title": "分解並回收成分",
+          "detail": "小分子產物再供細胞利用。比較有無溶體阻斷的條件，才能更接近判斷通量是否真的增加。"
+        }
+      ],
+      "limit": "自噬體變多可能是形成加快，也可能是降解堵塞；自噬不一定代表細胞死亡。",
+      "check": "如何區分自噬變活躍和回收出口被堵住？",
+      "source": null
+    },
+    {
+      "id": "pcr",
+      "title": "核酸擴增：三個溫度步驟如何重複",
+      "keys": [
+        "PCR",
+        "primer",
+        "polymerase chain"
+      ],
+      "scope": "molbio experiment methods",
+      "steps": [
+        {
+          "title": "準備模板與引子",
+          "detail": "模板提供待複製序列，成對引子界定片段；聚合酶需要引子的三端羥基才能延長。"
+        },
+        {
+          "title": "高溫分開雙股",
+          "detail": "變性步驟讓雙股核酸分開，成為可被複製的單股模板。"
+        },
+        {
+          "title": "降溫讓引子黏合",
+          "detail": "合適的黏合溫度有助引子與目標序列結合；過低容易出現非特異擴增。"
+        },
+        {
+          "title": "聚合酶延長新股",
+          "detail": "聚合酶沿模板將新股由五端往三端延伸，接著重複循環以增加目標片段。"
+        },
+        {
+          "title": "確認產物可信",
+          "detail": "檢查無模板陰性對照與陽性對照；一般反應看終點產物，定量反應則在循環中追蹤螢光。"
+        }
+      ],
+      "limit": "理想早期每循環近似加倍，實際效率會受樣品品質、抑制物與引子設計影響。",
+      "check": "沒有產物時，如何用陽性對照分辨試劑故障與模板問題？",
+      "source": null
+    },
+    {
+      "id": "qpcr",
+      "title": "相對基因表現：從循環數到倍數",
+      "keys": [
+        "qPCR",
+        "ΔΔCt",
+        "Ct/Cq",
+        "normalization",
+        "housekeeping"
+      ],
+      "scope": "molbio experiment",
+      "steps": [
+        {
+          "title": "先確認量測對象",
+          "detail": "要量信使核糖核酸時，先反轉錄成互補核酸再擴增；較早超過螢光閾值通常表示起始模板較多。"
+        },
+        {
+          "title": "扣除穩定內參",
+          "detail": "每個樣品以目標基因循環數減內參循環數，減少樣品量及部分技術差異。內參需先確認不受處理影響。"
+        },
+        {
+          "title": "再與對照組比較",
+          "detail": "處理組的差值再減對照組差值，得到雙重差值；同樣門檻與分析規則才能比較。"
+        },
+        {
+          "title": "換成相對倍數",
+          "detail": "目標與內參效率相近且接近每循環加倍時，以二的負雙重差值次方估算倍數；否則採效率校正。"
+        },
+        {
+          "title": "檢查專一性與重複",
+          "detail": "確認熔解曲線或產物專一性，設無模板與無反轉錄對照，報告獨立生物重複。"
+        }
+      ],
+      "limit": "轉錄量改變不等於蛋白量或功能一定同方向改變；蛋白合成與降解也需考慮。",
+      "check": "內參被藥物改變時，正規化結果為什麼可能反而錯？",
+      "source": {
+        "label": "定量核酸擴增應用指南",
+        "url": "https://www.bio-rad.com/sites/default/files/webroot/web/pdf/lsr/literature/Bulletin_5279.pdf"
+      }
+    },
+    {
+      "id": "wb",
+      "title": "西方墨點法：由蛋白到條帶定量",
+      "keys": [
+        "Western blot",
+        "WB",
+        "loading control",
+        "actin",
+        "西方墨點"
+      ],
+      "scope": "experiment molbio project methods",
+      "steps": [
+        {
+          "title": "裂解並定量蛋白",
+          "detail": "選擇適合的裂解與抑制條件，量總蛋白後盡量等量上樣，減少組間起始差異。"
+        },
+        {
+          "title": "電泳分離再轉膜",
+          "detail": "蛋白依電泳條件分開後轉移到膜上；確認轉膜是否均一、是否有明顯遺失。"
+        },
+        {
+          "title": "封閉與抗體辨認",
+          "detail": "封閉降低非特異吸附，一級抗體辨認目標，搭配標記抗體系統產生可偵測訊號。"
+        },
+        {
+          "title": "在線性範圍定量",
+          "detail": "扣背景、避免曝光飽和，以經驗證穩定的內參或總蛋白正規化，再比較獨立實驗。"
+        }
+      ],
+      "limit": "管家蛋白可能受處理影響；條帶變弱也可能來自上樣或轉膜問題。磷酸化應先相對總目標蛋白判讀。",
+      "check": "為什麼內參本身變動會使結論不可靠？",
+      "source": null
+    },
+    {
+      "id": "gene-expression",
+      "title": "基因表現：核酸如何變成功能蛋白",
+      "keys": [
+        "transcription",
+        "translation",
+        "mRNA",
+        "splicing",
+        "轉錄",
+        "轉譯",
+        "promoter",
+        "enhancer"
+      ],
+      "scope": "molbio",
+      "steps": [
+        {
+          "title": "調控轉錄起始",
+          "detail": "轉錄因子、啟動子與增強子共同影響聚合酶招募；染色質可接近性也會影響表現。"
+        },
+        {
+          "title": "核內轉錄與加工",
+          "detail": "真核細胞先生成前信使核糖核酸，經加帽、剪接及尾端加工，形成成熟轉錄產物。"
+        },
+        {
+          "title": "輸出並進行轉譯",
+          "detail": "成熟訊息輸出至細胞質，由核糖體依密碼子合成胺基酸鏈；分泌與膜蛋白常在粗糙內質網相關核糖體製造。"
+        },
+        {
+          "title": "摺疊修飾與降解",
+          "detail": "蛋白還需摺疊、定位及修飾，並受到降解速率控制，最後才決定蛋白量與功能。"
+        }
+      ],
+      "limit": "信使核酸與蛋白不同步並不矛盾，可能涉及轉譯效率、半衰期、時間差或測量因素。",
+      "check": "信使核酸不變、蛋白下降，可以怎樣分辨合成變慢與降解加快？",
+      "source": null
+    },
+    {
+      "id": "crispr",
+      "title": "基因操作：改變目標後如何驗證",
+      "keys": [
+        "CRISPR",
+        "knockdown",
+        "knockout",
+        "siRNA",
+        "miRNA",
+        "基因剔除",
+        "基因敲低"
+      ],
+      "scope": "molbio experiment",
+      "steps": [
+        {
+          "title": "選擇操作層級",
+          "detail": "基因敲低通常降低轉錄產物或蛋白量；基因剔除則改變基因組以破壞功能，兩者不等同。"
+        },
+        {
+          "title": "設計定位工具",
+          "detail": "基因編輯利用引導核酸把核酸酶帶到特定位點；小干擾核酸則利用沉默複合體降低目標轉錄產物。"
+        },
+        {
+          "title": "確認真的改變目標",
+          "detail": "編輯後須定序與蛋白驗證；敲低也要量實際下降程度，不能只看是否完成轉染。"
+        },
+        {
+          "title": "連結到功能結果",
+          "detail": "用非靶向對照、不同序列及回補實驗，排除脫靶或操作毒性，再解釋觀察到的表型。"
+        }
+      ],
+      "limit": "切出核酸斷裂不保證得到功能剔除；修復可能保留閱讀框，且單一工具可能有脫靶。",
+      "check": "回補目標蛋白能幫助排除什麼替代解釋？",
+      "source": null
+    },
+    {
+      "id": "oxphos",
+      "title": "氧化磷酸化：電子流如何帶動能量合成",
+      "keys": [
+        "oxidative phosphorylation",
+        "ETC",
+        "electron transport",
+        "proton gradient",
+        "NADH",
+        "FADH",
+        "uncoupler",
+        "oligomycin",
+        "電子傳遞",
+        "氧化磷酸化"
+      ],
+      "scope": "biochem cellbio physiology project",
+      "steps": [
+        {
+          "title": "電子進入內膜呼吸鏈",
+          "detail": "還原型電子載體將電子交給第一或第二複合體，再經輔酶Ｑ及後續載體傳遞。第二複合體本身不泵出質子。"
+        },
+        {
+          "title": "建立跨內膜質子差",
+          "detail": "第一、第三與第四複合體利用電子傳遞釋放的能量，將質子從基質送到膜間腔，形成電位及酸鹼差。"
+        },
+        {
+          "title": "氧氣接收電子",
+          "detail": "氧在第四複合體接受電子並與質子形成水，讓電子流能持續。"
+        },
+        {
+          "title": "質子回流驅動合成",
+          "detail": "質子經合成酶回到基質，促進二磷酸腺苷與無機磷酸形成三磷酸腺苷。"
+        },
+        {
+          "title": "辨別抑制與解偶聯",
+          "detail": "解偶聯增加質子漏流，能量合成效率下降，耗氧常升高；抑制合成酶則增加反壓，使呼吸鏈通常變慢。"
+        }
+      ],
+      "limit": "上述耗氧方向仍取決於受質、氧氣、細胞完整性與毒性程度，不能視為所有條件都固定。",
+      "check": "為什麼有氧氣消耗，卻不一定有效產生三磷酸腺苷？",
+      "source": {
+        "label": "氧化磷酸化開放教材",
+        "url": "https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation"
+      }
+    },
+    {
+      "id": "glycolysis",
+      "title": "能量代謝：葡萄糖到三羧酸循環",
+      "keys": [
+        "glycolysis",
+        "TCA",
+        "pyruvate",
+        "PDH",
+        "Warburg",
+        "糖解",
+        "三羧酸"
+      ],
+      "scope": "biochem",
+      "steps": [
+        {
+          "title": "細胞質進行糖解",
+          "detail": "一個葡萄糖形成兩個丙酮酸，淨得兩個三磷酸腺苷及兩個還原型菸醯胺腺嘌呤二核苷酸。"
+        },
+        {
+          "title": "依條件處理丙酮酸",
+          "detail": "丙酮酸可變成乳酸再生氧化型輔酶，或進入粒線體經脫氫酶複合體變成乙醯輔酶甲。"
+        },
+        {
+          "title": "基質進行循環氧化",
+          "detail": "乙醯基進入三羧酸循環，產生二氧化碳、還原型電子載體及少量核苷三磷酸；第二複合體位於內膜。"
+        },
+        {
+          "title": "連接呼吸鏈與合成",
+          "detail": "還原型載體提供呼吸鏈電子，循環中間物也可供合成代謝，因此通量受能量需求與中間物補充調控。"
+        }
+      ],
+      "limit": "有氧糖解增加不代表粒線體完全沒有功能；循環本身不直接消耗氧，但依賴載體再氧化。",
+      "check": "缺氧時，把丙酮酸轉成乳酸如何幫助糖解持續？",
+      "source": null
+    },
+    {
+      "id": "enzyme",
+      "title": "酵素抑制：先看結合，再看兩個參數",
+      "keys": [
+        "Km",
+        "Vmax",
+        "Michaelis",
+        "competitive",
+        "enzyme kinetics",
+        "酵素動力",
+        "抑制劑"
+      ],
+      "scope": "biochem",
+      "steps": [
+        {
+          "title": "理解速率曲線",
+          "detail": "固定酵素量下增加受質，初速逐漸接近最大反應速率；達最大速率一半時的受質濃度是米氏常數。"
+        },
+        {
+          "title": "競爭性抑制",
+          "detail": "抑制劑與受質競爭游離酵素；理想可逆模型下表觀米氏常數上升，足量受質時最大速率維持。"
+        },
+        {
+          "title": "純非競爭性抑制",
+          "detail": "抑制劑對游離酵素和酵素受質複合體親和力相同；有效催化能力下降，最大速率下降、米氏常數不變。"
+        },
+        {
+          "title": "反競爭與混合型",
+          "detail": "反競爭型只結合酵素受質複合體，兩參數同比下降；混合型使最大速率下降，米氏常數依結合偏好改變。"
+        }
+      ],
+      "limit": "米氏常數不在所有機制下都等於解離常數；純非競爭性只是混合型的一個特殊情形。",
+      "check": "為什麼增加受質可以克服理想競爭性抑制？",
+      "source": {
+        "label": "酵素與抑制開放教材",
+        "url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+      },
+      "diagramKind": "comparison"
+    },
+    {
+      "id": "action-potential",
+      "title": "神經動作電位：通道改變造成電壓變化",
+      "keys": [
+        "action potential",
+        "refractory",
+        "depolarization",
+        "repolarization",
+        "動作電位",
+        "不反應期"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "達到閾值",
+          "detail": "去極化達到閾值後，電壓閘控鈉離子通道快速活化，使鈉離子順電化學梯度進入細胞。"
+        },
+        {
+          "title": "鈉流入使去極化",
+          "detail": "更多鈉通道開啟形成短暫正回饋，膜電位快速往較正的方向移動。"
+        },
+        {
+          "title": "鈉失活、鉀流出",
+          "detail": "鈉通道逐漸失活，延遲開啟的鉀通道讓鉀離子流出，膜電位回到較負值。"
+        },
+        {
+          "title": "過極化與恢復",
+          "detail": "鉀通道較慢關閉造成後過極化；鈉通道由失活恢復，細胞重新具備放電能力。"
+        },
+        {
+          "title": "理解不反應期",
+          "detail": "絕對不反應期主要因鈉通道失活；相對不反應期因仍有鉀電導等影響，需要更強刺激。"
+        }
+      ],
+      "limit": "此圖以典型神經元為例；心臟節律細胞與其他可興奮細胞使用的離子通道和時程不同。",
+      "check": "鈉鉀幫浦為什麼重要，卻不是每次快速再極化的主要直接原因？",
+      "source": {
+        "label": "神經動作電位開放教材",
+        "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+      }
+    },
+    {
+      "id": "resting",
+      "title": "靜止膜電位：濃度差與通透性一起決定",
+      "keys": [
+        "resting membrane",
+        "Nernst",
+        "Goldman",
+        "Na⁺/K⁺",
+        "靜止膜電位",
+        "equilibrium potential"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "建立離子濃度差",
+          "detail": "鈉鉀幫浦每消耗一個三磷酸腺苷，送出三個鈉離子、帶入兩個鉀離子，長期維持濃度差。"
+        },
+        {
+          "title": "離子經通道移動",
+          "detail": "靜止時常有較高的鉀離子通透性，鉀順濃度差外流，留下相對負的細胞內電位。"
+        },
+        {
+          "title": "電力抵消擴散趨勢",
+          "detail": "單一離子達到化學與電力驅動互相平衡時，其淨通量為零，對應能斯特平衡電位。"
+        },
+        {
+          "title": "合併不同離子貢獻",
+          "detail": "真實細胞同時有多種可通透離子，膜電位依濃度與相對通透性加權；高德曼方程可用來估計。"
+        }
+      ],
+      "limit": "靜止狀態通常是動態穩態，不代表所有離子各自都在平衡，也不是細胞內完全沒有離子流。",
+      "check": "細胞外鉀濃度上升，為什麼通常使膜電位較不負？",
+      "source": null
+    },
+    {
+      "id": "raas",
+      "title": "血壓與保水：腎素系統的完整分支",
+      "keys": [
+        "RAAS",
+        "renin",
+        "angiotensin",
+        "aldosterone",
+        "腎素",
+        "醛固酮"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "腎臟收到低灌流訊號",
+          "detail": "腎灌流下降、緻密斑鹽輸送下降或交感刺激，可促使腎小球旁細胞釋放腎素。"
+        },
+        {
+          "title": "形成血管張力素二",
+          "detail": "腎素切割肝臟產生的血管張力素原，再由轉換酶把第一型轉成第二型血管張力素。"
+        },
+        {
+          "title": "一支使血管收縮",
+          "detail": "血管張力素二使血管收縮，提高周邊阻力；也影響口渴、抗利尿激素與腎小管運輸。"
+        },
+        {
+          "title": "另一支促進保鈉",
+          "detail": "血管張力素二促使腎上腺皮質釋放醛固酮，增加遠端腎元鈉再吸收與鉀分泌。"
+        },
+        {
+          "title": "體液回補並負回饋",
+          "detail": "鈉與水的保留有助有效循環量恢復；灌流改善後，原本促進腎素的刺激減少。"
+        }
+      ],
+      "limit": "醛固酮主要調節鈉與鉀；抗利尿激素則直接改變集尿管水通透性，兩者不可混為同一作用。",
+      "check": "這套系統如何同時改變血管阻力與循環血容量？",
+      "source": {
+        "label": "血管恆定調節開放教材",
+        "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-4-homeostatic-regulation-of-the-vascular-system"
+      },
+      "diagramRows": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "diagramEdges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "adh",
+      "title": "抗利尿激素：集尿管為什麼更保水",
+      "keys": [
+        "ADH",
+        "aquaporin",
+        "抗利尿"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "偵測滲透壓或血容量",
+          "detail": "血漿有效滲透壓上升或有效循環量明顯下降，可刺激下視丘相關神經分泌細胞。"
+        },
+        {
+          "title": "後葉釋放激素",
+          "detail": "抗利尿激素在下視丘合成、由腦下垂體後葉釋放到血液，再作用到腎臟。"
+        },
+        {
+          "title": "增加水通道插入",
+          "detail": "集尿管主細胞受體訊號促使第二型水通道插入頂端膜，提高水通透性。"
+        },
+        {
+          "title": "水沿梯度回到體內",
+          "detail": "在腎髓質滲透梯度存在下，水離開管腔，使尿量下降、尿液通常更濃。"
+        }
+      ],
+      "limit": "只有水通道增加仍不夠，濃縮尿液還需要腎髓質滲透梯度與正常腎功能。",
+      "check": "抗利尿激素不足時，預期尿量和尿液濃度怎麼變？",
+      "source": null
+    },
+    {
+      "id": "baroreflex",
+      "title": "壓力受器反射：血壓突然下降的補償",
+      "keys": [
+        "baroreceptor",
+        "壓力受器",
+        "血壓突然"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "動脈壁伸展減少",
+          "detail": "血壓突然下降時，頸動脈竇與主動脈弓的壓力受器受到較少伸展。"
+        },
+        {
+          "title": "傳入放電減少",
+          "detail": "感覺訊息傳到延腦循環調節中心，改變交感與副交感輸出。"
+        },
+        {
+          "title": "交感增、副交感減",
+          "detail": "心率與心肌收縮力上升；小動脈及靜脈收縮，分別增加阻力與靜脈回流。"
+        },
+        {
+          "title": "血壓朝原值恢復",
+          "detail": "心輸出量與總周邊阻力增加，有助抵消原本的血壓下降，形成負回饋。"
+        }
+      ],
+      "limit": "這是快速調節；長期血壓控制還涉及腎臟與體液，受器也會適應。",
+      "check": "為什麼由躺姿突然站起時，心跳可能暫時加快？",
+      "source": null
+    },
+    {
+      "id": "muscle",
+      "title": "骨骼肌收縮：從電訊號到橫橋循環",
+      "keys": [
+        "skeletal muscle",
+        "cross-bridge",
+        "troponin",
+        "肌肉收縮",
+        "橫橋"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "神經訊號到肌纖維",
+          "detail": "運動神經釋放乙醯膽鹼，使肌膜去極化，動作電位沿肌膜與橫小管傳遞。"
+        },
+        {
+          "title": "肌漿網釋放鈣離子",
+          "detail": "電壓感受機制連結肌漿網鈣通道，讓鈣離子進入細胞質。"
+        },
+        {
+          "title": "暴露肌動蛋白位點",
+          "detail": "鈣結合肌鈣蛋白，改變原肌球蛋白位置，使肌球蛋白可以結合肌動蛋白。"
+        },
+        {
+          "title": "反覆結合拉動與脫離",
+          "detail": "肌球蛋白釋放磷酸後進行力衝程，結合新的三磷酸腺苷後脫離，再水解以準備下一輪。"
+        },
+        {
+          "title": "回收鈣而舒張",
+          "detail": "鈣幫浦把鈣送回肌漿網，結合位點重新被遮住，肌肉進入舒張。"
+        }
+      ],
+      "limit": "平滑肌主要由鈣調蛋白與肌球蛋白輕鏈激酶調控，不能直接套用骨骼肌的肌鈣蛋白流程。",
+      "check": "沒有新的三磷酸腺苷時，為什麼橫橋不容易脫離？",
+      "source": null
+    },
+    {
+      "id": "statistics",
+      "title": "實驗證據：先確定重複單位，再談顯著",
+      "keys": [
+        "replicate",
+        "SD",
+        "SEM",
+        "ANOVA",
+        "p value",
+        "p-value",
+        "統計",
+        "重複",
+        "error bar"
+      ],
+      "scope": "experiment project",
+      "steps": [
+        {
+          "title": "界定獨立實驗單位",
+          "detail": "不同獨立培養或個體才可能構成生物重複；同一樣品分孔量測通常是技術重複。"
+        },
+        {
+          "title": "先看差異與散布",
+          "detail": "標準差描述觀察值散布；平均值的標準誤描述平均估計的不確定性，不能把它當作個體差異。"
+        },
+        {
+          "title": "依設計選擇模型",
+          "detail": "單一因素多組可考慮單因子變異數分析；兩因素可檢驗各自主效應與交互作用，並檢查模型假設。"
+        },
+        {
+          "title": "回報效應及不確定性",
+          "detail": "同時提供效應量、信賴區間與適當多重比較校正；顯著性只是判斷的一部分。"
+        }
+      ],
+      "limit": "顯著性機率不是虛無假設為真的機率，也不是效果大小；同一批多個孔不能冒充多次獨立實驗。",
+      "check": "很小的差異為什麼可能顯著，卻沒有太大生物意義？",
+      "source": null
+    },
+    {
+      "id": "reactors",
+      "title": "理想反應器：混合方式決定速率分布",
+      "keys": [
+        "CSTR",
+        "PFR",
+        "batch reactor",
+        "反應器",
+        "mole balance"
+      ],
+      "scope": "reaction",
+      "steps": [
+        {
+          "title": "先寫物料衡算",
+          "detail": "累積等於流入減流出加生成；反應物的生成項為負，先固定速率與轉化率的符號定義。"
+        },
+        {
+          "title": "攪拌槽使用出口速率",
+          "detail": "理想連續攪拌槽完全混合，槽內與出口濃度相同；穩態時，以全槽相同的出口條件速率計算體積。"
+        },
+        {
+          "title": "塞流管逐小段積分",
+          "detail": "理想塞流沿流向有濃度變化，每一小段依當地速率反應，將微小體積沿轉化率積分。"
+        },
+        {
+          "title": "在相同假設下比較",
+          "detail": "等溫、定密度、一階不可逆反應中，塞流前段濃度較高，平均消耗速率較快，達相同轉化率常需較小體積。"
+        }
+      ],
+      "limit": "不能把這個體積排序套用到所有速率式、放熱效應或多重反應。批次槽沒有持續進出料，通常比較反應時間。",
+      "check": "為什麼攪拌槽一開始就以較低的出口濃度反應？",
+      "source": {
+        "label": "密西根大學反應器設計教材",
+        "url": "https://websites.umich.edu/~elements/7e/02chap/summary.html"
+      }
+    },
+    {
+      "id": "kinetics",
+      "title": "反應速率：級數、溫度與機制",
+      "keys": [
+        "Arrhenius",
+        "reaction order",
+        "rate constant",
+        "一階",
+        "二階",
+        "反應級數",
+        "活化能",
+        "half-life"
+      ],
+      "scope": "reaction calc",
+      "steps": [
+        {
+          "title": "先由資料建立速率式",
+          "detail": "反應級數描述速率對各濃度的依賴，通常要由實驗判定；只有符合基元反應假設時才可直接由分子性推得。"
+        },
+        {
+          "title": "依速率式確認單位",
+          "detail": "速率常數單位須使整體速率維持濃度除以時間；一階為時間的倒數，二階則多一個濃度的倒數。"
+        },
+        {
+          "title": "溫度影響跨越障壁",
+          "detail": "阿瑞尼士關係將速率常數連到溫度與活化能；在適用範圍內升溫通常提高速率常數。"
+        },
+        {
+          "title": "積分後連到可測量量",
+          "detail": "恆體積一階不可逆反應的濃度呈指數下降，半衰期等於二的自然對數除以速率常數，與起始濃度無關。"
+        }
+      ],
+      "limit": "催化劑改變可行反應途徑與速率，不改變同一溫度下由熱力學決定的平衡常數。",
+      "check": "為什麼反應級數不能直接照總反應式係數抄寫？",
+      "source": null
+    },
+    {
+      "id": "catalyst",
+      "title": "多孔催化劑：傳進去、反應、再傳出來",
+      "keys": [
+        "Thiele",
+        "effectiveness",
+        "diffusion limitation",
+        "催化劑",
+        "catalyst",
+        "mass-transfer limitation"
+      ],
+      "scope": "reaction",
+      "steps": [
+        {
+          "title": "反應物穿過外部薄膜",
+          "detail": "主流體中的反應物先傳到顆粒表面；攪拌或流速不足時，外部質傳可能成為限制。"
+        },
+        {
+          "title": "沿孔隙擴散到活性位",
+          "detail": "反應物進入顆粒內部孔道；顆粒大或反應快時，深處濃度可能較低。"
+        },
+        {
+          "title": "表面反應生成產物",
+          "detail": "在活性位吸附、反應與脫附；有效因子比較實際整體速率與全顆粒都處於表面條件時的速率。"
+        },
+        {
+          "title": "產物向外傳出",
+          "detail": "產物經孔隙與外部薄膜返回主流體；改變粒徑、流速與溫度可協助區分限制來源。"
+        }
+      ],
+      "limit": "蒂勒模數大常表示內擴散更重要；縮小顆粒可能改善利用率，但填充床壓降通常增加。",
+      "check": "降低粒徑後觀察速率增加，可能提示什麼限制？",
+      "source": null
+    },
+    {
+      "id": "thermo",
+      "title": "熱力學判斷：守恆、方向與平衡",
+      "keys": [
+        "Gibbs",
+        "entropy",
+        "enthalpy",
+        "internal energy",
+        "自發",
+        "熵",
+        "state function",
+        "equilibrium",
+        "chemical potential"
+      ],
+      "scope": "thermo",
+      "steps": [
+        {
+          "title": "先界定系統與限制",
+          "detail": "說清楚封閉或開放、定溫或定壓，以及能量和物質能否交換；判準依限制改變。"
+        },
+        {
+          "title": "第一定律做能量帳",
+          "detail": "內能變化由熱與功及必要時進出料能量決定。熱與功是傳遞方式，內能與焓才是狀態函數。"
+        },
+        {
+          "title": "第二定律判方向",
+          "detail": "把系統連同環境考慮，實際自發程序使總熵不減；只有理想可逆極限的總熵生成為零。"
+        },
+        {
+          "title": "定溫定壓看自由能",
+          "detail": "在通常只有體積功的條件下，自發方向使吉布斯自由能下降；平衡時對允許變化達最低。相平衡要求同成分化學勢相等。"
+        }
+      ],
+      "limit": "熱力學可行不表示反應很快；穩態也不等於平衡，穩態仍可能持續有流動與熵生成。",
+      "check": "為什麼自發的反應仍可能在室溫下幾乎看不見？",
+      "source": null
+    },
+    {
+      "id": "phase",
+      "title": "非理想相平衡：由成分到兩相分配",
+      "keys": [
+        "fugacity",
+        "activity coefficient",
+        "Raoult",
+        "Henry",
+        "bubble point",
+        "dew point",
+        "azeotrope",
+        "相平衡",
+        "逸度",
+        "活度"
+      ],
+      "scope": "thermo unitops",
+      "steps": [
+        {
+          "title": "平衡要求化學勢相等",
+          "detail": "同一成分在共存相間沒有淨轉移的趨勢，熱力學上以各相化學勢相等表達。"
+        },
+        {
+          "title": "用逸度或活度修正",
+          "detail": "真實氣體用逸度修正壓力；液體常用活度係數描述偏離理想混合的程度。"
+        },
+        {
+          "title": "連到泡點與露點",
+          "detail": "泡點是液體剛出現第一小泡氣體；露點是氣體剛出現第一小滴液體。兩者對應不同的已知組成。"
+        },
+        {
+          "title": "判斷能否繼續分離",
+          "detail": "蒸餾靠氣液組成差；共沸時兩相組成相同，固定壓力下的普通蒸餾會遇到分離限制。"
+        }
+      ],
+      "limit": "活度係數大於一的意義需對應所選標準態；拉午耳定律與亨利定律的適用濃度區間不同。",
+      "check": "共沸點為什麼會限制普通蒸餾？",
+      "source": null
+    },
+    {
+      "id": "heat",
+      "title": "熱傳：驅動溫差如何通過串聯熱阻",
+      "keys": [
+        "heat transfer",
+        "Fourier",
+        "heat exchanger",
+        "Biot",
+        "LMTD",
+        "heat-transfer",
+        "熱傳",
+        "熱交換"
+      ],
+      "scope": "transport unitops",
+      "steps": [
+        {
+          "title": "找出熱流路徑",
+          "detail": "先標出熱流體、壁面、冷流體與熱流方向；熱量通常從高溫向低溫傳遞。"
+        },
+        {
+          "title": "各段各有阻力",
+          "detail": "流體側通常用對流熱傳係數，固體壁用熱導係數與厚度；積垢還會增加額外熱阻。"
+        },
+        {
+          "title": "穩態串聯熱流相同",
+          "detail": "在無側漏或內部生熱等假設下，各段穩態熱流相同，總溫差分配到不同熱阻上。"
+        },
+        {
+          "title": "以總係數估算熱負荷",
+          "detail": "熱交換器可用總傳熱係數、面積及適當平均溫差連結熱負荷；同時滿足兩側能量衡算。"
+        }
+      ],
+      "limit": "畢歐數比較物體內部傳導與表面對流熱阻，小於約零點一時才常可採集總近似，仍需檢查幾何及條件。",
+      "check": "積垢增加後，即使入口溫度不變，熱負荷為什麼可能下降？",
+      "source": null
+    },
+    {
+      "id": "mass-transfer",
+      "title": "質傳：分子擴散與邊界層",
+      "keys": [
+        "Fick",
+        "diffusion",
+        "mass transfer",
+        "mass-transfer coefficient",
+        "boundary layer",
+        "擴散",
+        "質傳"
+      ],
+      "scope": "transport",
+      "steps": [
+        {
+          "title": "先看濃度與化學勢差",
+          "detail": "簡單稀溶液的擴散常以濃度梯度描述，熱力學上更一般的驅動來自化學勢梯度。"
+        },
+        {
+          "title": "分子運動造成淨通量",
+          "detail": "在菲克模型中，擴散通量與濃度梯度成反向，比例係數是擴散係數。"
+        },
+        {
+          "title": "流動改變邊界層",
+          "detail": "對流把物質帶到界面附近，但靠近界面仍有傳遞阻力；混合常能減薄有效邊界層。"
+        },
+        {
+          "title": "用質傳係數整理結果",
+          "detail": "質傳係數把通量連到主體與界面濃度差，它包含幾何與流動影響，不能當作材料本身的擴散係數。"
+        }
+      ],
+      "limit": "負號表示向較低濃度的方向傳遞，並非通量大小必須是負值；座標定義仍須明確。",
+      "check": "同一物質在同一溫度，為什麼攪拌後質傳係數可改變？",
+      "source": null
+    },
+    {
+      "id": "fluid",
+      "title": "管流與泵浦：壓力如何克服流動阻力",
+      "keys": [
+        "Reynolds",
+        "Bernoulli",
+        "Poiseuille",
+        "Darcy",
+        "NPSH",
+        "cavitation",
+        "pipe flow",
+        "pump",
+        "雷諾",
+        "管流"
+      ],
+      "scope": "transport",
+      "steps": [
+        {
+          "title": "先檢查流動假設",
+          "detail": "界定密度是否近似固定、穩態與否、管徑和粗糙度；雷諾數比較慣性與黏性影響。"
+        },
+        {
+          "title": "寫機械能衡算",
+          "detail": "壓力、速度與高度能量可以互換；實際流動再加入摩擦損失及泵浦提供的揚程。"
+        },
+        {
+          "title": "依流況估算壓降",
+          "detail": "充分發展的牛頓流體圓管層流有拋物線速度分布；紊流需考慮不同摩擦關係及粗糙度。"
+        },
+        {
+          "title": "檢查操作點與空蝕",
+          "detail": "泵浦曲線與系統曲線交點決定流量；入口壓力太低使液體汽化，氣泡後續崩潰可能損傷泵浦。"
+        }
+      ],
+      "limit": "伯努力的無損形式不能直接忽略實際摩擦；空蝕要比較可用與所需淨正吸入揚程並保留裕度。",
+      "check": "為什麼同樣流量下，縮小管徑通常會大幅增加壓降？",
+      "source": null
+    },
+    {
+      "id": "distillation",
+      "title": "蒸餾塔：反覆汽化冷凝如何分離",
+      "keys": [
+        "distillation",
+        "reflux",
+        "McCabe",
+        "蒸餾",
+        "reboiler",
+        "condenser"
+      ],
+      "scope": "unitops",
+      "steps": [
+        {
+          "title": "利用氣液組成差",
+          "detail": "同一平衡級中，蒸氣通常較富含易揮發成分，液體相對較富含難揮發成分。"
+        },
+        {
+          "title": "再沸器提供上升蒸氣",
+          "detail": "塔底加熱產生蒸氣往上，與向下液體逐級接觸，交換物質與熱。"
+        },
+        {
+          "title": "冷凝器與回流補液",
+          "detail": "塔頂蒸氣冷凝後一部分作餾出液，一部分回流入塔，提供再接觸分離的液體。"
+        },
+        {
+          "title": "權衡級數與能耗",
+          "detail": "在既定分離要求和合理範圍下，增加回流通常可減少所需理論級數，但再沸與冷凝負荷增加。"
+        }
+      ],
+      "limit": "最小回流比是無限理論級數的理想極限；實際塔還受液泛、壓降與共沸限制。",
+      "check": "回流越大為什麼不一定越經濟？",
+      "source": null
+    },
+    {
+      "id": "membrane",
+      "title": "膜分離：驅動力、選擇性與濃差極化",
+      "keys": [
+        "reverse osmosis",
+        "membrane separation",
+        "ultrafiltration",
+        "濃差極化",
+        "concentration polarization",
+        "逆滲透",
+        "膜分離"
+      ],
+      "scope": "unitops transport",
+      "steps": [
+        {
+          "title": "選擇膜與驅動方式",
+          "detail": "不同膜利用壓力、濃度、電位或其他差異分離；多孔膜可依尺寸篩分，緻密膜需考慮溶解與擴散。"
+        },
+        {
+          "title": "逆滲透克服滲透壓",
+          "detail": "在濃溶液側施加足夠壓力，使淨水通量朝稀側，方向與自然滲透相反。"
+        },
+        {
+          "title": "膜面溶質累積",
+          "detail": "被截留溶質在膜面附近濃縮，降低有效驅動力並可能增加結垢風險。"
+        },
+        {
+          "title": "調整操作維持通量",
+          "detail": "提高合理的錯流混合、改善前處理或清洗，有助減少濃差極化及積垢，仍需兼顧能耗與膜壽命。"
+        }
+      ],
+      "limit": "提高操作壓力未必使通量一直線性增加；膜面濃度與積垢都會改變有效條件。",
+      "check": "為什麼膜面濃度可能比主流體濃度高？",
+      "source": null
+    },
+    {
+      "id": "pid",
+      "title": "回授控制：量到誤差後如何調整",
+      "keys": [
+        "PID",
+        "feedback",
+        "closed-loop",
+        "open-loop",
+        "integral",
+        "derivative",
+        "控制",
+        "windup"
+      ],
+      "scope": "control",
+      "steps": [
+        {
+          "title": "比較目標與量測",
+          "detail": "設定值減去量測值形成誤差，控制器依誤差調整加熱、閥位等操控量。"
+        },
+        {
+          "title": "比例作用處理現在",
+          "detail": "比例項依目前誤差立即回應；增益加大常使反應更快，但可能增加振盪與不穩定風險。"
+        },
+        {
+          "title": "積分作用處理累積",
+          "detail": "積分項累計過去誤差，若系統能穩定且致動器有能力，可消除固定擾動下的穩態偏差。"
+        },
+        {
+          "title": "微分作用看變化趨勢",
+          "detail": "微分項依變化速度提供阻尼，但容易放大量測雜訊，實作常對量測值微分並加濾波。"
+        },
+        {
+          "title": "檢查延遲與飽和",
+          "detail": "大延遲讓回應來得晚；致動器飽和時積分可能持續累加，因此需要抗積分飽和與合理調校。"
+        }
+      ],
+      "limit": "閉迴路不保證比開迴路穩定，控制器方向、增益、延遲與程序特性都必須一起考量。",
+      "check": "加熱器已到最大功率時，積分繼續增加會出現什麼問題？",
+      "source": null
+    },
+    {
+      "id": "laplace",
+      "title": "拉普拉斯轉換：微分方程如何變成代數",
+      "keys": [
+        "Laplace",
+        "transfer function",
+        "拉普拉斯",
+        "轉移函數"
+      ],
+      "scope": "engmath control",
+      "steps": [
+        {
+          "title": "從時間域模型出發",
+          "detail": "先寫描述系統動態的微分方程，並列出輸入、輸出與初始條件。"
+        },
+        {
+          "title": "轉換每個微分項",
+          "detail": "轉換後導數變成變換變數乘原函數，再扣除初始值項，使求解成為代數運算。"
+        },
+        {
+          "title": "求解轉換後輸出",
+          "detail": "整理輸入與輸出的關係；線性時不變系統在零初始條件下，輸出除以輸入可定義轉移函數。"
+        },
+        {
+          "title": "反轉換並解釋時間行為",
+          "detail": "把結果反轉回時間域，觀察暫態、穩態與時間常數；極點位置幫助分析穩定性。"
+        }
+      ],
+      "limit": "非零初始條件的響應要另外納入；傳遞函數的定義不能把初始條件項直接忽略後誤用。",
+      "check": "為什麼求轉移函數時要特別寫明零初始條件？",
+      "source": null
+    },
+    {
+      "id": "math",
+      "title": "工程數學：由模型到可檢查的解",
+      "keys": [
+        "ODE",
+        "PDE",
+        "boundary condition",
+        "initial condition",
+        "eigenvalue",
+        "Taylor",
+        "Jacobian",
+        "線性化",
+        "數值積分"
+      ],
+      "scope": "engmath math",
+      "steps": [
+        {
+          "title": "辨別變數與方程型式",
+          "detail": "未知量只對一個自變數求導是常微分方程；對時間與空間等多個自變數求偏導是偏微分方程。"
+        },
+        {
+          "title": "提供足夠初始與邊界條件",
+          "detail": "初始條件描述起始狀態；邊界條件描述空間邊緣的值、通量或混合限制。"
+        },
+        {
+          "title": "選擇解析或近似方法",
+          "detail": "可用變數分離、轉換或數值法；在操作點附近用泰勒展開保留一階，可建立局部線性模型。"
+        },
+        {
+          "title": "核對適用性與誤差",
+          "detail": "檢查單位、條件及極限；數值法須確認步長收斂，線性化只在偏離操作點不太大的範圍可靠。"
+        }
+      ],
+      "limit": "連續線性系統的特徵值實部皆負才具有漸近穩定性；離散系統則看特徵值是否在單位圓內。",
+      "check": "為什麼方程相同，初始或邊界條件不同仍會有不同解？",
+      "source": null
+    },
+    {
+      "id": "spectra",
+      "title": "儀器判讀：先知道訊號來自什麼",
+      "keys": [
+        "UV-Vis",
+        "Beer",
+        "FTIR",
+        "fluorescence",
+        "absorbance",
+        "螢光",
+        "吸光"
+      ],
+      "scope": "instrument",
+      "steps": [
+        {
+          "title": "辨認光與物質作用",
+          "detail": "吸收光譜量入射光被吸收多少；螢光量激發後放出的光。紅外光譜主要反映分子振動。"
+        },
+        {
+          "title": "建立訊號與濃度關係",
+          "detail": "理想稀溶液吸光值等於吸光係數乘光徑及濃度；螢光也需在經驗證範圍建立校正曲線。"
+        },
+        {
+          "title": "先扣背景再判讀",
+          "detail": "設適當溶劑空白與標準品，確認波長、光徑及儀器條件一致。"
+        },
+        {
+          "title": "排除非線性來源",
+          "detail": "高濃度、散射、化學平衡變化、雜散光或螢光淬熄都可能使訊號偏離簡單線性。"
+        }
+      ],
+      "limit": "紅外特徵峰可支持官能基判斷，但單一峰位移不一定能證明形成新化學鍵。",
+      "check": "為什麼高濃度樣品應先稀釋再重新驗證線性？",
+      "source": null
+    },
+    {
+      "id": "chromatography",
+      "title": "層析：不同停留程度形成分離",
+      "keys": [
+        "HPLC",
+        "GC",
+        "chromatograph",
+        "retention time",
+        "層析"
+      ],
+      "scope": "instrument methods",
+      "steps": [
+        {
+          "title": "樣品進入移動相",
+          "detail": "氣相層析以氣體帶動樣品，液相層析以液體流動；樣品的揮發性與熱穩定性影響方法選擇。"
+        },
+        {
+          "title": "與固定相反覆作用",
+          "detail": "成分在兩相間分配或吸附的程度不同，因此沿管柱前進速度不同。"
+        },
+        {
+          "title": "各成分形成不同峰",
+          "detail": "滯留時間反映在該操作條件下的停留行為，解析度則同時受峰距與峰寬影響。"
+        },
+        {
+          "title": "用標準品與方法確認",
+          "detail": "搭配標準品、適當偵測器與校正曲線做定性定量；改變流速、溶劑與管柱都可能改變結果。"
+        }
+      ],
+      "limit": "滯留時間相同不保證是同一物質；反相液相層析通常固定相較疏水，仍需看具體管柱。",
+      "check": "兩峰的滯留時間不同，為什麼仍可能無法可靠定量？",
+      "source": null
+    },
+    {
+      "id": "xrd",
+      "title": "繞射峰：位置與寬度各在說什麼",
+      "keys": [
+        "XRD",
+        "Bragg",
+        "Scherrer",
+        "繞射"
+      ],
+      "scope": "instrument materials",
+      "steps": [
+        {
+          "title": "晶格面使波產生干涉",
+          "detail": "Ｘ光被週期晶格散射，滿足布拉格條件時產生較強繞射。"
+        },
+        {
+          "title": "峰位連到晶面間距",
+          "detail": "在已知波長下，繞射角與晶面間距相關，結合多個峰可協助辨認晶相。"
+        },
+        {
+          "title": "峰寬包含多種貢獻",
+          "detail": "小晶粒、微應變、缺陷與儀器解析度都可能造成展寬。"
+        },
+        {
+          "title": "先校正再估算尺寸",
+          "detail": "用合適標準校正儀器展寬，並確認形狀與應變等假設後，才用謝樂關係估計相干繞射晶粒尺寸。"
+        }
+      ],
+      "limit": "晶粒尺寸不一定等於顆粒尺寸；峰變寬也不能直接等同結晶度下降。",
+      "check": "如果兩樣品峰位相同但峰寬不同，你還需要知道哪些條件？",
+      "source": null
+    },
+    {
+      "id": "dilution",
+      "title": "濃度計算：先守恆，再換單位",
+      "keys": [
+        "stock",
+        "總莫耳數",
+        "稀釋",
+        "dilution"
+      ],
+      "scope": "calc project experiment",
+      "steps": [
+        {
+          "title": "分清濃度與總量",
+          "detail": "濃度是每單位體積的物質量；總莫耳數等於濃度乘體積。"
+        },
+        {
+          "title": "統一濃度及體積單位",
+          "detail": "先把毫、微、奈、皮等前綴轉成同一基準，或清楚追蹤其乘積，避免差一千倍。"
+        },
+        {
+          "title": "稀釋保持溶質莫耳數",
+          "detail": "原液濃度乘取用體積，等於終濃度乘最終體積；據此解出要取多少原液。"
+        },
+        {
+          "title": "配到最終體積",
+          "detail": "稀釋液用量是最終體積扣掉加入的原液及其他溶液；若藥物以溶劑溶解，也要對齊終溶劑比例。"
+        }
+      ],
+      "limit": "最終體積包含原液本身，不能直接在完整最終體積的溶劑中再額外加入原液。",
+      "check": "十毫升最終體積加入零點一毫升原液，稀釋液應是多少？",
+      "source": null
+    },
+    {
+      "id": "5fu",
+      "title": "五氟尿嘧啶：兩類核酸作用",
+      "keys": [
+        "5-FU 的主要",
+        "5-FU 抗癌",
+        "thymidylate",
+        "五氟尿嘧啶"
+      ],
+      "scope": "project biochem",
+      "steps": [
+        {
+          "title": "細胞內代謝活化",
+          "detail": "五氟尿嘧啶進入細胞後形成不同活性代謝物，各自影響核苷酸合成或被加入核酸。"
+        },
+        {
+          "title": "抑制胸苷酸合成",
+          "detail": "其中氟去氧尿苷單磷酸抑制胸苷酸合成酶，減少合成去氧核糖核酸所需的胸苷核苷酸供應。"
+        },
+        {
+          "title": "干擾核酸的加工與功能",
+          "detail": "其他代謝物可摻入核糖核酸或去氧核糖核酸，干擾加工、功能與複製。"
+        },
+        {
+          "title": "影響增殖與細胞存活",
+          "detail": "這些作用可造成複製壓力或生長受抑，但細胞反應取決於代謝、修復能力與處理條件。"
+        }
+      ],
+      "limit": "這是已知的一般藥物作用，不等於你的合併用藥實驗已證明哪一支機制主導。",
+      "check": "只量細胞活性，能區分核苷酸不足和核糖核酸損傷嗎？",
+      "source": {
+        "label": "美國國家癌症研究所藥物詞典",
+        "url": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/fluorouracil"
+      },
+      "diagramRows": [
+        [
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "diagramEdges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "gpcr",
+      "title": "受體訊號：第二信使如何放大反應",
+      "keys": [
+        "GPCR",
+        "cAMP",
+        "adenylyl",
+        "G protein"
+      ],
+      "scope": "cellbio physiology",
+      "steps": [
+        {
+          "title": "配體結合膜受體",
+          "detail": "配體使受體構形改變，促進鳥嘌呤核苷酸結合蛋白交換其結合的核苷酸。"
+        },
+        {
+          "title": "活化刺激型訊號蛋白",
+          "detail": "以刺激型途徑為例，活化次單元調節腺苷酸環化酶，使環磷酸腺苷產生增加。"
+        },
+        {
+          "title": "第二信使活化下游酵素",
+          "detail": "環磷酸腺苷促進相應蛋白激酶活化，再改變標的蛋白的磷酸化與功能。"
+        },
+        {
+          "title": "關閉與回復",
+          "detail": "核苷酸水解、磷酸二酯酶降解第二信使及磷酸酶作用，使訊號逐步結束。"
+        }
+      ],
+      "limit": "不同受體可連到抑制型或其他訊號蛋白，不能說所有此類受體都會增加環磷酸腺苷。",
+      "check": "為什麼同一類受體的下游效果可能相反？"
+    },
+    {
+      "id": "cell-cycle",
+      "title": "細胞週期：檢查點如何延後分裂",
+      "keys": [
+        "cell cycle",
+        "p53",
+        "checkpoint",
+        "G1/S",
+        "細胞週期"
+      ],
+      "scope": "cellbio project",
+      "steps": [
+        {
+          "title": "生長並檢查進入合成期",
+          "detail": "生長一期整合營養、生長訊號與損傷狀態，條件合適才進入核酸合成期。"
+        },
+        {
+          "title": "完成複製再準備分裂",
+          "detail": "合成期複製去氧核糖核酸，生長二期確認複製狀態並準備有絲分裂。"
+        },
+        {
+          "title": "損傷訊號啟動停滯",
+          "detail": "例如腫瘤抑制蛋白五十三促進抑制因子，降低細胞週期蛋白依賴性激酶活性，爭取修復時間。"
+        },
+        {
+          "title": "依狀態修復或改變命運",
+          "detail": "修復成功可恢復週期；持續嚴重損傷可能導向老化或凋亡，並非只能有一種結局。"
+        }
+      ],
+      "limit": "核酸含量分析通常只能分出生長一期、合成期及生長二期／分裂期，不能直接區分後兩者。",
+      "check": "四倍核酸含量變多，為什麼不一定代表有絲分裂增加？"
+    },
+    {
+      "id": "protein-turnover",
+      "title": "蛋白品質：辨認、標記與降解",
+      "keys": [
+        "ubiquitin",
+        "proteasom",
+        "protein folding",
+        "misfolded",
+        "ER stress",
+        "UPR",
+        "蛋白質降解"
+      ],
+      "scope": "biochem cellbio",
+      "steps": [
+        {
+          "title": "辨認錯誤或待更新蛋白",
+          "detail": "分子伴護蛋白協助摺疊；嚴重錯誤或需調節含量的蛋白可被導向降解。"
+        },
+        {
+          "title": "泛素系統加上標記",
+          "detail": "活化酶、接合酶與連接酶接力把泛素加到目標，連接酶協助選擇對象。"
+        },
+        {
+          "title": "蛋白酶體處理部分蛋白",
+          "detail": "特定多泛素鏈可引導底物至蛋白酶體，經展開及切割成短胜肽。"
+        },
+        {
+          "title": "大分子或胞器走溶體途徑",
+          "detail": "胞吞或自噬可把其他物質送去溶體。內質網壓力還會透過未摺疊蛋白反應調節合成、摺疊與降解。"
+        }
+      ],
+      "limit": "泛素化不一定代表降解；不同鏈型或位置也可能參與定位、訊號與修復。",
+      "check": "為什麼蛋白量下降不能直接判定轉錄下降？"
+    },
+    {
+      "id": "kidney",
+      "title": "腎臟處理物質：過濾、再吸收與分泌",
+      "keys": [
+        "GFR",
+        "clearance",
+        "glomerular",
+        "proximal tubule",
+        "loop of Henle",
+        "腎絲球",
+        "腎臟 clearance"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "腎絲球先過濾",
+          "detail": "血液中的水與可濾過小分子進入鮑氏囊；壓力差、膠體滲透壓及濾過屏障特性共同決定速率。"
+        },
+        {
+          "title": "腎小管選擇性再吸收",
+          "detail": "身體要保留的水與溶質從管腔回到血液；近曲小管負責大量回收。"
+        },
+        {
+          "title": "某些物質再被分泌",
+          "detail": "部分離子與有機分子可從血液經管壁進入管腔，使其排出量增加。"
+        },
+        {
+          "title": "比較排出與血漿濃度",
+          "detail": "排出量等於過濾量減再吸收量加分泌量；清除率則是尿中濃度乘尿流量，再除以血漿濃度。"
+        }
+      ],
+      "limit": "清除率不一定等於腎絲球過濾率；只有適合的標記物在相應假設成立時，才可用來估算。",
+      "check": "葡萄糖清除率很低，代表腎絲球沒有過濾葡萄糖嗎？"
+    },
+    {
+      "id": "oxygen",
+      "title": "氣體交換：從通氣到組織釋氧",
+      "keys": [
+        "Bohr",
+        "ventilation",
+        "perfusion",
+        "hemoglobin",
+        "血紅素",
+        "呼吸",
+        "oxygen affinity"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "通氣把新鮮氣體帶到肺泡",
+          "detail": "真正參與交換的是扣除死腔後的肺泡通氣量，不能只看呼吸次數。"
+        },
+        {
+          "title": "氧依分壓差穿越屏障",
+          "detail": "肺泡與微血管間透過擴散交換氣體；厚度、面積及分壓差都會影響交換。"
+        },
+        {
+          "title": "血流把氧帶往組織",
+          "detail": "血紅素攜帶多數氧氣；通氣與灌流須配合，否則即使總通氣量足夠仍可能低血氧。"
+        },
+        {
+          "title": "代謝活躍處較易釋氧",
+          "detail": "二氧化碳、酸度或溫度增加等因素可使解離曲線右移，降低相同氧分壓下的親和力並促進釋氧。"
+        }
+      ],
+      "limit": "右移不是肺泡氧分壓提高，也不等於每種情境的總氧輸送都增加；還須考慮血紅素量與心輸出量。",
+      "check": "組織運動時變熱且酸度上升，對卸載氧氣有什麼幫助？"
+    },
+    {
+      "id": "endocrine",
+      "title": "內分泌軸：逐級刺激與負回饋",
+      "keys": [
+        "thyroid",
+        "甲狀腺",
+        "cortisol",
+        "HPA",
+        "CRH",
+        "ACTH",
+        "TSH",
+        "TRH"
+      ],
+      "scope": "physiology",
+      "steps": [
+        {
+          "title": "下視丘發出釋放訊號",
+          "detail": "下視丘整合生理需要後，釋放激素調節腦下垂體前葉。"
+        },
+        {
+          "title": "前葉促進周邊內分泌腺",
+          "detail": "例如促甲狀腺激素刺激甲狀腺；促腎上腺皮質素則刺激腎上腺皮質。"
+        },
+        {
+          "title": "末端激素影響器官",
+          "detail": "甲狀腺激素調節代謝等功能；皮質醇參與壓力反應與代謝，兩條軸的末端作用不同。"
+        },
+        {
+          "title": "末端回頭抑制上游",
+          "detail": "末端激素回饋下視丘與前葉，降低原本的刺激訊號，協助維持適當濃度。"
+        }
+      ],
+      "limit": "原發性腺體問題與中樞問題可呈現不同的上游／下游激素組合，判讀必須沿整條軸看。",
+      "check": "甲狀腺本身製造能力下降時，促甲狀腺激素通常往哪個方向變？"
+    },
+    {
+      "id": "organic",
+      "title": "取代反應：一步協同或兩步中間體",
+      "keys": [
+        "SN1",
+        "SN2",
+        "carbocation",
+        "親核取代"
+      ],
+      "scope": "organic",
+      "steps": [
+        {
+          "title": "先看底物與條件",
+          "detail": "判斷位阻、離去基、溶劑與親核試劑；不同條件會改變哪條途徑較有利。"
+        },
+        {
+          "title": "單分子途徑先離去",
+          "detail": "離去基先脫離形成碳陽離子，再被親核試劑進攻；碳陽離子穩定性重要，也可能重排。"
+        },
+        {
+          "title": "雙分子途徑同步進行",
+          "detail": "親核試劑從背面進攻時離去基同步離開，是一步反應；位阻常降低其可行性。"
+        },
+        {
+          "title": "比較速率與立體結果",
+          "detail": "理想單分子速率主要依底物；雙分子依底物與親核試劑。背面進攻會使反應中心構形反轉。"
+        }
+      ],
+      "limit": "不能只看底物就忽略溶劑或消去競爭；單分子途徑的立體結果也不一定完全各半。",
+      "check": "為什麼第三級底物通常不適合背面進攻？",
+      "diagramKind": "comparison"
+    },
+    {
+      "id": "acid-base",
+      "title": "酸鹼性：失去質子後能否穩定",
+      "keys": [
+        "conjugate base",
+        "resonance",
+        "酸鹼",
+        "共軛鹼",
+        "carboxylic acid",
+        "inductive"
+      ],
+      "scope": "organic",
+      "steps": [
+        {
+          "title": "先畫失去質子後的結構",
+          "detail": "比較的是原酸與其共軛鹼；共軛鹼承受新增負電荷的位置十分重要。"
+        },
+        {
+          "title": "看電荷能否離域",
+          "detail": "共振讓負電荷分散在多個原子，常使共軛鹼更穩定，例如羧酸根的兩個氧。"
+        },
+        {
+          "title": "再看原子與誘導效應",
+          "detail": "電負度、原子大小、軌域混成與鄰近吸電子基團都可能改變負電荷穩定程度。"
+        },
+        {
+          "title": "連到酸性強弱",
+          "detail": "在同一溶劑與可比較條件下，共軛鹼越穩定，原酸通常越容易失去質子。"
+        }
+      ],
+      "limit": "酸性比較必須注意溶劑與溶劑化；不同類型化合物不能只靠一個因素判斷。",
+      "check": "為什麼羧酸通常比醇更酸？"
+    },
+    {
+      "id": "material",
+      "title": "材料量測：由曲線區段推回物理變化",
+      "keys": [
+        "TGA",
+        "stress–strain",
+        "stress-strain",
+        "Young",
+        "拉伸",
+        "熱重"
+      ],
+      "scope": "instrument materials",
+      "steps": [
+        {
+          "title": "確認量測軸與條件",
+          "detail": "拉伸量應力與應變；熱重量質量隨溫度或時間變化。先確認單位、速率與氣氛。"
+        },
+        {
+          "title": "區分不同曲線區段",
+          "detail": "拉伸可看初始彈性斜率、降伏與破裂；熱重可看不同失重區段及殘留比例。"
+        },
+        {
+          "title": "提出合理物理解釋",
+          "detail": "拉伸斜率反映剛性；熱重失重可能是水分、揮發物或分解產物離開，需依材料與溫區判讀。"
+        },
+        {
+          "title": "用另一量測核對",
+          "detail": "用量熱、產物分析或結構量測區分相變與分解，避免只憑一段曲線就指定反應機制。"
+        }
+      ],
+      "limit": "熱重殘留不一定全是灰分，也可能有殘炭；彈性模數相同不等於韌性或延性相同。",
+      "check": "氮氣下的殘留量，為什麼可能比空氣下高？"
+    }
+  ],
+  "answers": {
+    "q_1h2w2e7": "細胞計數試劑八號利用活細胞相關脫氫酶反應，將水溶性四唑鹽還原成有色甲臢產物，再量測約四百五十奈米吸光值。扣除空白並相對於溶劑對照後，可得到相對代謝活性。在經驗證的線性範圍內，它可以作為存活細胞相關指標，但讀值同時受到細胞數與單一細胞代謝影響。因此訊號下降還可能是增殖變慢或代謝受抑，不能單獨認定細胞凋亡，應以細胞計數或凋亡指標交叉確認。",
+    "q_1ithyed": "五氟尿嘧啶是氟嘧啶類抗代謝藥物，需要在細胞內形成活性代謝物。其中一條重要作用是抑制胸苷酸合成酶，使去氧胸苷核苷酸供應不足，干擾去氧核糖核酸合成；其他代謝物也可摻入核糖核酸或去氧核糖核酸，影響其加工與功能。因此它不只有單一作用點。這些是一般已知機制，若要說明它在本專題中與匹莫齊特的交互作用，仍需以對應實驗驗證。",
+    "q_1bbo10v": "線性齊次微分方程的解可以線性疊加：若兩個函數分別是解，它們的任意線性組合仍是解。但這個組合也必須符合題目指定的初始與邊界條件。對非齊次線性系統，總解可以寫成一個特解加上齊次解；若比較不同輸入，在相容的零初始條件下，輸入的線性組合也對應輸出的線性組合。非線性方程一般不能直接套用這個原理。",
+    "q_1k0bzn6": "促凋亡蛋白巴克斯與巴克在活化後會寡聚化，促使粒線體外膜通透化，讓細胞色素丙等蛋白釋放到細胞質。細胞色素丙接著參與凋亡小體組裝，促進第九型半胱天冬酶活化，再活化執行者半胱天冬酶，推進內源性凋亡。只看到這些蛋白的總量變化，不代表已發生孔洞形成或凋亡，還需要活化、定位及下游指標。",
+    "q_1jtf5jr": "第八型半胱天冬酶典型地由細胞膜死亡受體的外源性途徑啟動；第九型則在粒線體釋放細胞色素丙後，於凋亡小體中啟動，屬於內源性途徑。兩者都可接續活化執行者半胱天冬酶。兩條途徑也能互相連結，所以不能因偵測到其中一種活化，就斷言另一條完全沒有參與。",
+    "q_1i68508": "繞射峰的位置反映晶面間距，結合多個峰及標準資料可協助辨認晶相。峰寬則可能同時受到相干繞射晶粒尺寸、微應變、缺陷與儀器解析度影響。因此峰變寬不能直接說成結晶度下降。若要用謝樂方程估晶粒尺寸，需要先扣除儀器展寬，並留意形狀與應變等假設；估出的晶粒尺寸也不必等於整個顆粒的大小。"
+  }
+}
