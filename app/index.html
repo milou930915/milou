@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>研究所模擬面試 v20｜11 校專屬模式</title>
+<title>研究所模擬面試 v21｜掌握度與間隔複習</title>
 <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#13233f" />
 <style>
@@ -27,6 +27,7 @@ a{color:var(--blue)}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(3,1fr)}.interview-shell{grid-template-columns:1fr}.sidebar{order:-1;display:grid;grid-template-columns:1fr 1fr}.practice-options{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.app{padding:15px 12px 70px}.hero{padding:22px 18px;border-radius:19px}.grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(2,1fr)}.top-actions{display:none}.mode-buttons{grid-template-columns:1fr}.practice-options{grid-template-columns:1fr 1fr}.sidebar{grid-template-columns:1fr}.question{font-size:19px}.eval-grid{grid-template-columns:1fr}.record-row{grid-template-columns:1fr auto}.record-row .hide-mobile{display:none}.dashboard-grid{grid-template-columns:1fr 1fr}}
 @media print{.no-print{display:none!important}body{background:white}.print-report{display:block!important}.print-item{break-inside:avoid;margin-bottom:22px;border-bottom:1px solid #aaa;padding-bottom:16px}.print-item h2{font-size:17px}.print-item h3{font-size:14px;margin-bottom:5px}.print-item p{margin:4px 0}.app{max-width:none;padding:0}.topbar,.hero{display:none}}
+.review-summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px;background:#eef5f2;border:1px solid #d5e6df;border-radius:16px;margin:16px 0}.review-summary p,.mastery-panel p{margin:5px 0}.review-summary small,.mastery-panel small{color:#4b6158}.mastery-panel{background:#f5f8fc;border:1px solid #dbe3ee;border-radius:12px;padding:14px;margin:12px 0}.review-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.review-row small{display:block;color:var(--muted);margin-top:5px}.review-row button{flex-shrink:0}@media(max-width:580px){.review-summary{align-items:flex-start;flex-direction:column}.review-row{align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -46,7 +47,106 @@ a{color:var(--blue)}
 <input id="importFile" type="file" accept="application/json" class="hidden" />
 <script>
 'use strict';
-const APP_VERSION='20.0.0';
+const APP_VERSION='21.0.0';
+// REVIEW_ENGINE_START
+// Derived from answer history, so v20 records and cloud/JSON backups need no destructive migration.
+const ReviewScheduler = (() => {
+ const DAY=86400000, MINUTE=60000;
+ const labels={new:'尚未練習',wrong:'答錯／不會',unclear:'需要補強',familiar:'大致會',mastered:'完全掌握',pending:'待複核'};
+ const time=v=>typeof v==='number'?(Number.isFinite(v)?v:0):(Date.parse(v)||0);
+ const recordTime=r=>time(r?.time);
+ function family(q,questions){
+  const id=q?.qid||q?.id;
+  const source=questions.get(id);
+  return q?.variantOf||source?.variantOf||id;
+ }
+ function classify(r){
+  if(r.disputed)return 'pending';
+  if(['wrong','unclear','familiar','mastered'].includes(r.mastery))return r.mastery;
+  if(r.unknown||r.grade==='g1')return 'wrong';
+  if(['g2','g3'].includes(r.grade))return 'unclear';
+  if(['g4','g5'].includes(r.grade))return r.confidence==='低'?'pending':'familiar';
+  return 'pending';
+ }
+ function index(questions,records,now=Date.now()){
+  const byId=new Map(questions.map(q=>[q.id,q])), histories=new Map(), progress=new Map();
+  for(const r of records){
+   const key=family(r,byId);if(!key)continue;
+   if(!histories.has(key))histories.set(key,[]);
+   histories.get(key).push(r);
+  }
+  for(const [key,history] of histories){
+   history.sort((a,b)=>recordTime(a)-recordTime(b)||String(a.id).localeCompare(String(b.id)));
+   let prev=null,successes=0,lastSuccess=0;
+   for(const r of history){
+    const at=recordTime(r)||now, anchor=time(r.masteryAt)||at;
+    let level=classify(r),days=0;
+    const independent=r.grade==='g5'&&!r.guided&&r.hintUsed===false&&!r.disputed&&['高','中'].includes(r.confidence)&&!r.unknown;
+    if(!r.mastery&&independent){
+     if(!lastSuccess||at-lastSuccess>=DAY){successes++;lastSuccess=at;}
+     if(successes>=2||prev?.level==='mastered')level='mastered';
+    }else if(level!=='mastered'){successes=0;lastSuccess=0;}
+    if(level==='mastered'){
+     days=prev?.level==='mastered'?prev.intervalDays:14;
+     if(prev?.level==='mastered'&&anchor-prev.lastAt>=DAY)days=days<30?30:60;
+    }else if(level==='familiar')days=3;
+    else if(level==='unclear')days=1;
+    const due=level==='pending'?Infinity:anchor+(level==='wrong'?10*MINUTE:days*DAY);
+    prev={key,level,due,lastAt:anchor,intervalDays:days,latest:r,attempts:history.length};
+   }
+   progress.set(key,prev);
+  }
+  return {byId,progress,now};
+ }
+ function info(q,idx){return idx.progress.get(family(q,idx.byId))||{key:family(q,idx.byId),level:'new',due:0,intervalDays:0,latest:null,attempts:0};}
+ function pickQuestion(pool,idx,{formal=false,asked=[],recent=[],explicit=false,rng=Math.random}={}){
+  const grouped=new Map();
+  for(const q of pool){const key=family(q,idx.byId);if(asked.includes(key))continue;if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(q);}
+  let entries=[...grouped].map(([key,qs])=>({key,qs,progress:info(qs[0],idx)}));
+  // Keep the last concept out when there is an alternative, including reworded variants.
+  if(recent.length&&entries.some(x=>!recent.slice(-3).includes(x.key)))entries=entries.filter(x=>!recent.slice(-3).includes(x.key));
+  let selected=[];
+  if(explicit)selected=entries;
+  else{
+   const fresh=entries.filter(x=>x.progress.level==='new');
+   let due=entries.filter(x=>!['new','mastered','pending'].includes(x.progress.level)&&x.progress.due<=idx.now);
+   if(formal&&!due.length&&!fresh.length)due=entries.filter(x=>!['new','mastered','pending'].includes(x.progress.level));
+   const mastered=entries.filter(x=>x.progress.level==='mastered'&&(formal||x.progress.due<=idx.now));
+   if(mastered.length&&(!fresh.length&&!due.length||rng()<.05))selected=mastered;
+   else if(due.length&&(!fresh.length||rng()<.65))selected=due;
+   else selected=fresh;
+   // A formal exam can sample not-yet-due concepts, but never the same concept twice.
+   if(!selected.length&&formal)selected=entries.filter(x=>!['mastered','pending'].includes(x.progress.level));
+   if(!selected.length&&formal)selected=mastered;
+  }
+  if(!selected.length)return null;
+  const weights=selected.map(x=>({wrong:4,unclear:2,familiar:1,new:1,mastered:1,pending:1}[x.progress.level]||1)*(x.progress.due&&x.progress.due<idx.now?1+Math.min(3,(idx.now-x.progress.due)/DAY):1));
+  let ticket=rng()*weights.reduce((a,b)=>a+b,0),chosen=selected[selected.length-1];
+  for(let i=0;i<selected.length;i++){ticket-=weights[i];if(ticket<0){chosen=selected[i];break;}}
+  const core=chosen.qs.filter(q=>!q.variantOf),variants=chosen.qs.filter(q=>q.variantOf);
+  const choices=core.length&&(!variants.length||rng()<.72)?core:variants;
+  return choices[Math.floor(rng()*choices.length)];
+ }
+ function mergeRecords(a,b){
+  const out=new Map();
+  for(const r of [...(a||[]),...(b||[])]){
+   if(!r?.id)continue;
+   const old=out.get(r.id);if(!old){out.set(r.id,{...r});continue;}
+   const newer=time(r.updatedAt||r.time)>time(old.updatedAt||old.time)?r:old;
+   const merged={...old,...r,...newer};
+   // A favorite on one device must not erase a newer mastery decision on the other.
+   for(const [stamp,fields] of [['favoriteAt',['favorite']],['assessmentAt',['mastery','masteryAt','disputed']]]){
+    const winner=time(r[stamp])>time(old[stamp])?r:old;
+    if(winner[stamp]){merged[stamp]=winner[stamp];for(const field of fields){if(field in winner)merged[field]=winner[field];else delete merged[field];}}
+   }
+   out.set(r.id,merged);
+  }
+  return [...out.values()].sort((a,b)=>recordTime(b)-recordTime(a)||String(b.id).localeCompare(String(a.id)));
+ }
+ return {DAY,labels,time,recordTime,family,classify,index,info,pickQuestion,mergeRecords};
+})();
+// REVIEW_ENGINE_END
+
 const $=s=>document.querySelector(s); const app=$('#app');
 const escapeHtml=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const shuffle=a=>[...a].sort(()=>Math.random()-.5); const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -71,17 +171,86 @@ const state=JSON.parse(localStorage.getItem('gradInterviewState')||'null')||{ver
 state.sync=state.sync||{enabled:false,endpoint:'',code:'',lastSync:0,status:''};
 state.remoteQuestionSpecs=state.remoteQuestionSpecs||[];
 state.lastQuestionBankRefresh=state.lastQuestionBankRefresh||0;
-function reviewBucketFor(r){ if(r?.disputed)return 'pending'; if(r?.unknown||r?.grade==='g1')return 'wrong'; if(['g2','g3'].includes(r?.grade))return 'unclear'; return 'correct'; }
-function reviewBucketText(b){return ({wrong:'答錯／不會',unclear:'回答不清楚／不完整',correct:'已掌握',pending:'待複核'})[b]||'未分類'}
-state.records=(state.records||[]).map(r=>({...r,reviewBucket:r.reviewBucket||reviewBucketFor(r)}));
+function reviewBucketFor(r){const level=ReviewScheduler.classify(r||{});return ({wrong:'wrong',unclear:'unclear',familiar:'correct',mastered:'correct',pending:'pending'})[level]||'pending';}
+function reviewBucketText(b){return ({wrong:'答錯／不會',unclear:'回答不清楚／不完整',correct:'完整／大致正確',pending:'待複核'})[b]||'未分類'}
+state.records=ReviewScheduler.mergeRecords(state.records||[],[]).map(r=>({...r,reviewBucket:reviewBucketFor(r)}));
 
 state.prefs=state.prefs||{}; if(!state.prefs.answerMode)state.prefs.answerMode='text'; state.onlineEnglish=state.onlineEnglish||{}; state.lastOnlineEnglishRefresh=state.lastOnlineEnglishRefresh||{};
 let syncDebounce=null;
 function saveState(skipSync=false){
+ state.version=APP_VERSION;
  localStorage.setItem('gradInterviewState',JSON.stringify(state));
  if(!skipSync) scheduleCloudSync();
 }
 let currentSchool=null,currentQuestion=null,currentPaper=null,currentProf=null,currentMode='practice',currentPracticeType='mixed',formalSession=null,currentRecording=null,recognition=null,mediaRecorder=null,audioChunks=[],timerInt=null,timerEnd=0;
+
+// v21: one schedule for core questions and their variants, across schools and devices.
+let reviewRecent=[],practiceDomain=null,practiceProfessor=null,questionSubmitted=false,practiceHintUsed=false,formalTimerInt=null;
+function reviewIndex(){return ReviewScheduler.index(ALLQ,state.records);}
+function chooseScheduled(pool,options={}){
+ const idx=reviewIndex();
+ const q=ReviewScheduler.pickQuestion(pool,idx,{formal:currentMode==='formal',asked:currentMode==='formal'?(formalSession?.askedFamilies||[]):[],recent:currentMode==='formal'?[]:reviewRecent,...options});
+ if(q){
+  const key=ReviewScheduler.family(q,idx.byId);
+  if(currentMode==='formal'&&formalSession)formalSession.askedFamilies=[...(formalSession.askedFamilies||[]),key];
+  else reviewRecent=[...reviewRecent,key].slice(-3);
+  state.seenQuestions[currentSchool]=[...(state.seenQuestions[currentSchool]||[]),q.id].slice(-600);saveState();
+ }
+ return q;
+}
+function reviewDate(due){return !Number.isFinite(due)?'複核後安排':due<=Date.now()?'已到期':new Date(due).toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});}
+function currentReviewRecords(filter,school=null){
+ const idx=reviewIndex();
+ let items=[...idx.progress.values()];
+ if(school)items=items.filter(x=>state.records.some(r=>r.school===school&&ReviewScheduler.family(r,idx.byId)===x.key));
+ if(filter==='wrong')items=items.filter(x=>x.level==='wrong');
+ if(filter==='unclear')items=items.filter(x=>x.level==='unclear');
+ if(filter==='pending')items=items.filter(x=>x.level==='pending');
+ return items.map(x=>x.latest).sort((a,b)=>ReviewScheduler.recordTime(b)-ReviewScheduler.recordTime(a));
+}
+function reviewSummaryHtml(school=null){
+ const idx=reviewIndex(),pool=school?ALLQ.filter(q=>eligibleQuestion(q,school,'mixed')):ALLQ;
+ const keys=new Set(pool.map(q=>ReviewScheduler.family(q,idx.byId)));
+ const items=[...keys].map(key=>idx.progress.get(key)||{level:'new',due:0});
+ const due=items.filter(x=>!['new','pending'].includes(x.level)&&x.due<=idx.now).length;
+ return `<div class="review-summary"><div><b>依掌握度安排練習</b><p>到期複習 ${due} 題 · 完全掌握 ${items.filter(x=>x.level==='mastered').length} 題 · 尚未練習 ${items.filter(x=>x.level==='new').length} 題</p><small>不會：10 分鐘後優先回流；需補強：1 天；大致會：3 天。完全掌握：14 天後少量抽查，再答對可延至 30／60 天。原題與改問版本共用進度。</small></div><button class="btn secondary" onclick="openDueReview('${school||''}')">查看複習安排</button></div>`;
+}
+function masteryControls(r){
+ if(!r||['paper','english'].includes(r.domain))return '';
+ const info=ReviewScheduler.info(r,reviewIndex());
+ return `<div class="mastery-panel" data-mastery-record="${escapeHtml(r.id)}"><b>目前掌握度：${ReviewScheduler.labels[info.level]}</b><p>下次複習：${reviewDate(info.due)}${info.level==='mastered'?' · 只少量抽查':''}</p><small>本地評分是初判。確認能不看提示完整回答，再選「完全掌握」；也可自行調整。</small><div class="answer-tools">${[['wrong','還不會'],['unclear','需要補強'],['familiar','大致會'],['mastered','確認完全掌握']].map(([level,label])=>`<button class="btn small ${info.level===level?'':'secondary'}" aria-pressed="${info.level===level}" onclick="setMastery('${r.id}','${level}')">${label}</button>`).join('')}</div></div>`;
+}
+function setMastery(id,level){
+ if(!['wrong','unclear','familiar','mastered'].includes(level))return;
+ const r=state.records.find(x=>x.id===id);if(!r)return;
+ const latest=ReviewScheduler.info(r,reviewIndex()).latest||r;
+ if(latest.mastery===level&&!latest.disputed){toast('已設定此掌握度');return;}
+ const at=Date.now();Object.assign(latest,{mastery:level,masteryAt:at,assessmentAt:at,updatedAt:at,disputed:false});
+ latest.reviewBucket=reviewBucketFor(latest);saveState();
+ document.querySelectorAll('[data-mastery-record]').forEach(el=>{const record=state.records.find(x=>x.id===el.dataset.masteryRecord);if(record)el.outerHTML=masteryControls(record);});
+ toast(`已設定為「${ReviewScheduler.labels[level]}」，下次複習：${reviewDate(ReviewScheduler.info(latest,reviewIndex()).due)}`);
+}
+window.setMastery=setMastery;
+function openDueReview(school=''){
+ currentMode='practice';clearTimer();clearFormalTimer();formalSession=null;
+ const idx=reviewIndex(),pool=ALLQ.filter(q=>!school||eligibleQuestion(q,school,'mixed'));
+ const keys=new Set(pool.map(q=>ReviewScheduler.family(q,idx.byId)));
+ const items=[...idx.progress.values()].filter(x=>keys.has(x.key)&&x.level!=='pending').sort((a,b)=>a.due-b.due);
+ app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${school?SCHOOL[school].name+'｜':''}複習安排</h2><p>每個觀念只列一次，以最近一次回答或手動確認為準。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div>${reviewSummaryHtml(school||null)}${items.length?items.map(x=>`<div class="review-row"><div><b>${escapeHtml(x.latest.question)}</b><small>${ReviewScheduler.labels[x.level]} · ${domainName(x.latest.domain)} · 下次：${reviewDate(x.due)}</small></div><button class="btn small secondary" onclick="practiceReviewRecord('${x.latest.id}','${school}')">${x.due<=idx.now?'開始複習':'提前練習'}</button></div>`).join(''):'<div class="empty">先完成一題練習，這裡就會顯示複習時間。</div>'}</div>`;
+}
+window.openDueReview=openDueReview;
+function practiceReviewRecord(id,school=''){
+ const r=state.records.find(x=>x.id===id);if(!r)return;
+ currentSchool=school||r.school;currentMode='practice';currentPracticeType='mixed';practiceDomain=null;practiceProfessor=null;
+ const q=ALLQ.find(x=>x.id===r.qid)||{...Q(r.domain,r.question,[],[],'回想上次需要補充的地方。',r.model),id:r.qid,visual:r.visualKey||undefined};
+ renderQuestion(q,q.visual?'visual':'mixed');
+}
+window.practiceReviewRecord=practiceReviewRecord;
+function showReviewComplete(){
+ const school=currentSchool;
+ app.innerHTML=`<div class="panel"><h2>這個範圍目前沒有到期題目</h2><p>已掌握的題目會隔一段時間再抽查。你可以查看複習安排、提前練習，或切換題型。</p>${reviewSummaryHtml(school)}<div class="answer-tools"><button class="btn" onclick="showPracticeOptions('${school}')">選擇其他題型</button><button class="btn secondary" onclick="openDueReview('${school}')">查看複習安排</button></div></div>`;
+}
+function clearFormalTimer(){if(formalTimerInt)clearInterval(formalTimerInt);formalTimerInt=null;}
 
 const PROFESSORS=[
  {id:'guide',name:'引導型教授',icon:'🙂',desc:'會拆問題、給提示，再讓你重新回答。'},
@@ -554,10 +723,7 @@ function visualQuestionsFor(schoolId,type='mixed'){
   return eligibleQuestion(q,schoolId,resolvedType);
  });
 }
-function chooseVisualQuestion(schoolId,type='mixed'){
- const pool=visualQuestionsFor(schoolId,type);if(!pool.length)return chooseQuestion(schoolId,type==='visual'?'mixed':type);
- const key='visual_'+schoolId+'_'+type,seen=state.seenQuestions[key]||[];let fresh=pool.filter(q=>!seen.includes(q.id));if(!fresh.length)fresh=pool;const q=pick(fresh);state.seenQuestions[key]=[...seen,q.id].slice(-Math.max(40,Math.floor(pool.length*.85)));saveState();return q;
-}
+function chooseVisualQuestion(schoolId,type='mixed'){const pool=visualQuestionsFor(schoolId,type);return pool.length?chooseScheduled(pool):chooseQuestion(schoolId,type==='visual'?'mixed':type);}
 function visualTextSummary(key){const v=VISUAL_LIBRARY[key];if(!v)return '';let out=[v.title||'',v.note||''];if(v.kind==='bar')out.push(v.labels.map((x,i)=>`${x}:${v.values[i]}`).join(', '));if(v.kind==='xy'||v.kind==='scatter')out.push((v.series||[]).map(s=>`${s.name}: ${s.points.map(p=>p.join('/')).join(', ')}`).join(' | '));if(v.kind==='blot')out.push(`lanes=${v.lanes.join(', ')}; target=${v.target.join(', ')}; loading=${v.loading.join(', ')}`);if(v.kind==='multiblot')out.push(`lanes=${v.lanes.join(', ')}; `+(v.rows||[]).map(r=>`${r.label}=${r.values.join(',')}`).join(' | '));if(v.kind==='quadrant')out.push(JSON.stringify(v.quad));return out.filter(Boolean).join('；')}
 function svgLinePath(points,xm,ym){return points.map((p,i)=>(i?'L':'M')+xm(p[0]).toFixed(1)+','+ym(p[1]).toFixed(1)).join(' ')}
 function renderXYVisual(v){const W=640,H=350,L=62,R=18,T=26,B=55;const xs=(v.series||[]).flatMap(s=>s.points.map(p=>p[0])),ys=(v.series||[]).flatMap(s=>s.points.map(p=>p[1]));const xmin=v.xMin??Math.min(...xs),xmax=v.xMax??Math.max(...xs),ymin=v.yMin??Math.min(...ys,0),ymax=v.yMax??Math.max(...ys);const xm=x=>L+(x-xmin)/(xmax-xmin||1)*(W-L-R),ym=y=>H-B-(y-ymin)/(ymax-ymin||1)*(H-T-B);let svg=`<svg class="visual-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeHtml(v.title||'chart')}">`;
@@ -783,19 +949,19 @@ function getFormalConfig(id){
 }
 
 function showHome(){
- currentSchool=null; clearTimer();
+ currentSchool=null; currentMode='practice'; formalSession=null; clearTimer(); clearFormalTimer();
  const cards=Object.entries(SCHOOL).map(([id,s])=>`<div class="school-card">
   <div class="type">${s.group==='chem'?'化工／化材':'生科／生醫'}</div><h3>${s.name}</h3><p>${s.summary}</p>
   <div class="tags">${s.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
   <div class="school-actions"><button class="btn" onclick="openSchool('${id}')">進入模擬</button><button class="btn secondary" onclick="startQuickSchool('${id}')">直接練一題</button></div>
  </div>`).join('');
  const rec=state.records;
- app.innerHTML=`<div class="hero"><h1>研究所模擬面試</h1><p>11 個校系各自依近年面試形式設定。正式模式會混合黑白臉教授、隨機難度、簡報計時、專業知識、專題追問、英文與陌生 Open Access Paper。v20 將看圖作答改成校系領域硬性分流：生科／生醫校系只抽生醫、生理與你的 AGS 專題圖；化工／化材校系只抽化工、材料與你的 AGS 專題圖，不會再把化工圖丟進生科校系，或把一般生醫圖丟進化工專業題。所有圖題仍維持「完整可直接口說」的全中文版本＋專有名詞英文版；錄音／逐字稿、同步與 Paper 模式全部保留。</p><div class="hero-chips"><span class="chip">🎙 錄音／逐字稿</span><span class="chip">📄 陌生 OA Paper</span><span class="chip">🧠 專業題庫</span><span class="chip">📊 看圖作答</span><span class="chip">★ 收藏／錯題</span><span class="chip">📘 PDF 複習講義</span></div></div>
- <div class="section-title"><div><h2>選擇校系</h2><div class="sub">同一間學校的風格固定，但題目、教授與難度會變。</div></div></div><div class="grid">${cards}</div>
+ app.innerHTML=`<div class="hero"><h1>研究所模擬面試</h1><p>選擇校系，練習專業知識、專題追問、英文與 Paper 面試。v21 會依最近一次表現安排複習：先補弱項、穿插新題，完全掌握後只少量抽查。你可以自行確認掌握度，手機與電腦沿用同一份練習紀錄。</p><div class="hero-chips"><span class="chip">🎙 錄音／逐字稿</span><span class="chip">📄 陌生 OA Paper</span><span class="chip">🧠 專業題庫</span><span class="chip">📊 看圖作答</span><span class="chip">★ 收藏／錯題</span><span class="chip">📘 PDF 複習講義</span></div></div>
+ ${reviewSummaryHtml()}<div class="section-title"><div><h2>選擇校系</h2><div class="sub">同一間學校的風格固定，但題目、教授與難度會變。</div></div></div><div class="grid">${cards}</div>
  <div class="section-title"><div><h2>快速練習</h2><div class="sub">可跨校複習，但正式模式仍會遵守各校題型。</div></div></div>
  <div class="quick-grid">
-  <button class="quick" onclick="startGlobal('wrong')"><span>❌</span>答錯／不會<small>${rec.filter(r=>reviewBucketFor(r)==='wrong'&&!r.disputed).length} 題</small></button>
-  <button class="quick" onclick="startGlobal('unclear')"><span>🟡</span>回答不清楚<small>${rec.filter(r=>reviewBucketFor(r)==='unclear'&&!r.disputed).length} 題</small></button>
+  <button class="quick" onclick="startGlobal('wrong')"><span>❌</span>答錯／不會<small>${currentReviewRecords('wrong').length} 題</small></button>
+  <button class="quick" onclick="startGlobal('unclear')"><span>🟡</span>回答不清楚<small>${currentReviewRecords('unclear').length} 題</small></button>
   <button class="quick" onclick="openReview('favorite')"><span>★</span>收藏題<small>${rec.filter(r=>r.favorite).length} 題</small></button>
   <button class="quick" onclick="startGlobal('project')"><span>🧪</span>專題追殺<small>Pimozide × 5-FU</small></button>
   <button class="quick" onclick="startGlobal('bio')"><span>🧬</span>生科專業<small>生理／生化／分生</small></button>
@@ -810,16 +976,16 @@ function showHome(){
 }
 function goHome(){showHome()} window.goHome=goHome;
 
-function openSchool(id){currentSchool=id;const s=SCHOOL[id];const flow=getFormalConfig(id);app.innerHTML=`
+function openSchool(id){currentMode='practice';formalSession=null;clearFormalTimer();currentSchool=id;const s=SCHOOL[id];const flow=getFormalConfig(id);app.innerHTML=`
  <div class="panel"><div class="school-head"><div><div class="type">${s.group==='chem'?'化工／化材':'生科／生醫'}</div><h2>${s.full}</h2><p>${s.summary}</p></div><button class="btn ghost" onclick="goHome()">← 返回</button></div>
  <div class="flow">${flow.map(x=>`<div class="flow-step">${escapeHtml(x.title)} ${x.sec?`· ${fmtTime(x.sec)}`:''}</div>`).join('')}</div>
  <div class="disclaimer">此流程依近年面試心得建模，不代表 116 學年度已正式公告；正式通知若更新，請以系所公告為準。</div>
- <div class="mode-buttons"><div class="mode-card"><h3>🎓 正式模擬</h3><p>不顯示難度、不即時公布答案；依該校流程計時，教授個性與難度隨機。</p><button class="btn" onclick="startFormal('${id}')">開始正式模擬</button></div><div class="mode-card"><h3>📚 自由練習</h3><p>每題立即回饋，可要求教授提示、收藏、重錄、查看建議回答。</p><button class="btn secondary" onclick="showPracticeOptions('${id}')">選擇練習類型</button></div></div>
+ ${reviewSummaryHtml(id)}<div class="mode-buttons"><div class="mode-card"><h3>🎓 正式模擬</h3><p>不顯示難度、不即時公布答案；依該校流程計時，教授個性與難度隨機。</p><button class="btn" onclick="startFormal('${id}')">開始正式模擬</button></div><div class="mode-card"><h3>📚 自由練習</h3><p>每題立即回饋，可要求教授提示、收藏、重錄、查看建議回答。</p><button class="btn secondary" onclick="showPracticeOptions('${id}')">選擇練習類型</button></div></div>
  <div class="section-title"><div><h2>這間學校的練習重點</h2></div></div><div class="tags">${s.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
  <div class="section-title"><div><h2>近年模式來源</h2><div class="sub">僅用來建立模擬規則；不同年度可能調整。</div></div></div><ul class="source-list">${s.sources.map(a=>`<li><a href="${a[1]}" target="_blank" rel="noopener">${escapeHtml(a[0])}</a></li>`).join('')}</ul>
  </div>`}
 window.openSchool=openSchool;
-function showPracticeOptions(id){currentSchool=id;const s=SCHOOL[id];app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${s.name}｜自由練習</h2><p>題型會依該校領域篩選；難度仍隨機。</p></div><button class="btn ghost" onclick="openSchool('${id}')">← 返回</button></div><div class="practice-options">
+function showPracticeOptions(id){currentSchool=id;const s=SCHOOL[id];app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${s.name}｜自由練習</h2><p>題型依校系篩選，優先補強到期弱題並穿插新題；完全掌握後降低回流。</p></div><button class="btn ghost" onclick="openSchool('${id}')">← 返回</button></div><div class="practice-options">
  ${practiceOpt('mixed','🎲','校系隨機','依該校比例混合專業、專題、聊天')}
  ${practiceOpt('pro','🧠','專業知識','生科或化工核心專業')}
  ${practiceOpt('project','🧪','專題追問','Pimozide × 5-FU 連續追問')}
@@ -843,22 +1009,15 @@ function eligibleQuestion(q,schoolId,type){const s=SCHOOL[schoolId]; if(q.school
  if(type==='mixed') return s.group==='chem'? !['physiology','biochem','molbio','cellbio'].includes(q.domain): !['thermo','reaction','transport','unitops','control','engmath','instrument','organic','calc','materials'].includes(q.domain);
  return true;
 }
-function chooseQuestion(schoolId,type='mixed'){
- let pool=ALLQ.filter(q=>eligibleQuestion(q,schoolId,type));
- const seen=state.seenQuestions[schoolId]||[]; let fresh=pool.filter(q=>!seen.includes(q.id)); if(fresh.length<5) fresh=pool;
- const core=fresh.filter(q=>!q.variantOf),vars=fresh.filter(q=>q.variantOf);
- let q=(core.length && Math.random()<0.72)?pick(core):(vars.length?pick(vars):pick(fresh));
- state.seenQuestions[schoolId]=[...(seen||[]),q.id].slice(-Math.max(120,Math.floor(pool.length*.75))); saveState(); return q;
-}
-function startQuickSchool(id){currentSchool=id;currentMode='practice';renderQuestion(chooseQuestion(id,'mixed'));} window.startQuickSchool=startQuickSchool;
-function startPractice(id,type){currentSchool=id;currentMode='practice';currentPracticeType=type; if(type==='paper')return showPaperMode(id); if(type==='english')return showEnglishMode(id); if(type==='visual')return renderQuestion(chooseVisualQuestion(id,'mixed'),'visual'); if(type==='special')return showSpecialPractice(id); if(type==='presentation')return showPresentationPractice(id); if(type==='professor')return showProfessorPractice(id); if(type==='wrong'||type==='unclear'||type==='favorite')return startRecordPractice(id,type); renderQuestion(chooseQuestion(id,type),type)} window.startPractice=startPractice;
+function chooseQuestion(schoolId,type='mixed'){return chooseScheduled(ALLQ.filter(q=>eligibleQuestion(q,schoolId,type)));}
+function startQuickSchool(id){startPractice(id,'mixed')} window.startQuickSchool=startQuickSchool;
+function startPractice(id,type){clearFormalTimer();formalSession=null;practiceDomain=null;practiceProfessor=null;currentSchool=id;currentMode='practice';currentPracticeType=type; if(type==='paper')return showPaperMode(id); if(type==='english')return showEnglishMode(id); if(type==='visual')return renderQuestion(chooseVisualQuestion(id,'mixed'),'visual'); if(type==='special')return showSpecialPractice(id); if(type==='presentation')return showPresentationPractice(id); if(type==='professor')return showProfessorPractice(id); if(type==='wrong'||type==='unclear'||type==='favorite')return startRecordPractice(id,type); renderQuestion(chooseQuestion(id,type),type)} window.startPractice=startPractice;
 function startGlobal(type){
- if(type==='bio'){currentSchool='nycuphys';return renderQuestion(pick(bioQuestions),'pro')}
- if(type==='chem'){currentSchool='ntuche';return renderQuestion(pick(chemQuestions),'pro')}
- if(type==='project'){currentSchool='nckuche';currentPracticeType='project';return renderQuestion(pick(projectQuestions),'project')}
- if(type==='visual'){currentSchool='nycuphys';currentPracticeType='visual';return renderQuestion(chooseVisualQuestion(currentSchool,'mixed'),'visual')}
- if(type==='wrong')return openReview('wrong');
- if(type==='unclear')return openReview('unclear');
+ if(type==='bio')return startPractice('nycuphys','pro');
+ if(type==='chem')return startPractice('ntuche','pro');
+ if(type==='project')return startPractice('nckuche','project');
+ if(type==='visual')return startPractice('nycuphys','visual');
+ if(type==='wrong'||type==='unclear')return openReview(type);
 }
 window.startGlobal=startGlobal;
 
@@ -1173,7 +1332,7 @@ function technicalEnglishAnswerText(source){
 
 function glossaryMatches(text){const low=String(text||'').toLowerCase();return Object.entries(TERM_GLOSSARY).filter(([k])=>low.includes(k.toLowerCase())).slice(0,18)}
 function glossaryHtml(text){const ms=glossaryMatches(text);if(!ms.length)return '<div class="sub">目前沒有偵測到內建專有名詞；你也可以把不懂的字直接輸入查詢。</div>';return `<div class="glossary-grid">${ms.map(([k,v])=>`<div class="term-item"><b>${escapeHtml(k)}</b><br>${escapeHtml(v)}</div>`).join('')}</div>`}
-function toggleGlossary(source='question'){if(currentMode==='formal'){toast('正式模擬不提供專有名詞提示');return}const box=$('#glossaryBox');if(!box)return;const text=source==='english'?(currentEnglishText||''):(currentQuestion?.text||'');box.classList.toggle('hidden');if(!box.classList.contains('hidden'))box.innerHTML=`<div class="glossary-box"><h4>📘 專有名詞提示</h4>${glossaryHtml(text)}</div>`}
+function toggleGlossary(source='question'){if(currentMode==='formal'){toast('正式模擬不提供專有名詞提示');return}const box=$('#glossaryBox');if(!box)return;const text=source==='english'?(currentEnglishText||''):(currentQuestion?.text||'');box.classList.toggle('hidden');if(!box.classList.contains('hidden'))practiceHintUsed=true;if(!box.classList.contains('hidden'))box.innerHTML=`<div class="glossary-box"><h4>📘 專有名詞提示</h4>${glossaryHtml(text)}</div>`}
 window.toggleGlossary=toggleGlossary;
 let currentEnglishText='';
 let currentEnglishSpeakText='';
@@ -1182,7 +1341,12 @@ let currentTtsUtterance=null;
 
 function allowedDomains(id){return SCHOOL[id].group==='chem'?['thermo','reaction','transport','unitops','control','engmath','instrument','organic','calc','materials','project','personal']:['physiology','biochem','molbio','cellbio','experiment','project','personal']}
 function showSpecialPractice(id){currentSchool=id;const ds=allowedDomains(id);app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${SCHOOL[id].name}｜專項科目訓練</h2><p>只抽你指定的科目；題目仍會混合基礎到魔王難度，並保留教授引導與追問。</p></div><button class="btn ghost" onclick="showPracticeOptions('${id}')">← 返回</button></div><div class="practice-options">${ds.map(d=>`<button class="practice-option" onclick="startDomainPractice('${id}','${d}')"><span style="font-size:24px">🎯</span><strong>${SUBJECT_LABELS[d]}</strong><small>${ALLQ.filter(q=>q.domain===d && eligibleQuestion(q,id,'mixed')).length} 題可抽</small></button>`).join('')}</div></div>`}
-function startDomainPractice(id,domain){currentSchool=id;currentMode='practice';let pool=ALLQ.filter(q=>q.domain===domain&&eligibleQuestion(q,id,'mixed'));if(!pool.length)return toast('目前這個校系沒有此科題目');const seen=state.seenQuestions[id+'_'+domain]||[];let fresh=pool.filter(q=>!seen.includes(q.id));if(!fresh.length)fresh=pool;const q=pick(fresh);state.seenQuestions[id+'_'+domain]=[...seen,q.id].slice(-Math.max(80,Math.floor(pool.length*.8)));saveState();renderQuestion(q,'special')}
+function startDomainPractice(id,domain){
+ currentSchool=id;currentMode='practice';currentPracticeType='special';practiceDomain=domain;practiceProfessor=null;
+ const pool=ALLQ.filter(q=>q.domain===domain&&eligibleQuestion(q,id,'mixed'));
+ if(!pool.length)return toast('目前這個校系沒有此科題目');
+ renderQuestion(chooseScheduled(pool),'special');
+}
 window.showSpecialPractice=showSpecialPractice;window.startDomainPractice=startDomainPractice;
 function openSpecialPracticeGlobal(){app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>專項訓練</h2><p>先選領域，再選要練的科目。正式模擬仍會回到各校實際混合模式。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div><div class="mode-buttons"><div class="mode-card"><h3>🧬 生科／生醫</h3><p>生理、生化、分生、細生、實驗方法。</p><button class="btn" onclick="showSpecialPractice('nycuphys')">進入生科專項</button></div><div class="mode-card"><h3>⚙️ 化工／化材</h3><p>化熱、化反、輸送、單操、程控、工數、儀器。</p><button class="btn" onclick="showSpecialPractice('ntuche')">進入化工專項</button></div></div></div>`}
 window.openSpecialPracticeGlobal=openSpecialPracticeGlobal;
@@ -1191,7 +1355,7 @@ window.showPresentationPractice=showPresentationPractice;
 
 
 function showProfessorPractice(id){currentSchool=id;currentMode='practice';app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${SCHOOL[id].name}｜教授模式</h2><p>指定教授個性練習。正式模擬時不會顯示『引導型／黑臉型』標籤，只會讓不同教授用實際行為呈現：有人會提示、有人追問、有人直接換題。</p></div><button class="btn ghost" onclick="showPracticeOptions('${id}')">← 返回</button></div><div class="practice-options">${PROFESSORS.map(p=>`<button class="practice-option" onclick="startProfessorPractice('${id}','${p.id}')"><span style="font-size:24px">${p.icon}</span><strong>${p.name}</strong><small>${p.desc}</small></button>`).join('')}</div></div>`}
-function startProfessorPractice(id,pid){currentSchool=id;currentMode='practice';const p=PROFESSORS.find(x=>x.id===pid)||PROFESSORS[0];renderQuestion(chooseQuestion(id,'mixed'),'mixed',{prof:p})}
+function startProfessorPractice(id,pid){currentSchool=id;currentMode='practice';currentPracticeType='professor';practiceDomain=null;practiceProfessor=PROFESSORS.find(x=>x.id===pid)||PROFESSORS[0];renderQuestion(chooseQuestion(id,'mixed'),'mixed',{prof:practiceProfessor})}
 window.showProfessorPractice=showProfessorPractice;window.startProfessorPractice=startProfessorPractice;
 function currentProfessorPanel(){return formalSession?.professors?.length?formalSession.professors:[]}
 function formalProfessorLabel(p){const ps=currentProfessorPanel();const i=Math.max(0,ps.indexOf(p));return `教授 ${String.fromCharCode(65+i)}`}
@@ -1203,6 +1367,8 @@ let formalGuidanceUsed=0;
 let formalBaseAnswer='';
 function difficultyLabel(d){return ({basic:'基礎',mid:'中等',hard:'困難',boss:'魔王'})[d]||d}
 function renderQuestion(q,type='mixed',opts={}){
+ if(!q)return showReviewComplete();
+ questionSubmitted=false;practiceHintUsed=false;
  currentQuestion=q; currentProf=opts.prof||randomProfessor(); currentRecording=null; stopRecording(true); clearTimer(); formalGuidanceUsed=0; formalBaseAnswer='';
  const formal=currentMode==='formal'; const profView=professorDisplay(currentProf,formal);
  app.innerHTML=`<div class="interview-shell"><div class="question-card">
@@ -1254,7 +1420,7 @@ function openSettings(){
 }
 window.openSettings=openSettings;
 
-function showHint(){const b=$('#hintBox');b.innerHTML=`<div class="hint"><b>${currentProf.id==='guide'?'教授提示：':'提示：'}</b>${escapeHtml(currentQuestion.hint||'先定義題目中的核心名詞，再說明機制或證據。')}</div>`} window.showHint=showHint;
+function showHint(){practiceHintUsed=true;const b=$('#hintBox');b.innerHTML=`<div class="hint"><b>${currentProf.id==='guide'?'教授提示：':'提示：'}</b>${escapeHtml(currentQuestion.hint||'先定義題目中的核心名詞，再說明機制或證據。')}</div>`} window.showHint=showHint;
 
 function normalize(s){return String(s||'').toLowerCase().replace(/[\s，。、「」：；,.()（）+\-_/]/g,'')}
 function enrichedNormalize(text){let raw=String(text||'');let low=raw.toLowerCase();for(const [en,zh] of Object.entries(TERM_GLOSSARY)){if(low.includes(en.toLowerCase())||raw.includes(zh.split('／')[0])) raw+=' '+en+' '+zh;}return normalize(raw)}
@@ -1412,18 +1578,26 @@ function evaluatePersonal(q,a){
  return {grade,confidence:'中',correct:hit.map(g=>g.join('／')),missing:groups.filter(g=>!matchGroup(a,g)).map(g=>g.join('／')),bonus:hasExample?['有具體脈絡或例子']:[]};
 }
 function gradeText(g){return ({g5:'完整正確／完整有力',g4:'大致正確，但可更完整',g3:'部分正確／擦邊',g2:'關鍵點不足／需要複核',g1:'明確不足／幾乎未作答'})[g]}
+function saveQuestionAnswer(rec){
+ questionSubmitted=true;
+ rec.updatedAt=Date.now();rec.variantOf=currentQuestion?.variantOf||null;rec.hintUsed=practiceHintUsed;
+ rec.reviewBucket=reviewBucketFor(rec);state.records.unshift(rec);saveState();
+ document.querySelectorAll('[onclick="submitAnswer()"], [onclick="submitUnknown()"]').forEach(b=>b.disabled=true);
+}
 function submitUnknown(){
+ if(questionSubmitted||!currentQuestion)return;
  if(currentMode==='formal' && shouldGuideFormal(currentProf,null,true)){
    showFormalGuidance('（第一次表示不會）'); return;
  }
  const rec={id:uid(),time:new Date().toISOString(),school:currentSchool,qid:currentQuestion.id,question:currentQuestion.text,domain:currentQuestion.domain,answer:formalBaseAnswer?formalBaseAnswer+'\n（引導後仍不會）':'（我不會）',grade:'g1',confidence:'高',correct:[],missing:(currentQuestion.must||[]).map(g=>g.join('／')),model:currentQuestion.answer||'',followups:expandedFollowups(currentQuestion),favorite:false,disputed:false,unknown:true,visualKey:currentQuestion.visual||''};
- rec.reviewBucket=reviewBucketFor(rec);state.records.unshift(rec);saveState();
+ saveQuestionAnswer(rec);
  const ev={correct:[],missing:rec.missing,bonus:[]};
  if(currentMode==='formal'){formalSession.results.push(rec);renderFormalFeedbackMinimal(rec);return}
  renderEvaluation(rec,ev);
 }
 window.submitUnknown=submitUnknown;
 function submitAnswer(){
+ if(questionSubmitted||!currentQuestion)return;
  const ans=$('#answerText')?.value.trim()||''; if(!ans){toast('先回答再送出');return}
  const combined=formalBaseAnswer?`${formalBaseAnswer}\n【教授引導後補充】${ans}`:ans;
  const ev=evaluateAnswer(currentQuestion,combined);
@@ -1431,12 +1605,13 @@ function submitAnswer(){
    showFormalGuidance(ans); return;
  }
  const rec={id:uid(),time:new Date().toISOString(),school:currentSchool,qid:currentQuestion.id,question:currentQuestion.text,domain:currentQuestion.domain,answer:combined,grade:ev.grade,confidence:ev.confidence,correct:ev.correct,missing:ev.missing,model:currentQuestion.answer||'',followups:expandedFollowups(currentQuestion),favorite:false,disputed:false,guided:!!formalBaseAnswer,visualKey:currentQuestion.visual||''};
- rec.reviewBucket=reviewBucketFor(rec);state.records.unshift(rec);saveState(); if(currentMode==='formal'){formalSession.results.push(rec);renderFormalFeedbackMinimal(rec);return} renderEvaluation(rec,ev);
+ saveQuestionAnswer(rec); if(currentMode==='formal'){formalSession.results.push(rec);renderFormalFeedbackMinimal(rec);return} renderEvaluation(rec,ev);
 }
 window.submitAnswer=submitAnswer;
 function renderEvaluation(rec,ev){
  const e=$('#evaluation'); const model=rec.model||buildGenericAnswer(rec); const why=testIntent(currentQuestion);
  e.innerHTML=`<div class="evaluation"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="grade ${rec.grade}">${gradeText(rec.grade)}</span><span class="pill">判定信心：${escapeHtml(rec.confidence)}</span><span class="pill">系統自動歸類：${reviewBucketText(rec.reviewBucket||reviewBucketFor(rec))}</span></div>
+ ${masteryControls(rec)}
  ${rec.confidence==='低'?`<div class="disclaimer">系統對這題的本地判定信心偏低，因此不建議把結果當成絕對對錯；請以評分重點與建議回答複核。</div>`:''}
  <div class="eval-grid"><div class="eval-box"><h4>✅ 你有抓到</h4>${ev.correct.length?`<ul>${ev.correct.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="sub">目前沒有偵測到足夠明確的核心概念；若你其實有講到，可按「判定有問題」。</div>'}</div><div class="eval-box"><h4>⚠️ 還可以補</h4>${ev.missing.length?`<ul>${ev.missing.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="sub">核心點已相對完整。</div>'}</div></div>
  <div class="model-answer"><b>建議的面試回答｜兩種版本</b><div class="bilingual-answer"><div class="langbox"><b>全中文版本</b><div>${escapeHtml(bilingualAnswerFor(currentQuestion,rec).zh)}</div></div><div class="langbox"><b>專有名詞英文版</b><div>${escapeHtml(bilingualAnswerFor(currentQuestion,rec).terms)}</div></div></div></div>
@@ -1460,9 +1635,15 @@ function testIntent(q){
 }
 function askFollowup(text){const d=currentQuestion?.domain||'project';currentQuestion=Q(d,text,[],[], '先沿著上一題回答想：教授可能在測機制、限制、假設、控制或替代解釋。','',FOLLOWUP_BANK[d]||FOLLOWUP_BANK.project);renderQuestion(currentQuestion,d,{prof:{...currentProf,id:'probe',name:'追問型教授',icon:'🔎',desc:'接著你上一題往下追。'}})}
 window.askFollowup=askFollowup;
-function nextPracticeQuestion(){if(currentPracticeType==='visual')return renderQuestion(chooseVisualQuestion(currentSchool,'mixed'),'visual');const t=['project','personal','pro','mixed'].includes(currentPracticeType)?currentPracticeType:'mixed';renderQuestion(chooseQuestion(currentSchool,t),t)} window.nextPracticeQuestion=nextPracticeQuestion;
-function toggleFavorite(id){const r=state.records.find(x=>x.id===id);if(r){r.favorite=!r.favorite;saveState();toast(r.favorite?'已加入收藏':'已取消收藏')}} window.toggleFavorite=toggleFavorite;
-function markDispute(id){const r=state.records.find(x=>x.id===id);if(r){r.disputed=true;r.reviewBucket='pending';saveState();toast('已移到「待複核」，不會混入答錯或回答不清楚清單')}} window.markDispute=markDispute;
+function nextPracticeQuestion(){
+ if(currentPracticeType==='visual')return renderQuestion(chooseVisualQuestion(currentSchool,'mixed'),'visual');
+ if(currentPracticeType==='special'&&practiceDomain)return startDomainPractice(currentSchool,practiceDomain);
+ if(['wrong','unclear','favorite'].includes(currentPracticeType))return startRecordPractice(currentSchool,currentPracticeType);
+ const t=['project','personal','pro','mixed'].includes(currentPracticeType)?currentPracticeType:'mixed';
+ renderQuestion(chooseQuestion(currentSchool,t),t,practiceProfessor?{prof:practiceProfessor}:{});
+} window.nextPracticeQuestion=nextPracticeQuestion;
+function toggleFavorite(id){const r=state.records.find(x=>x.id===id);if(r){r.favorite=!r.favorite;r.favoriteAt=Date.now();r.updatedAt=r.favoriteAt;saveState();toast(r.favorite?'已加入收藏':'已取消收藏')}} window.toggleFavorite=toggleFavorite;
+function markDispute(id){const r=state.records.find(x=>x.id===id);if(r){r.disputed=true;r.reviewBucket='pending';r.assessmentAt=Date.now();r.updatedAt=r.assessmentAt;saveState();document.querySelectorAll('[data-mastery-record]').forEach(el=>{const record=state.records.find(x=>x.id===el.dataset.masteryRecord);if(record)el.outerHTML=masteryControls(record);});toast('已移到「待複核」，不會混入答錯或回答不清楚清單')}} window.markDispute=markDispute;
 function copyForAI(id){const r=state.records.find(x=>x.id===id);if(!r)return;const txt=`請以研究所面試官角度保守評分我的回答。不要因為措辭不同就判錯；請分成完整正確／大致正確／部分正確／方向有問題／明確錯誤。\n學校：${SCHOOL[r.school]?.full||''}\n題目：${r.question}\n${r.visualKey?`圖表資料：${visualTextSummary(r.visualKey)}\n`:''}我的回答：${r.answer}\n請告訴我：1.答對的地方 2.缺少的地方 3.真正錯誤的地方 4.更好的口頭回答 5.教授可能追問。`;navigator.clipboard?.writeText(txt).then(()=>toast('已複製，可貼到 ChatGPT 做深度評分'))} window.copyForAI=copyForAI;
 
 function startCountUp(){clearTimer();let sec=0;timerInt=setInterval(()=>{sec++;const el=$('#qTimer');if(el)el.textContent=fmtTime(sec)},1000)} window.startCountUp=startCountUp;
@@ -1700,7 +1881,7 @@ function startPaperQuestions(){currentQuestion=Q('paper','請先用 60 秒說明
 
 function startStageCountdown(sec,onDone){clearTimer();timerEnd=Date.now()+sec*1000;const tick=()=>{const left=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));const el=$('#stageTime');if(el){el.textContent=fmtTime(left);if(left<=30)el.style.color='var(--red)'}if(left<=0){clearInterval(timerInt);timerInt=null;toast('時間到');if(onDone)onDone()}};tick();timerInt=setInterval(tick,250)} window.startStageCountdown=startStageCountdown;
 
-function startFormal(id){currentSchool=id;currentMode='formal';formalSession={id:uid(),school:id,stages:getFormalConfig(id),index:0,results:[],paper:null,started:new Date().toISOString(),professors:[...PROFESSORS].sort(()=>Math.random()-.5).slice(0,3)};state.stats.sessions=(state.stats.sessions||0)+1;saveState();renderFormalStage()} window.startFormal=startFormal;
+function startFormal(id){clearFormalTimer();practiceProfessor=null;practiceDomain=null;currentSchool=id;currentMode='formal';formalSession={id:uid(),school:id,stages:getFormalConfig(id),index:0,results:[],askedFamilies:[],paper:null,started:new Date().toISOString(),professors:[...PROFESSORS].sort(()=>Math.random()-.5).slice(0,3)};state.stats.sessions=(state.stats.sessions||0)+1;saveState();renderFormalStage()} window.startFormal=startFormal;
 function renderFormalStage(){clearTimer();if(!formalSession)return openSchool(currentSchool);const st=formalSession.stages[formalSession.index];if(!st)return finishFormal();
  if(st.type==='paper')return showFormalPaper(st);if(st.type==='paperqa')return showFormalPaperQA(st);if(st.type==='englishSummary'||st.type==='englishReadTranslate')return showFormalEnglish(st);
  if(['presentation','intro','prep'].includes(st.type))return showTimedStage(st);
@@ -1709,40 +1890,61 @@ function renderFormalStage(){clearTimer();if(!formalSession)return openSchool(cu
 window.renderFormalStage=renderFormalStage;
 function formalHeader(st){return `<div class="stage"><div class="pill formal">正式模擬 · 第 ${formalSession.index+1}/${formalSession.stages.length} 階段</div><h3>${escapeHtml(st.title)}</h3></div>`}
 function showTimedStage(st){app.innerHTML=`<div class="panel">${formalHeader(st)}<div style="margin:12px 0">${professorPanelHtml()}</div><div class="presentation-timer"><div><div class="bigtime" id="stageTime">${fmtTime(st.sec)}</div><div class="prep-note">${st.type==='presentation'?'請直接開始你的簡報。時間到就停，訓練不要超時。':st.type==='intro'?'請用目前畫面要求的時間完成自我介紹。':'請模擬考場閱題：快速掃過化工觀念、英文與公式，不查資料。'}</div><div class="answer-tools" style="justify-content:center"><button class="btn" onclick="startStageCountdown(${st.sec})">開始</button><button class="btn green" onclick="startVoiceAnswer()">🎙 錄音</button><button class="btn" onclick="nextFormalStage()">完成，下一階段 →</button></div><div id="micStatus" class="mic-status"></div><div id="glossaryBox" class="hidden"></div></div></div></div>`}
-function showQuestionStage(st){const type=st.type==='project'?'project':st.type==='chat'?'personal':st.type==='pro'?'pro':'mixed';formalSession.stageCount=formalSession.stageCount||0;if(formalSession.stageCount>=st.count){formalSession.stageCount=0;return nextFormalStage()}const canVisual=type!=='personal'&&visualQuestionsFor(currentSchool,type).length;const q=(canVisual&&Math.random()<(FORMAL_VISUAL_RATE[currentSchool]||.2))?chooseVisualQuestion(currentSchool,type):chooseQuestion(currentSchool,type);renderQuestion(q,q.visual?'visual':type);const sb=document.querySelector('.sidebar');if(sb)sb.insertAdjacentHTML('afterbegin',`<div class="sidecard"><h4>${escapeHtml(st.title)}</h4><div class="timer" id="stageTimer">${fmtTime(st.sec)}</div><small>本階段第 ${formalSession.stageCount+1}/${st.count} 題</small></div>`);if(!formalSession.stageStarted){formalSession.stageStarted=Date.now();startFormalStageTimer(st.sec)} }
-function startFormalStageTimer(sec){const end=Date.now()+sec*1000;const it=setInterval(()=>{const el=$('#stageTimer');if(!el){clearInterval(it);return}const l=Math.max(0,Math.ceil((end-Date.now())/1000));el.textContent=fmtTime(l);if(l<=0){clearInterval(it);toast('本階段時間到，可直接進下一階段')}} ,500)}
+function showQuestionStage(st){
+ const type=st.type==='project'?'project':st.type==='chat'?'personal':st.type==='pro'?'pro':'mixed';
+ formalSession.stageCount=formalSession.stageCount||0;
+ if(formalSession.stageCount>=st.count)return nextFormalStage();
+ const canVisual=type!=='personal'&&visualQuestionsFor(currentSchool,type).length;
+ const useVisual=canVisual&&Math.random()<(FORMAL_VISUAL_RATE[currentSchool]||.2);
+ const q=(useVisual?chooseVisualQuestion(currentSchool,type):chooseQuestion(currentSchool,type))||(!useVisual?chooseVisualQuestion(currentSchool,type):chooseQuestion(currentSchool,type));
+ if(!q){toast('本階段可用題目已完成，進入下一階段');return nextFormalStage();}
+ renderQuestion(q,q.visual?'visual':type);
+ if(!formalSession.stageDeadline)formalSession.stageDeadline=Date.now()+st.sec*1000;
+ const sb=document.querySelector('.sidebar');
+ if(sb)sb.insertAdjacentHTML('afterbegin',`<div class="sidecard"><h4>${escapeHtml(st.title)}</h4><div class="timer" id="stageTimer">${fmtTime((formalSession.stageDeadline-Date.now())/1000)}</div><small>本階段第 ${formalSession.stageCount+1}/${st.count} 題</small><div class="answer-tools"><button class="btn small secondary" onclick="nextFormalStage()">結束本階段 →</button></div></div>`);
+ startFormalStageTimer();
+}
+function startFormalStageTimer(){
+ clearFormalTimer();const sessionId=formalSession?.id,stage=formalSession?.index;
+ const tick=()=>{if(!formalSession||formalSession.id!==sessionId||formalSession.index!==stage){clearFormalTimer();return;}
+ const el=$('#stageTimer');if(!el){clearFormalTimer();return;}
+ const left=Math.max(0,Math.ceil((formalSession.stageDeadline-Date.now())/1000));el.textContent=fmtTime(left);
+ if(left<=0){clearFormalTimer();toast('本階段時間到，可直接進下一階段');}};
+ formalTimerInt=setInterval(tick,500);tick();
+}
 function renderFormalFeedbackMinimal(rec){formalSession.stageCount=(formalSession.stageCount||0)+1;const e=$('#evaluation');e.innerHTML=`<div class="evaluation"><div class="disclaimer">正式模式不即時公布完整答案。已記錄本題回答與暫時判定；整場結束後一次總評。</div><div class="answer-tools"><button class="btn" onclick="continueFormalQuestionStage()">下一題 →</button></div></div>`}
-function continueFormalQuestionStage(){const st=formalSession.stages[formalSession.index];showQuestionStage(st)} window.continueFormalQuestionStage=continueFormalQuestionStage;
-function nextFormalStage(){clearTimer();formalSession.index++;formalSession.stageCount=0;formalSession.stageStarted=null;renderFormalStage()} window.nextFormalStage=nextFormalStage;
+function continueFormalQuestionStage(){renderFormalStage()} window.continueFormalQuestionStage=continueFormalQuestionStage;
+function nextFormalStage(){clearTimer();clearFormalTimer();if(!formalSession)return;formalSession.index++;formalSession.stageCount=0;formalSession.stageStarted=null;formalSession.stageDeadline=null;renderFormalStage()} window.nextFormalStage=nextFormalStage;
 async function showFormalPaper(st){currentMode='formal';await showPaperMode(currentSchool,true);setTimeout(()=>{const time=$('#stageTime');if(time)time.textContent=fmtTime(st.sec);const btns=document.querySelector('.presentation-timer .answer-tools');if(btns)btns.innerHTML=`<button class="btn" onclick="startStageCountdown(${st.sec})">開始 ${Math.round(st.sec/60)} 分鐘</button><button class="btn" onclick="nextFormalStage()">閱讀完成 →</button>`},50)}
 function showFormalPaperQA(st){const qs=[
  '請用一句話說明這篇 paper 的 central question。','Figure 1 或 Figure 2 的 control group 是什麼？為什麼需要？','作者用了什麼方法回答研究問題？請說明其中一個方法的原理。','哪一張圖最能支持作者的主要結論？為什麼？','作者的資料可以證明 causality 嗎？還是只有 correlation？','如果讓你補一個實驗，你會做什麼？','如果結果和作者相反，你第一個會檢查什麼？'];
  if(!formalSession.paperQIndex)formalSession.paperQIndex=0;if(formalSession.paperQIndex>=st.count){formalSession.paperQIndex=0;formalSession.paperVisualUsed=false;return nextFormalStage()}if(!formalSession.paperVisualUsed&&formalSession.paperQIndex>0&&Math.random()<.45){formalSession.paperVisualUsed=true;currentQuestion=chooseVisualQuestion(currentSchool,'pro');renderQuestion(currentQuestion,'visual');formalSession.paperQIndex++;return}currentQuestion=Q('paper',qs[formalSession.paperQIndex%qs.length],[],[], '回到 paper 的 Figure、control 與方法，不要只背 abstract。');renderQuestion(currentQuestion,'paper');formalSession.paperQIndex++}
 function showFormalEnglish(st){currentMode='formal';const s=SCHOOL[currentSchool];refreshOnlineEnglish(currentSchool).catch(()=>{});const pool=[...baseEnglishPool(currentSchool),...(state.onlineEnglish[currentSchool]||[])];const p=pick(pool);currentEnglishPassage=p;currentEnglishText=(p.t||'')+' '+(p.x||'');currentEnglishSpeakText='';const isTrans=st.type==='englishReadTranslate';app.innerHTML=`<div class="panel">${formalHeader(st)}<div style="margin:12px 0">${professorPanelHtml()}</div><div class="paper-card"><div class="paper-title">${escapeHtml(p.t)}</div><div class="paper-abstract" style="font-size:18px;line-height:1.75">${escapeHtml(p.x)}</div></div><div class="presentation-timer" style="min-height:190px;margin-top:12px"><div><div class="bigtime" id="stageTime">${fmtTime(st.sec)}</div><div class="prep-note">${isTrans?'請朗讀，接著翻譯／說明。':'請閱讀後用中文說明大意，不需要逐句硬翻。'}</div><div class="answer-tools" style="justify-content:center"><button class="btn" onclick="startStageCountdown(${st.sec})">開始</button><button class="btn green" onclick="startVoiceAnswer()">🎙 錄音</button><button class="btn" onclick="nextFormalStage()">完成 →</button></div><div id="micStatus" class="mic-status"></div><div id="glossaryBox" class="hidden"></div></div></div></div>`}
-function finishFormal(){clearTimer();const rs=formalSession.results;const counts={g5:0,g4:0,g3:0,g2:0,g1:0};rs.forEach(r=>counts[r.grade]++);const total=Math.max(1,rs.length);const score=Math.round(rs.reduce((s,r)=>s+({g5:100,g4:82,g3:65,g2:42,g1:20}[r.grade]||50),0)/total);app.innerHTML=`<div class="panel"><h2>${SCHOOL[currentSchool].name}｜模擬完成</h2><p>正式模式先做「保守初判」，尤其 Paper、英文大意與聊天題仍建議之後用深度評分複核。</p><div class="dashboard-grid"><div class="metric"><b>${score}</b><small>本地規則初步總分</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='correct').length}</b><small>完整／大致正確</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='unclear').length}</b><small>回答不清楚／不完整</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='wrong').length}</b><small>答錯／不會</small></div></div><div class="section-title"><div><h2>本場回答</h2></div></div>${rs.map(r=>recordRow(r)).join('')||'<div class="empty">本場主要是簡報／閱讀計時，沒有留下文字回答。</div>'}<div class="answer-tools"><button class="btn red" onclick="openReview('wrong')">複習答錯／不會</button><button class="btn gold" onclick="openReview('unclear')">複習回答不清楚</button><button class="btn secondary" onclick="openSchool('${currentSchool}')">回校系頁</button></div></div>`;formalSession=null;currentMode='practice'}
+function finishFormal(){clearTimer();clearFormalTimer();const rs=formalSession.results;const counts={g5:0,g4:0,g3:0,g2:0,g1:0};rs.forEach(r=>counts[r.grade]++);const total=Math.max(1,rs.length);const score=Math.round(rs.reduce((s,r)=>s+({g5:100,g4:82,g3:65,g2:42,g1:20}[r.grade]||50),0)/total);app.innerHTML=`<div class="panel"><h2>${SCHOOL[currentSchool].name}｜模擬完成</h2><p>正式模式先做「保守初判」，尤其 Paper、英文大意與聊天題仍建議之後用深度評分複核。</p><div class="dashboard-grid"><div class="metric"><b>${score}</b><small>本地規則初步總分</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='correct').length}</b><small>完整／大致正確</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='unclear').length}</b><small>回答不清楚／不完整</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='wrong').length}</b><small>答錯／不會</small></div></div><div class="section-title"><div><h2>本場回答</h2></div></div>${rs.map(r=>recordRow(r)+masteryControls(r)).join('')||'<div class="empty">本場主要是簡報／閱讀計時，沒有留下文字回答。</div>'}<div class="answer-tools"><button class="btn red" onclick="openReview('wrong')">複習答錯／不會</button><button class="btn gold" onclick="openReview('unclear')">複習回答不清楚</button><button class="btn secondary" onclick="openSchool('${currentSchool}')">回校系頁</button></div></div>`;formalSession=null;currentMode='practice'}
 
 function startRecordPractice(id,type){
- const records=state.records.filter(r=>r.school===id && !r.disputed && (type==='favorite'?r.favorite:reviewBucketFor(r)===type));
- if(!records.length){toast(type==='favorite'?'目前沒有收藏題':type==='wrong'?'目前沒有答錯／不會題目':'目前沒有回答不清楚／不完整題目');return openSchool(id)}
- const r=pick(records);const q=ALLQ.find(x=>x.id===r.qid)||Q(r.domain,r.question,[],[], '回想上次缺少的地方。',r.model);renderQuestion(q,type)
+ currentSchool=id;currentMode='practice';currentPracticeType=type;
+ const records=type==='favorite'?state.records.filter(r=>r.school===id&&r.favorite):currentReviewRecords(type,id);
+ const pool=records.map(r=>ALLQ.find(q=>q.id===r.qid)||{...Q(r.domain,r.question,[],[],'回想上次缺少的地方。',r.model),id:r.qid,visual:r.visualKey||undefined}).filter(q=>eligibleQuestion(q,id,'mixed'));
+ if(!pool.length){toast(type==='favorite'?'目前沒有收藏題':'這個清單目前沒有需要再練的題目');return openSchool(id);}
+ renderQuestion(chooseScheduled(pool,{explicit:true}),type);
 }
-
 function openReview(filter='favorite'){
- clearTimer();let rs=[...state.records];
+ clearTimer();clearFormalTimer();currentMode='practice';formalSession=null;let rs=[...state.records].sort((a,b)=>ReviewScheduler.recordTime(b)-ReviewScheduler.recordTime(a));
  if(filter==='favorite')rs=rs.filter(r=>r.favorite);
- else if(filter==='wrong')rs=rs.filter(r=>reviewBucketFor(r)==='wrong'&&!r.disputed);
- else if(filter==='unclear')rs=rs.filter(r=>reviewBucketFor(r)==='unclear'&&!r.disputed);
- else if(filter==='pending')rs=rs.filter(r=>r.disputed||reviewBucketFor(r)==='pending');
+ else if(filter==='wrong')rs=currentReviewRecords('wrong');
+ else if(filter==='unclear')rs=currentReviewRecords('unclear');
+ else if(filter==='pending')rs=currentReviewRecords('pending');
  else if(filter==='latest')rs=rs.slice(0,20);
  const title=filter==='favorite'?'★ 我的收藏':filter==='wrong'?'❌ 答錯／不會':filter==='unclear'?'🟡 回答不清楚／不完整':filter==='pending'?'⚠️ 待複核':'最近紀錄';
- app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${title}</h2><p>答錯與回答不清楚會自動分開歸類，不再混在同一個弱題清單。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div><div class="filterbar"><button class="btn small" onclick="exportReviewPDF('${filter}')">📘 產生 PDF 複習講義</button><button class="btn small secondary" onclick="exportData()">匯出學習紀錄</button><button class="btn small red" onclick="openReview('wrong')">答錯／不會</button><button class="btn small gold" onclick="openReview('unclear')">回答不清楚</button><button class="btn small secondary" onclick="openReview('pending')">待複核</button></div>${rs.length?rs.map(recordRow).join(''):'<div class="empty">目前沒有資料。</div>'}</div>`
+ app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>${title}</h2><p>弱題清單以每個觀念的最新掌握度為準；以前答錯、後來已會的題目會移出，完整作答歷史仍保留。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div><div class="filterbar"><button class="btn small" onclick="exportReviewPDF('${filter}')">📘 產生 PDF 複習講義</button><button class="btn small secondary" onclick="exportData()">匯出學習紀錄</button><button class="btn small red" onclick="openReview('wrong')">答錯／不會</button><button class="btn small gold" onclick="openReview('unclear')">回答不清楚</button><button class="btn small secondary" onclick="openReview('pending')">待複核</button></div>${rs.length?rs.map(recordRow).join(''):'<div class="empty">目前沒有資料。</div>'}</div>`
 } window.openReview=openReview;
 function recordRow(r){return `<div class="record-row"><div><b>${escapeHtml(r.question)}</b><small>${SCHOOL[r.school]?.name||''} · ${domainName(r.domain)}${r.visualKey?' · 📊圖題':''} · ${reviewBucketText(r.reviewBucket||reviewBucketFor(r))} · ${new Date(r.time).toLocaleDateString('zh-TW')}</small></div><div class="hide-mobile"><span class="grade ${r.grade}" style="padding:5px 8px;font-size:12px">${gradeText(r.grade)}</span></div><div class="hide-mobile"><small>${escapeHtml((r.answer||'').slice(0,55))}${(r.answer||'').length>55?'…':''}</small></div><button class="btn small secondary" onclick="viewRecord('${r.id}')">查看</button></div>`}
-function viewRecord(id){const r=state.records.find(x=>x.id===id);if(!r)return;app.innerHTML=`<div class="panel"><button class="btn ghost" onclick="openReview('latest')">← 返回</button><div class="section-title"><div><h2>${escapeHtml(r.question)}</h2><div class="sub">${SCHOOL[r.school]?.name||''} · ${domainName(r.domain)}</div></div></div>${r.visualKey?renderVisualStimulus(r.visualKey):''}${r.sourceText?`<div class="eval-box"><h4>原英文段落</h4><p>${escapeHtml(r.sourceText)}</p></div>`:''}<div class="eval-box"><h4>我的回答</h4><p>${escapeHtml(r.answer)}</p></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><span class="grade ${r.grade}">${gradeText(r.grade)}</span><span class="pill">系統歸類：${reviewBucketText(r.reviewBucket||reviewBucketFor(r))}</span></div><div class="eval-grid"><div class="eval-box"><h4>答對／抓到</h4><ul>${(r.correct||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')||'<li>未記錄</li>'}</ul></div><div class="eval-box"><h4>需要補</h4><ul>${(r.missing||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')||'<li>核心點已相對完整</li>'}</ul></div></div><div class="model-answer"><b>建議回答｜兩種版本</b><div class="bilingual-answer"><div class="langbox"><b>全中文版本</b><div>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).zh)}</div></div><div class="langbox"><b>專有名詞英文版</b><div>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).terms)}</div></div></div></div><div class="answer-tools"><button class="btn gold" onclick="toggleFavorite('${r.id}')">${r.favorite?'★ 已收藏':'☆ 收藏'}</button><button class="btn secondary" onclick="copyForAI('${r.id}')">複製給 ChatGPT 深度評分</button></div></div>`} window.viewRecord=viewRecord;
+function viewRecord(id){const r=state.records.find(x=>x.id===id);if(!r)return;app.innerHTML=`<div class="panel"><button class="btn ghost" onclick="openReview('latest')">← 返回</button><div class="section-title"><div><h2>${escapeHtml(r.question)}</h2><div class="sub">${SCHOOL[r.school]?.name||''} · ${domainName(r.domain)}</div></div></div>${r.visualKey?renderVisualStimulus(r.visualKey):''}${r.sourceText?`<div class="eval-box"><h4>原英文段落</h4><p>${escapeHtml(r.sourceText)}</p></div>`:''}<div class="eval-box"><h4>我的回答</h4><p>${escapeHtml(r.answer)}</p></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><span class="grade ${r.grade}">${gradeText(r.grade)}</span><span class="pill">系統歸類：${reviewBucketText(r.reviewBucket||reviewBucketFor(r))}</span></div><div class="eval-grid"><div class="eval-box"><h4>答對／抓到</h4><ul>${(r.correct||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')||'<li>未記錄</li>'}</ul></div><div class="eval-box"><h4>需要補</h4><ul>${(r.missing||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')||'<li>核心點已相對完整</li>'}</ul></div></div><div class="model-answer"><b>建議回答｜兩種版本</b><div class="bilingual-answer"><div class="langbox"><b>全中文版本</b><div>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).zh)}</div></div><div class="langbox"><b>專有名詞英文版</b><div>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).terms)}</div></div></div></div>${masteryControls(r)}<div class="answer-tools"><button class="btn" onclick="practiceReviewRecord('${r.id}')">再練這題</button><button class="btn gold" onclick="toggleFavorite('${r.id}')">${r.favorite?'★ 已收藏':'☆ 收藏'}</button><button class="btn secondary" onclick="copyForAI('${r.id}')">複製給 ChatGPT 深度評分</button></div></div>`} window.viewRecord=viewRecord;
 
-function openDashboard(){audioStorageSize().then(sz=>{const rs=state.records;const by={};rs.forEach(r=>by[r.domain]=(by[r.domain]||0)+1);const weak={};rs.filter(r=>['wrong','unclear'].includes(reviewBucketFor(r))).forEach(r=>weak[r.domain]=(weak[r.domain]||0)+1);const top=Object.entries(weak).sort((a,b)=>b[1]-a[1]).slice(0,5);app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>我的進度</h2><p>本地裝置上的練習紀錄。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div><div class="dashboard-grid"><div class="metric"><b>${rs.length}</b><small>累積回答</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='wrong'&&!r.disputed).length}</b><small>答錯／不會</small></div><div class="metric"><b>${rs.filter(r=>reviewBucketFor(r)==='unclear'&&!r.disputed).length}</b><small>回答不清楚／不完整</small></div><div class="metric"><b>${rs.filter(r=>r.favorite).length}</b><small>收藏題</small></div></div><div class="section-title"><div><h2>目前弱項</h2></div></div>${top.length?top.map(([d,n])=>`<div class="record-row"><div><b>${domainName(d)}</b><small>近期需要再練</small></div><div>${n} 題</div></div>`).join(''):'<div class="empty">還沒有足夠資料判斷。</div>'}<div class="answer-tools"><button class="btn red" onclick="openReview('wrong')">複習答錯／不會</button><button class="btn gold" onclick="openReview('unclear')">複習回答不清楚</button><button class="btn secondary" onclick="openReview('pending')">待複核</button><button class="btn red" onclick="clearAllAudio()">清除所有保留錄音</button></div></div>`})} window.openDashboard=openDashboard;
+function openDashboard(){audioStorageSize().then(sz=>{const rs=state.records;const by={};rs.forEach(r=>by[r.domain]=(by[r.domain]||0)+1);const weak={};[...currentReviewRecords('wrong'),...currentReviewRecords('unclear')].forEach(r=>weak[r.domain]=(weak[r.domain]||0)+1);const top=Object.entries(weak).sort((a,b)=>b[1]-a[1]).slice(0,5);app.innerHTML=`<div class="panel"><div class="school-head"><div><h2>我的進度</h2><p>練習紀錄與目前掌握度；啟用同步後可合併手機與電腦進度。</p></div><button class="btn ghost" onclick="goHome()">← 首頁</button></div><div class="dashboard-grid"><div class="metric"><b>${rs.length}</b><small>累積回答</small></div><div class="metric"><b>${currentReviewRecords('wrong').length}</b><small>答錯／不會</small></div><div class="metric"><b>${currentReviewRecords('unclear').length}</b><small>回答不清楚／不完整</small></div><div class="metric"><b>${rs.filter(r=>r.favorite).length}</b><small>收藏題</small></div></div>${reviewSummaryHtml()}<div class="section-title"><div><h2>目前弱項</h2></div></div>${top.length?top.map(([d,n])=>`<div class="record-row"><div><b>${domainName(d)}</b><small>近期需要再練</small></div><div>${n} 題</div></div>`).join(''):'<div class="empty">還沒有足夠資料判斷。</div>'}<div class="answer-tools"><button class="btn red" onclick="openReview('wrong')">複習答錯／不會</button><button class="btn gold" onclick="openReview('unclear')">複習回答不清楚</button><button class="btn secondary" onclick="openReview('pending')">待複核</button><button class="btn red" onclick="clearAllAudio()">清除所有保留錄音</button></div></div>`})} window.openDashboard=openDashboard;
 
-function exportReviewPDF(filter){let rs=[...state.records];if(filter==='favorite')rs=rs.filter(r=>r.favorite);if(filter==='wrong')rs=rs.filter(r=>reviewBucketFor(r)==='wrong'&&!r.disputed);if(filter==='unclear')rs=rs.filter(r=>reviewBucketFor(r)==='unclear'&&!r.disputed);if(filter==='pending')rs=rs.filter(r=>r.disputed||reviewBucketFor(r)==='pending');if(!rs.length){toast('沒有可匯出的題目');return}const w=window.open('','_blank');const body=rs.map((r,i)=>`<section class="item"><h2>${i+1}. ${escapeHtml(r.question)}</h2><div class="meta">${escapeHtml(SCHOOL[r.school]?.name||'')}｜${escapeHtml(domainName(r.domain))}｜${escapeHtml(gradeText(r.grade))}</div>${r.sourceText?`<h3>原英文段落</h3><p>${escapeHtml(r.sourceText)}</p>`:''}<h3>我的回答</h3><p>${escapeHtml(r.answer)}</p><h3>答對／抓到</h3><p>${escapeHtml((r.correct||[]).join('、')||'—')}</p><h3>需要補充或修正</h3><p>${escapeHtml((r.missing||[]).join('、')||'—')}</p><h3>建議回答（中文）</h3><p>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).zh)}</p><h3>建議回答（專有名詞英文版）</h3><p>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).terms)}</p>${r.followups?.length?`<h3>教授可能追問</h3><ul>${r.followups.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:''}</section>`).join('');w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>研究所面試複習講義</title><style>@page{size:A4;margin:15mm}body{font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#172033;line-height:1.55}header{border-bottom:3px solid #13233f;margin-bottom:20px;padding-bottom:10px}header h1{margin:0}.item{break-inside:avoid;border-bottom:1px solid #ccd2dc;padding:0 0 16px;margin:0 0 18px}.item h2{font-size:17px;margin-bottom:3px}.item h3{font-size:13px;color:#13233f;margin:10px 0 2px}.item p{font-size:12px;margin:2px 0}.item li{font-size:12px}.meta{font-size:11px;color:#6f7786}.note{font-size:11px;color:#6f7786}@media print{button{display:none}}</style></head><body><header><h1>研究所模擬面試｜複習講義</h1><div>${new Date().toLocaleDateString('zh-TW')} · 共 ${rs.length} 題</div></header>${body}<p class="note">產生方式：收藏／弱題紀錄整理。建議在瀏覽器列印視窗選「另存為 PDF」。</p><button onclick="window.print()">列印／另存 PDF</button></body></html>`);w.document.close();setTimeout(()=>w.print(),400)} window.exportReviewPDF=exportReviewPDF;
+function exportReviewPDF(filter){let rs=[...state.records];if(filter==='favorite')rs=rs.filter(r=>r.favorite);if(filter==='wrong')rs=currentReviewRecords('wrong');if(filter==='unclear')rs=currentReviewRecords('unclear');if(filter==='pending')rs=currentReviewRecords('pending');if(!rs.length){toast('沒有可匯出的題目');return}const w=window.open('','_blank');const body=rs.map((r,i)=>`<section class="item"><h2>${i+1}. ${escapeHtml(r.question)}</h2><div class="meta">${escapeHtml(SCHOOL[r.school]?.name||'')}｜${escapeHtml(domainName(r.domain))}｜${escapeHtml(gradeText(r.grade))}</div>${r.sourceText?`<h3>原英文段落</h3><p>${escapeHtml(r.sourceText)}</p>`:''}<h3>我的回答</h3><p>${escapeHtml(r.answer)}</p><h3>答對／抓到</h3><p>${escapeHtml((r.correct||[]).join('、')||'—')}</p><h3>需要補充或修正</h3><p>${escapeHtml((r.missing||[]).join('、')||'—')}</p><h3>建議回答（中文）</h3><p>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).zh)}</p><h3>建議回答（專有名詞英文版）</h3><p>${escapeHtml(bilingualAnswerFor(ALLQ.find(q=>q.id===r.qid)||null,r).terms)}</p>${r.followups?.length?`<h3>教授可能追問</h3><ul>${r.followups.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:''}</section>`).join('');w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>研究所面試複習講義</title><style>@page{size:A4;margin:15mm}body{font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#172033;line-height:1.55}header{border-bottom:3px solid #13233f;margin-bottom:20px;padding-bottom:10px}header h1{margin:0}.item{break-inside:avoid;border-bottom:1px solid #ccd2dc;padding:0 0 16px;margin:0 0 18px}.item h2{font-size:17px;margin-bottom:3px}.item h3{font-size:13px;color:#13233f;margin:10px 0 2px}.item p{font-size:12px;margin:2px 0}.item li{font-size:12px}.meta{font-size:11px;color:#6f7786}.note{font-size:11px;color:#6f7786}@media print{button{display:none}}</style></head><body><header><h1>研究所模擬面試｜複習講義</h1><div>${new Date().toLocaleDateString('zh-TW')} · 共 ${rs.length} 題</div></header>${body}<p class="note">產生方式：收藏／弱題紀錄整理。建議在瀏覽器列印視窗選「另存為 PDF」。</p><button onclick="window.print()">列印／另存 PDF</button></body></html>`);w.document.close();setTimeout(()=>w.print(),400)} window.exportReviewPDF=exportReviewPDF;
 
 
 function defaultSyncEndpoint(){
@@ -1770,7 +1972,7 @@ function mergeUniqueBy(arrA,arrB,keyFn){
 }
 function mergeCloudState(remote){
  if(!remote||typeof remote!=='object') return;
- state.records=mergeUniqueBy(state.records,remote.records,x=>x.id||stableId('record',JSON.stringify(x))).sort((a,b)=>(a.time||0)-(b.time||0));
+ state.records=ReviewScheduler.mergeRecords(state.records,remote.records).map(r=>({...r,reviewBucket:reviewBucketFor(r)}));
  state.seenPapers=[...new Set([...(state.seenPapers||[]),...(remote.seenPapers||[])])].slice(-800);
  const sq={...(remote.seenQuestions||{}),...(state.seenQuestions||{})};
  for(const k of new Set([...Object.keys(remote.seenQuestions||{}),...Object.keys(state.seenQuestions||{})])){
@@ -1852,7 +2054,7 @@ function openDataPanel(){audioStorageSize().then(sz=>{
 })}
 window.openDataPanel=openDataPanel;
 function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`研究所面試練習紀錄_${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)} window.exportData=exportData;
-$('#importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j.records)throw new Error('格式不符');Object.assign(state,j);saveState();toast('匯入完成');showHome()}catch(err){toast('匯入失敗：'+err.message)}e.target.value=''})
+$('#importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j.records)throw new Error('格式不符');Object.assign(state,j);state.records=ReviewScheduler.mergeRecords(state.records,[]);saveState();toast('匯入完成');showHome()}catch(err){toast('匯入失敗：'+err.message)}e.target.value=''})
 
 refreshQuestionBank(false).catch(()=>{});
 if(state.sync?.enabled&&state.sync?.code){setTimeout(()=>cloudSyncNow(false),1800);setInterval(()=>cloudSyncNow(false),60000);}
