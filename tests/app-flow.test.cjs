@@ -149,3 +149,104 @@ test('a failed font readiness promise does not prevent printing',async()=>{
  const a=boot();a.run(`startPractice('ntuibmb','project');submitUnknown();var printCount=0;setTimeout=fn=>{fn();return 1};window.open=()=>({document:{write(){},close(){},fonts:{ready:Promise.reject(new Error('font load'))},readyState:'complete'},closed:false,print(){printCount++}});exportReviewPDF('wrong')`);
  await new Promise(resolve=>setImmediate(resolve));assert.equal(a.run('printCount'),1);
 });
+
+// Regression coverage for school-scoped exports and the browser speech event lifecycle.
+function speechBoot(){
+ const a=boot();a.run(`
+  startPractice('ntuche','pro');
+  window.isSecureContext=true;
+  var speechMocks=[],recorderMocks=[],trackStops=0,tasks=new Map(),taskId=0;
+  setTimeout=(fn,delay)=>{const id=++taskId;tasks.set(id,{fn,delay});return id};clearTimeout=id=>tasks.delete(id);
+  function runTask(delay){const entry=[...tasks].find(([,task])=>task.delay===delay);if(entry){tasks.delete(entry[0]);entry[1].fn()}}
+  function result(...parts){return {resultIndex:0,results:parts.map(([text,final])=>Object.assign([{transcript:text}],{isFinal:final}))}}
+  SpeechRecognition=class {constructor(){speechMocks.push(this)}start(){this.onstart?.()}stop(){this.stopped=true}abort(){this.aborted=true}};
+  MediaRecorder=class {static isTypeSupported(){return true}constructor(stream){this.stream=stream;this.state='inactive';this.mimeType='audio/webm';recorderMocks.push(this)}start(){this.state='recording'}stop(){this.state='inactive';this.ondataavailable?.({data:new Blob(['audio'])});this.onstop?.()}};
+  navigator.mediaDevices={getUserMedia:async()=>({getTracks:()=>[{stop(){trackStops++}}]})};
+ `);return a;
+}
+test('school review and PDF show only that school while preserving shared mastery and all saved data',()=>{
+ const a=boot();a.run(`
+  currentSchool='ntuche';renderQuestion(ALLQ.find(q=>q.domain==='project'));submitUnknown();
+  state.records[0].time='2026-10-01T10:00:00Z';var oldSchool=state.records[0];
+  currentSchool='nckuche';renderQuestion(ALLQ.find(q=>q.id===oldSchool.qid));submitUnknown();state.records[0].time='2026-10-02T10:00:00Z';
+  var recordsBefore=JSON.stringify(state.records);openReview('wrong','ntuche');
+  var written='';window.open=()=>({document:{write(s){written=s},close(){},readyState:'loading'},addEventListener(){}});exportReviewPDF();
+ `);
+ assert.equal(a.run(`reviewExportRecords('wrong','ntuche').length`),1);
+ assert.equal(a.run(`reviewExportRecords('wrong','ntuche')[0].school`),'ntuche');
+ assert.match(a.node('#app').innerHTML,/reviewSchoolFilter/);assert.match(a.node('#app').innerHTML,/目前篩選：1 題/);
+ const pdf=a.run('written');assert.match(pdf,/匯出範圍：臺大化工｜答錯／不會/);assert.doesNotMatch(pdf,/成大化工/);
+ assert.equal(a.run('JSON.stringify(state.records)'),a.run('recordsBefore'));
+ a.run(`setMastery(state.records[0].id,'mastered')`);assert.equal(a.run(`reviewExportRecords('wrong','ntuche').length`),0);
+});
+test('school selection survives category changes and returning from a record',()=>{
+ const a=boot();a.run(`startPractice('ntuche','project');submitUnknown();openReview('wrong','ntuche');viewRecord(state.records[0].id)`);
+ assert.match(a.node('#app').innerHTML,/openReview\(reviewView.filter,reviewView.school\)/);
+ a.run(`openReview('unclear')`);assert.equal(a.run('reviewView.school'),'ntuche');
+ assert.match(a.node('#app').innerHTML,/value="ntuche" selected/);
+});
+test('recent and favorite school filters apply before the limit and empty exports open no window',()=>{
+ const a=boot();a.run(`state.records=Array.from({length:30},(_,i)=>({id:'r'+i,qid:'q'+i,time:new Date(1700000000000+i*1000).toISOString(),school:i%2?'ntuche':'nckuche',favorite:i%3===0}));var opened=0;window.open=()=>{opened++;return null}`);
+ assert.equal(a.run(`reviewExportRecords('latest','ntuche').length`),15);
+ assert.equal(a.run(`reviewExportRecords('favorite','ntuche').every(r=>r.school==='ntuche'&&r.favorite)`),true);
+ a.run(`exportReviewPDF('wrong','ntuche')`);assert.equal(a.run('opened'),0);assert.match(a.node('#toast').textContent,/目前篩選範圍/);
+});
+test('recording without speech support explicitly explains why no transcript appears',async()=>{
+ const a=speechBoot();a.run('delete window.SpeechRecognition');await a.run('startVoiceAnswer()');
+ assert.match(a.node('#micStatus').textContent,/沒有提供網頁語音辨識/);
+ assert.match(a.node('#recordingStatus').textContent,/音檔錄製中/);
+ a.run('stopAllSpeechInput()');assert.match(a.node('#micStatus').textContent,/不會自動變成逐字稿/);
+ assert.ok(a.run('currentRecording.size')>0);
+});
+test('interim and final speech results appear in the answer without duplicating text',()=>{
+ const a=speechBoot();a.node('#answerText').value='原本的回答';a.run('startDictationOnly()');
+ a.run(`speechMocks[0].onresult(result(['細胞',false]));speechMocks[0].onresult(result(['細胞培養',true],['藥',false]));speechMocks[0].onresult(result(['細胞培養',true],['藥物處理',true]))`);
+ assert.equal(a.node('#answerText').value,'原本的回答 細胞培養藥物處理');assert.match(a.node('#micStatus').textContent,/已顯示逐字稿/);
+});
+test('speech automatically resumes after an unexpected end and keeps earlier transcript',()=>{
+ const a=speechBoot();a.run(`startDictationOnly();speechMocks[0].onresult(result(['第一段',true]));speechMocks[0].onend();runTask(350);speechMocks[1].onresult(result(['第二段',true]))`);
+ assert.equal(a.node('#answerText').value,'第一段 第二段');assert.equal(a.run('speechMocks.length'),2);
+ a.run(`stopAllSpeechInput();speechMocks[1].onresult(result(['第二段完整',true]));speechMocks[1].onend();runTask(350)`);
+ assert.equal(a.node('#answerText').value,'第一段 第二段完整');assert.equal(a.run('speechMocks.length'),2);
+});
+test('network and permission errors remain visible after the recorder stops',async()=>{
+ for(const [code,message] of [['network',/無法連上/],['not-allowed',/權限被封鎖/],['audio-capture',/不能同時錄音/]]){
+  const a=speechBoot();await a.run('startVoiceAnswer()');a.run(`speechMocks[0].onerror({error:'${code}'});speechMocks[0].onend();stopAllSpeechInput()`);
+  assert.match(a.node('#micStatus').textContent,message);assert.match(a.node('#recordingStatus').textContent,/錄音已完成/);
+ }
+});
+test('repeated empty recognizer sessions stop retrying and report the missing transcript',()=>{
+ const a=speechBoot();a.run(`startDictationOnly();speechMocks[0].onend();runTask(350);speechMocks[1].onend();runTask(350);speechMocks[2].onend();runTask(350)`);
+ assert.equal(a.run('speechMocks.length'),3);assert.equal(a.run('speechInput'),null);assert.match(a.node('#micStatus').textContent,/尚未辨識到說話/);
+});
+test('submit waits for the final speech result and saves only one complete answer',async()=>{
+ const a=speechBoot();await a.run('startVoiceAnswer()');a.run(`speechMocks[0].onresult(result(['細胞',false]));submitAnswer();submitAnswer()`);
+ assert.equal(a.run('state.records.length'),0);
+ a.run(`speechMocks[0].onresult(result(['細胞培養與藥物處理',true]));speechMocks[0].onend()`);
+ assert.equal(a.run('state.records.length'),1);assert.equal(a.run('state.records[0].answer'),'細胞培養與藥物處理');assert.ok(a.run('currentRecording.size')>0);
+});
+test('speech stop timeout still saves the visible transcript without accepting late results',()=>{
+ const a=speechBoot();a.run(`startDictationOnly();speechMocks[0].onresult(result(['已辨識的回答',false]));submitAnswer();runTask(1800);speechMocks[0].onresult(result(['不應蓋掉',true]))`);
+ assert.equal(a.run('state.records.length'),1);assert.equal(a.run('state.records[0].answer'),'已辨識的回答');assert.equal(a.node('#answerText').value,'已辨識的回答');
+});
+test('manual transcript edits and a new question are not overwritten by an old recognizer',()=>{
+ const a=speechBoot();a.run(`startDictationOnly();speechMocks[0].onresult(result(['原句',true]))`);a.node('#answerText').value='手動修正';a.run(`speechInput.onEdit();speechMocks[0].onresult(result(['遲到的結果',true]))`);
+ assert.equal(a.node('#answerText').value,'手動修正');
+ a.run(`startDictationOnly();nextPracticeQuestion();speechMocks[1].onresult(result(['舊題結果',true]))`);
+ assert.notEqual(a.node('#answerText').value,'舊題結果');assert.equal(a.run('speechInput'),null);
+});
+test('cancelling during microphone permission prevents a late recording from starting',async()=>{
+ const a=speechBoot();a.run(`var allowMic; navigator.mediaDevices.getUserMedia=()=>new Promise(resolve=>allowMic=resolve);var starting=startVoiceAnswer();stopAllSpeechInput();allowMic({getTracks:()=>[{stop(){trackStops++}}]})`);
+ await a.run('starting');assert.equal(a.run('recorderMocks.length'),0);assert.ok(a.run('trackStops')>0);
+});
+test('retrying transcription alone releases the recorder and preserves the answer',async()=>{
+ const a=speechBoot();await a.run('startVoiceAnswer()');a.run(`speechMocks[0].onresult(result(['先前內容',true]));startDictationOnly();speechMocks[1].onresult(result(['接續內容',true]))`);
+ assert.equal(a.run('recorderMocks[0].state'),'inactive');assert.equal(a.node('#answerText').value,'先前內容 接續內容');
+});
+test('English and formal speech pages have exactly one transcript status and retry control',async()=>{
+ const a=boot();await a.run(`showEnglishMode('nthuche')`);
+ const check=()=>{for(const id of ['answerText','micStatus','recordingStatus','speechRetryBtn'])assert.equal((a.node('#app').innerHTML.match(new RegExp('id="'+id+'"','g'))||[]).length,1,id)};
+ check();assert.match(a.node('#app').innerHTML,/停止錄音與轉文字/);
+ a.run(`startFormal('nycuphys');showTimedStage({type:'intro',title:'自我介紹',sec:30})`);check();
+ a.run(`showFormalEnglish({type:'english',title:'英文',sec:90})`);check();
+});
