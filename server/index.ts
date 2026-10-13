@@ -58,7 +58,7 @@ async function getAppHtml(force=false) {
   if (!force && appCache && Date.now()-appCacheAt < 300000) return appCache;
   // Refresh GitHub's CDN as well as this process cache. Ordinary loads share a five-minute URL.
   const revision = force ? String(Date.now()) : String(Math.floor(Date.now()/300000));
-  const r = await fetch(APP_URL+"?revision="+revision,{headers:{"User-Agent":"grad-interview-web/22","Cache-Control":"no-cache"}});
+  const r = await fetch(APP_URL+"?revision="+revision,{headers:{"User-Agent":"grad-interview-web/22.1","Cache-Control":"no-cache"}});
   if (!r.ok) throw new Error("GitHub app fetch failed: "+r.status);
   const html = await r.text();
   if (!html.includes("研究所模擬面試") || html.length < 100000) throw new Error("invalid app payload");
@@ -71,7 +71,7 @@ const manifest = JSON.stringify({
   background_color:"#fbfaf7",theme_color:"#13233f",lang:"zh-TW"
 });
 const sw = `
-const CACHE='grad-interview-v22-web-1';
+const CACHE='grad-interview-v22.1-web-1';
 const CORE=['/','/manifest.webmanifest'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
@@ -95,10 +95,10 @@ Bun.serve({
         await putObjectText(probe,JSON.stringify({ok:true,time:Date.now()}));
         await getObjectText(probe); storageReady=true;
       } catch(e:any) { storageError=String(e?.message||e); }
-      return json(req,appReady&&storageReady?200:503,{ok:appReady&&storageReady,version:"22-web",appReady,storageReady,appError,storageError,time:Date.now()});
+      return json(req,appReady&&storageReady?200:503,{ok:appReady&&storageReady,version:"22.1-web",appReady,storageReady,appError,storageError,time:Date.now()});
     }
-    if (path==="/api/config") return json(req,200,{sync:true,microphoneSecureContextExpected:true,questionUpdateDays:2,version:"22-web"});
-    if (path==="/api/question-updates" || path==="/question_updates.json") return json(req,200,{version:"2026-10-12-v22",questions:[]},{"Cache-Control":"public, max-age=300"});
+    if (path==="/api/config") return json(req,200,{sync:true,microphoneSecureContextExpected:true,questionUpdateDays:2,version:"22.1-web"});
+    if (path==="/api/question-updates" || path==="/question_updates.json") return json(req,200,{version:"2026-10-13-v22.1",questions:[]},{"Cache-Control":"public, max-age=300"});
     if (path==="/manifest.webmanifest") return new Response(manifest,{headers:{"Content-Type":"application/manifest+json",...headers(req)}});
     if (path==="/sw.js") return new Response(sw,{headers:{"Content-Type":"application/javascript; charset=utf-8","Cache-Control":"no-cache",...headers(req)}});
     if (path.startsWith("/api/sync/")) {

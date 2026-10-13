@@ -98,3 +98,54 @@ test('read-only guide leaves learning records and mastery untouched',()=>{
 test('blocked export popup reports the problem without throwing',()=>{
  const a=boot();a.run(`startPractice('ntuibmb','project');submitUnknown();window.open=()=>null;exportReviewPDF('wrong')`);assert.match(a.node('#toast').textContent,/瀏覽器擋住/);
 });
+
+test('every built-in question has an answer and variants inherit completed source answers',()=>{
+ const a=boot();
+ assert.equal(a.run(`ALLQ.filter(q=>/這題尚無完整|尚無完整答案/.test(buildCompleteModelAnswer(q))).length`),0);
+ assert.equal(a.run(`ALLQ.filter(q=>q.variantOf&&LEARNING_CONTENT.answers[q.variantOf]).every(q=>buildCompleteModelAnswer(q)===buildCompleteModelAnswer(ALLQ.find(b=>b.id===q.variantOf)))`),true);
+ const text=a.run(`bilingualAnswerFor(ALLQ.find(q=>q.variantOf==='q_1yxhps7')).zh`);
+ assert.match(text,/超氧/);assert.match(text,/膜電位|載入/);assert.doesNotMatch(text,/這題尚無/);
+});
+test('all professor hints are Chinese while formula symbols remain intact',()=>{
+ const a=boot();
+ const symbols=new Set(['C1V1','C2V2','ln2','c L','UxV','h2-h1','umf','gen','i x','A0-F','obs','Rmin','n-k']);
+ const residual=a.run(`ALLQ.flatMap(q=>(fullChineseAnswerText(learningHint(q),q.domain).match(/[A-Za-z][A-Za-z0-9-]*(?: [A-Za-z][A-Za-z0-9-]*)*/g)||[]).filter(s=>s.length>2))`);
+ assert.deepEqual([...new Set(residual)].filter(s=>!symbols.has(s)),[]);
+ a.run(`currentSchool='ntuibmb';currentMode='practice';renderQuestion(ALLQ.find(q=>q.variantOf==='q_fb6tsw'));showHint()`);
+ assert.match(a.node('#hintBox').innerHTML,/兩個因子/);assert.match(a.node('#hintBox').innerHTML,/交互作用/);
+ assert.match(a.run(`makeGuidancePrompt(ALLQ.find(q=>q.id==='q_1gdhpst'))`),/逐循環追蹤/);
+});
+test('glossary keeps case-sensitive molecules and units distinct and resolves the domain',()=>{
+ const a=boot();
+ assert.equal(a.run(`hasLearningTerm('pI','PI')`),false);assert.equal(a.run(`hasLearningTerm('μM','μm')`),false);
+ const dye=a.run(`glossaryHtml('PI',{domain:'experiment'})`);assert.match(dye,/碘化丙啶/);assert.doesNotMatch(dye,/等電點|無機磷酸|比例積分控制/);
+ const control=a.run(`glossaryHtml('PI',{domain:'control'})`);assert.match(control,/比例積分控制/);assert.doesNotMatch(control,/碘化丙啶/);
+ const sem=a.run(`glossaryHtml('SEM',{domain:'experiment'})`);assert.match(sem,/平均值的標準誤/);assert.doesNotMatch(sem,/掃描式電子顯微鏡/);
+ const microscopy=a.run(`glossaryHtml('SEM',{domain:'instrument'})`);assert.match(microscopy,/掃描式電子顯微鏡/);assert.doesNotMatch(microscopy,/平均值的標準誤/);
+ assert.match(a.run(`termDefinition('pI','等電點')`),/淨電荷為零/);assert.match(a.run(`termDefinition('Pi','無機磷酸')`),/無機磷酸根/);
+ a.run(`var searchResult={innerHTML:''};searchLearningTerms('pI',searchResult,'biochem')`);
+ assert.match(a.run('searchResult.innerHTML'),/等電點/);assert.doesNotMatch(a.run('searchResult.innerHTML'),/碘化丙啶/);
+ a.run(`searchLearningTerms('cell viability',searchResult,'experiment')`);assert.match(a.run('searchResult.innerHTML'),/不同方法觀察代謝/);
+});
+test('new mechanism lessons attach to the exact question family without changing old routing',()=>{
+ const a=boot();
+ assert.equal(a.run(`LEARNING_CONTENT.lessons.filter(l=>l.questionIds).every(l=>l.questionIds.every(id=>ALLQ.filter(q=>q.id===id||q.variantOf===id).every(q=>lessonFor(q)?.id===l.id)))`),true);
+ assert.equal(a.run(`lessonFor(ALLQ.find(q=>q.variantOf==='q_1yxhps7')).id`),'mitosox-specific');
+ assert.equal(a.run(`lessonFor({id:'unknown',domain:'project',text:'未提供的實驗問題',answer:'MitoSOX'} )`),null);
+ assert.doesNotMatch(a.run(`mechanismDiagram(LEARNING_CONTENT.lessons.find(l=>l.id==='respiration-perturbation'))`),/<path /);
+});
+test('legacy wrong records rebuild variant explanations and export without rewriting the saved answer',()=>{
+ const a=boot();
+ a.run(`currentSchool='ntuibmb';renderQuestion(ALLQ.find(q=>q.variantOf==='q_1yxhps7'));submitUnknown();state.records[0].model='這題尚無完整答案';state.records[0].favorite=true;var savedBefore=JSON.stringify(state.records);var exported=buildReviewDocument(reviewExportRecords('wrong'))`);
+ const doc=a.run('exported');assert.match(doc,/超氧/);assert.match(doc,/粒線體超氧訊號/);assert.match(doc,/列印／另存 PDF/);assert.doesNotMatch(doc,/這題尚無完整答案/);
+ assert.equal(a.run('JSON.stringify(state.records)'),a.run('savedBefore'));
+});
+test('PDF popup waits for fonts, then prints the complete current document',async()=>{
+ const a=boot();a.run(`startPractice('ntuibmb','project');submitUnknown();var written='',printCount=0;setTimeout=fn=>{fn();return 1};window.open=()=>({document:{write(text){written=text},close(){},fonts:{ready:Promise.resolve()},readyState:'complete'},closed:false,print(){printCount++}});exportReviewPDF('wrong')`);
+ assert.equal(a.run('printCount'),0);await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(a.run('printCount'),1);assert.match(a.run('written'),/中文圖解複習講義/);assert.match(a.run('written'),/目的地選擇「另存為 PDF」/);
+});
+test('a failed font readiness promise does not prevent printing',async()=>{
+ const a=boot();a.run(`startPractice('ntuibmb','project');submitUnknown();var printCount=0;setTimeout=fn=>{fn();return 1};window.open=()=>({document:{write(){},close(){},fonts:{ready:Promise.reject(new Error('font load'))},readyState:'complete'},closed:false,print(){printCount++}});exportReviewPDF('wrong')`);
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(a.run('printCount'),1);
+});
