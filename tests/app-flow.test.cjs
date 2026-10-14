@@ -250,3 +250,54 @@ test('English and formal speech pages have exactly one transcript status and ret
  a.run(`startFormal('nycuphys');showTimedStage({type:'intro',title:'自我介紹',sec:30})`);check();
  a.run(`showFormalEnglish({type:'english',title:'英文',sec:90})`);check();
 });
+
+test('formal timed answers survive stage changes and reload without a fabricated grade',()=>{
+ const a=boot();a.run(`startFormal('nycuphys')`);
+ a.node('#answerText').value='自我介紹驗收：我的實驗經歷與申請動機。';a.run('nextFormalStage()');
+ assert.equal(a.run('state.records.length'),1);
+ assert.equal(a.run('formalSession.results[0].answer'),'自我介紹驗收：我的實驗經歷與申請動機。');
+ assert.equal(a.run('state.records[0].grade'),'pending');
+ const b=boot(JSON.parse(a.storage.get('gradInterviewState')));
+ assert.equal(b.run('state.records[0].answer'),'自我介紹驗收：我的實驗經歷與申請動機。');
+ a.run('finishFormal()');assert.match(a.node('#app').innerHTML,/自我介紹驗收/);
+ assert.doesNotMatch(a.node('#app').innerHTML,/undefined|沒有留下文字回答/);
+ assert.match(a.node('#app').innerHTML,/<b>—<\/b>/);
+});
+test('formal stage completion waits for final speech, saves once, and cannot advance a new session',async()=>{
+ const a=speechBoot();a.run(`startFormal('nycuphys')`);await a.run('startVoiceAnswer()');
+ a.run(`speechMocks[0].onresult(result(['自我介紹',false]));nextFormalStage();nextFormalStage()`);
+ assert.equal(a.run('formalSession.index'),0);assert.equal(a.run('state.records.length'),0);
+ a.run(`speechMocks[0].onresult(result(['自我介紹完整最後一句',true]));speechMocks[0].onend()`);
+ assert.equal(a.run('formalSession.index'),1);assert.equal(a.run('state.records.length'),1);
+ assert.equal(a.run('state.records[0].answer'),'自我介紹完整最後一句');
+ assert.equal(a.run('recorderMocks[0].state'),'inactive');
+ a.run(`startFormal('nycuphys');startDictationOnly();nextFormalStage();startFormal('ntuche');speechMocks[1].onend();runTask(1800)`);
+ assert.equal(a.run('formalSession.school'),'ntuche');assert.equal(a.run('formalSession.index'),0);
+ assert.equal(a.run('state.records.length'),1);
+});
+test('formal English preserves its passage, transcript and review record',()=>{
+ const a=boot();a.run(`startFormal('nycuphys');formalSession.index=2;renderFormalStage();var passageBefore=currentEnglishPassage`);
+ a.node('#answerText').value='英文大意驗收：說明研究主題、機制與主要結論。';a.run('nextFormalStage()');
+ assert.equal(a.run('state.records.length'),1);assert.equal(a.run('state.records[0].domain'),'english');
+ assert.equal(a.run('state.records[0].sourceText'),a.run('passageBefore.x'));
+ a.run(`openReview('pending','nycuphys');viewRecord(state.records[0].id)`);
+ assert.match(a.node('#app').innerHTML,/英文大意驗收/);assert.match(a.node('#app').innerHTML,/原英文段落/);
+});
+test('formal presentation and prep persist only entered answers and never replace old records',()=>{
+ for(const type of ['presentation','prep']){
+  const a=boot();a.run(`startPractice('ntuche','pro');submitUnknown();var oldRecord=JSON.stringify(state.records[0]);startFormal('ntuche');formalSession.stages=[{type:'${type}',title:'計時階段',sec:30}];renderFormalStage()`);
+  a.node('#answerText').value='計時階段的逐字稿。';a.run('nextFormalStage()');
+  assert.equal(a.run('state.records.length'),2);assert.equal(a.run('JSON.stringify(state.records[1])'),a.run('oldRecord'));
+  assert.equal(a.run('state.records[0].variantOf||null'),null);
+ }
+ const a=boot();a.run(`startFormal('nycuphys');nextFormalStage()`);assert.equal(a.run('state.records.length'),0);
+});
+test('English practice waits for final speech and saves once with its original school',async()=>{
+ const a=speechBoot();await a.run(`showEnglishMode('nthuche')`);await a.run('startVoiceAnswer()');
+ a.run(`var finishReference;englishReferenceAnswer=()=>new Promise(resolve=>finishReference=resolve);speechMocks[0].onresult(result(['英文說明',false]));saveEnglishAttempt('translate');saveEnglishAttempt('translate')`);
+ assert.equal(a.run('state.records.length'),0);
+ a.run(`speechMocks[0].onresult(result(['英文說明完整最後一句',true]));speechMocks[0].onend();var duplicateSave=saveEnglishAttempt('translate');currentSchool='nckuche';finishReference({zh:'參考答案',terms:'名詞'})`);
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(a.run('state.records.length'),1);assert.equal(a.run('state.records[0].answer'),'英文說明完整最後一句');
+ assert.equal(a.run('state.records[0].school'),'nthuche');assert.equal(a.run('recorderMocks[0].state'),'inactive');
+});
